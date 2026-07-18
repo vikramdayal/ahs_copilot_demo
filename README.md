@@ -1,32 +1,29 @@
-# AHS 2023 governed DuckDB query engine
+# AHS 2023 governed DuckDB research engine
 
-This checkpoint extends the Day 2 semantic metadata contracts with a deterministic DuckDB execution core, a descriptive survey-estimation layer, and a validation-first structured `AnalysisPlan` service for the National PUF household, mortgage, and projects CSV relations.
+This checkpoint implements a deterministic execution path from a structured `AnalysisPlan` to descriptive survey-weighted results over AHS household, mortgage, and projects CSV files.
 
-## Security and statistical boundary
+## Implemented layers
 
-- The low-level query API accepts only `QuerySpec`; the research API accepts only `AnalysisPlan`. Neither has a raw-SQL field or raw-SQL execution method.
-- Pydantic rejects unknown fields, including an attempted `sql` property.
-- Dataset and column identifiers must match inspected schemas and are always quoted.
-- Filter values are coerced to the inspected DuckDB type and sent as bound parameters.
-- Joins are selected only from `metadata/execution_catalog.json`.
-- Household-to-mortgage and household-to-project joins require child preaggregation exactly to `CONTROL`.
-- Mortgage-to-project joins are not approved and are rejected.
-- DuckDB scans CSV files directly through lazy views. Python does not load the source files into pandas or memory.
-- Result rows are capped by `engine.max_result_rows`.
-- The survey API supports weighted and unit-weight counts, percentages, means, explicit denominators, suppression flags, and grouped descriptive comparisons.
-- Survey estimates require a housing-unit base relation. Weighted plans require an approved numeric base weight; unweighted plans use deterministic unit weight 1. Child relations remain preaggregated to `CONTROL` before they can affect a housing-unit estimate.
-- Variance estimation remains separate and unavailable. Results explicitly state `variance.status: NOT_ESTIMATED`, `standard_errors_valid: false`, and return no standard errors, confidence intervals, p-values, or significance tests.
+- **Governed DuckDB query engine:** configuration-driven CSV resolution, runtime schema inspection, typed filters, bound parameters, certified joins, mandatory child preaggregation, generated SQL, and execution metadata.
+- **Descriptive survey estimator:** weighted or unit-weight counts, percentages, means, explicit denominators, missing-code exclusions, suppression flags, grouped comparisons, and deterministic decimal arithmetic.
+- **AnalysisPlan validator:** validates datasets, universes, PUF access, physical variables, filter types, weight compatibility, required-variable closure, recodes, grains, and joins before SQL generation.
+
+The public contracts contain no raw-SQL field. Mortgage and project rows must be reduced to one row per `CONTROL` before household weighting. Mortgage-to-project joins are not approved.
+
+## Statistical boundary
+
+Results are descriptive only. Replicate weights and an approved variance method are not implemented. The package therefore returns no valid standard errors, confidence intervals, p-values, or significance claims. See `docs/survey_estimation.md`.
 
 ## Install and test
 
 ```bash
 python -m pip install -e '.[dev]'
-PYTHONPATH=src pytest -q
+python -m pytest -q
 ```
 
-## Configuration
+The latest clean-environment run passed 32 tests; the 11-test critical AnalysisPlan checkpoint also passed. Exact commands and results are in `docs/execution_report.md`.
 
-Copy the example and either set environment variables or edit paths:
+## Configuration and large CSVs
 
 ```bash
 cp config/ahs_engine.example.toml config/ahs_engine.toml
@@ -35,124 +32,24 @@ export AHS_MORTGAGE_CSV=/data/ahs/mortgage.csv
 export AHS_PROJECTS_CSV=/data/ahs/projects.csv
 ```
 
-`fixture.mode = "auto"` creates deterministic synthetic files only for missing configured paths. Set it to `disabled` in production to fail closed, or `required` for reproducible demos/tests.
+DuckDB scans CSVs lazily and can spill through its configured temp directory. Python does not load entire source files into pandas. `fixture.mode = "auto"` supplies deterministic synthetic files only when configured files are absent; use `disabled` for production fail-closed behavior.
 
-## Inspect schemas
+## CLI examples
 
 ```bash
 ahs-query inspect --config config/ahs_engine.example.toml
+ahs-query run examples/household_filter.json --config config/ahs_engine.example.toml
+ahs-query survey-run examples/survey_tenure_comparison.json --config config/ahs_engine.example.toml
+ahs-plan --config config/ahs_engine.example.toml --plan examples/analysis_plan_high_burden_by_tenure.json --action validate
+ahs-plan --config config/ahs_engine.example.toml --plan examples/analysis_plan_high_burden_by_tenure.json --action compile
+ahs-plan --config config/ahs_engine.example.toml --plan examples/analysis_plan_high_burden_by_tenure.json --action execute
 ```
 
-The command returns each logical dataset, physical path, source-file contract, grain, join keys, whether a fixture was used, and every inspected DuckDB column type.
+## Key documentation
 
-## Compile without executing
-
-```bash
-ahs-query compile examples/household_filter.json \
-  --config config/ahs_engine.example.toml
-```
-
-The response contains parameterized SQL, display SQL, bound parameters, datasets, join contract IDs, and a query fingerprint.
-
-## Execute
-
-```bash
-ahs-query run examples/household_filter.json \
-  --config config/ahs_engine.example.toml
-
-ahs-query run examples/household_with_mortgage_aggregation.json \
-  --config config/ahs_engine.example.toml
-```
-
-## Structured AnalysisPlan
-
-Validate before SQL generation:
-
-```bash
-ahs-plan --config config/ahs_engine.example.toml \
-  --plan examples/analysis_plan_occupied_count.json \
-  --action validate
-```
-
-Compile or execute only after validation:
-
-```bash
-ahs-plan --config config/ahs_engine.example.toml \
-  --plan examples/analysis_plan_high_burden_by_tenure.json \
-  --action compile
-
-ahs-plan --config config/ahs_engine.example.toml \
-  --plan examples/analysis_plan_high_burden_by_tenure.json \
-  --action execute
-```
-
-The validator resolves named universes, PUF accessibility, inspected schemas, numerator/denominator compatibility, weight mode, approved recodes, required-variable closure, typed filters, and approved joins. See `docs/analysis_plan.md`.
-
-## Descriptive survey estimates
-
-```bash
-ahs-query survey-compile examples/survey_tenure_comparison.json \
-  --config config/ahs_engine.example.toml
-
-ahs-query survey-run examples/survey_tenure_comparison.json \
-  --config config/ahs_engine.example.toml
-
-ahs-query survey-run examples/survey_mortgage_households.json \
-  --config config/ahs_engine.example.toml
-```
-
-The deterministic formulas are:
-
-- weighted count: `sum(w_i * I_i)`;
-- weighted percentage: `100 * sum(w_i * I_i) / sum(w_i * D_i)`;
-- weighted mean: `sum(w_i * y_i) / sum(w_i)` over nonmissing `y_i`.
-
-Component sums use configured fixed-point DuckDB decimals. Final ratios use Python `Decimal` with `ROUND_HALF_EVEN`. When an `AnalysisPlan` is used, missing-value eligibility is derived only from approved semantic variable records and bound deterministically to the estimate. Direct `SurveyEstimateRequest` callers remain responsible for explicit missing-value rules.
-
-Suppression thresholds are configuration-driven application controls, not official AHS publication rules. See `docs/survey_estimation.md` for the statistical contract and variance boundary.
-
-## Python API
-
-```python
-from ahs_copilot.analysis_plan import AnalysisPlan, AnalysisPlanService
-from ahs_copilot.query_engine import AHSQueryEngine, QuerySpec
-from ahs_copilot.survey_estimation import SurveyEstimateRequest, SurveyEstimator
-
-request = QuerySpec.model_validate_json(open("examples/household_filter.json").read())
-with AHSQueryEngine("config/ahs_engine.example.toml") as engine:
-    schemas = engine.inspect_schemas()
-    compiled = engine.compile(request)
-    result = engine.execute(request)
-
-plan = AnalysisPlan.model_validate_json(
-    open("examples/analysis_plan_occupied_count.json").read()
-)
-with AHSQueryEngine("config/ahs_engine.example.toml") as engine:
-    plan_result = AnalysisPlanService(engine).execute(plan)
-
-survey_request = SurveyEstimateRequest.model_validate_json(
-    open("examples/survey_tenure_comparison.json").read()
-)
-with AHSQueryEngine("config/ahs_engine.example.toml") as engine:
-    survey_result = SurveyEstimator(engine).execute(survey_request)
-```
-
-## Query contract
-
-`QuerySpec` supports:
-
-- one base logical dataset;
-- typed filters: equality, comparison, membership, range, and null tests;
-- plain column projections and deterministic aggregates;
-- approved joins;
-- mandatory child preaggregation for household-to-child joins;
-- group-by and order-by over validated names;
-- a bounded result limit.
-
-Child aggregate aliases become the only child columns visible after a parent-to-child join. Raw child columns cannot leak through a housing-unit query.
-
-## JSON schemas
-
-Machine-readable contracts are in `schemas/query_spec.schema.json`, `schemas/query_result.schema.json`, and `schemas/dataset_schema.schema.json`.
-
-Survey contracts are in `schemas/survey_estimate_request.schema.json` and `schemas/survey_estimate_result.schema.json`. Analysis-plan contracts are in `schemas/analysis_plan.schema.json`, `schemas/validated_analysis_plan.schema.json`, and `schemas/analysis_plan_execution_result.schema.json`.
+- `NEXT_CHAT_HANDOFF.md` — authoritative current checkpoint and next steps.
+- `docs/analysis_plan.md` — structured plan contract and validation order.
+- `docs/survey_estimation.md` — deterministic formulas, suppression, and variance boundary.
+- `docs/execution_report.md` — exact verification commands and test results.
+- `docs/RUN_ON_MAC.md` — macOS installation, verification, fixture, real-data, and troubleshooting instructions.
+- `schemas/` — machine-readable input and result contracts.
