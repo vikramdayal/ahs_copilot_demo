@@ -1,0 +1,144 @@
+{
+  "sql": "SELECT \"b\".\"TENURE\" AS \"tenure\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (TRUE) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_num_w\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_den_w\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (TRUE) THEN 1 ELSE 0 END) AS \"__e0_num_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN 1 ELSE 0 END) AS \"__e0_den_n\", SUM(CASE WHEN (TRUE) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e0_invalid_w_n\", SUM(CASE WHEN FALSE THEN 1 ELSE 0 END) AS \"__e0_missing_y_n\", COALESCE(SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= ?)) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e1_num_w\", COALESCE(SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e1_den_w\", SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= ?)) THEN 1 ELSE 0 END) AS \"__e1_num_n\", SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN 1 ELSE 0 END) AS \"__e1_den_n\", SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e1_invalid_w_n\", SUM(CASE WHEN FALSE THEN 1 ELSE 0 END) AS \"__e1_missing_y_n\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) * CAST(\"b\".\"HINCP\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e2_num_w\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e2_den_w\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN 1 ELSE 0 END) AS \"__e2_num_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN 1 ELSE 0 END) AS \"__e2_den_n\", SUM(CASE WHEN (TRUE) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e2_invalid_w_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND \"b\".\"HINCP\" IS NULL THEN 1 ELSE 0 END) AS \"__e2_missing_y_n\" FROM \"ahs_household\" AS \"b\" WHERE (\"b\".\"INTSTATUS\" = ?) GROUP BY \"b\".\"TENURE\" ORDER BY \"tenure\" ASC NULLS LAST LIMIT 10001",
+  "display_sql": "SELECT \"b\".\"TENURE\" AS \"tenure\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (TRUE) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_num_w\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_den_w\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (TRUE) THEN 1 ELSE 0 END) AS \"__e0_num_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN 1 ELSE 0 END) AS \"__e0_den_n\", SUM(CASE WHEN (TRUE) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e0_invalid_w_n\", SUM(CASE WHEN FALSE THEN 1 ELSE 0 END) AS \"__e0_missing_y_n\", COALESCE(SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= 50)) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e1_num_w\", COALESCE(SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e1_den_w\", SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= 50)) THEN 1 ELSE 0 END) AS \"__e1_num_n\", SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND TRUE THEN 1 ELSE 0 END) AS \"__e1_den_n\", SUM(CASE WHEN ((\"b\".\"TOTHCPCT\" IS NOT NULL)) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e1_invalid_w_n\", SUM(CASE WHEN FALSE THEN 1 ELSE 0 END) AS \"__e1_missing_y_n\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) * CAST(\"b\".\"HINCP\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e2_num_w\", COALESCE(SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e2_den_w\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN 1 ELSE 0 END) AS \"__e2_num_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND (\"b\".\"HINCP\" IS NOT NULL) THEN 1 ELSE 0 END) AS \"__e2_den_n\", SUM(CASE WHEN (TRUE) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e2_invalid_w_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND \"b\".\"HINCP\" IS NULL THEN 1 ELSE 0 END) AS \"__e2_missing_y_n\" FROM \"ahs_household\" AS \"b\" WHERE (\"b\".\"INTSTATUS\" = 1) GROUP BY \"b\".\"TENURE\" ORDER BY \"tenure\" ASC NULLS LAST LIMIT 10001",
+  "parameters": [
+    50,
+    50,
+    1
+  ],
+  "effective_limit": 10000,
+  "canonical_request": {
+    "base_dataset": "household",
+    "weight": null,
+    "universe_filters": [
+      {
+        "column": {
+          "dataset": "household",
+          "column": "INTSTATUS"
+        },
+        "operator": "eq",
+        "value": 1
+      }
+    ],
+    "joins": [],
+    "group_by": [
+      {
+        "column": {
+          "dataset": "household",
+          "column": "TENURE"
+        },
+        "alias": "tenure"
+      }
+    ],
+    "estimates": [
+      {
+        "alias": "occupied_units",
+        "statistic": "weighted_count",
+        "numerator_filters": [],
+        "denominator_filters": [],
+        "value": null
+      },
+      {
+        "alias": "high_cost_burden_pct",
+        "statistic": "weighted_percentage",
+        "numerator_filters": [
+          {
+            "column": {
+              "dataset": "household",
+              "column": "TOTHCPCT"
+            },
+            "operator": "ge",
+            "value": 50
+          }
+        ],
+        "denominator_filters": [
+          {
+            "column": {
+              "dataset": "household",
+              "column": "TOTHCPCT"
+            },
+            "operator": "is_not_null",
+            "value": null
+          }
+        ],
+        "value": null
+      },
+      {
+        "alias": "mean_household_income",
+        "statistic": "weighted_mean",
+        "numerator_filters": [],
+        "denominator_filters": [],
+        "value": {
+          "dataset": "household",
+          "column": "HINCP"
+        }
+      }
+    ],
+    "suppression": {
+      "policy_id": "demo_unweighted_minimums_v1",
+      "minimum_unweighted_denominator": 2,
+      "minimum_unweighted_numerator": 1,
+      "minimum_unweighted_complement": 1,
+      "action": "null_estimate"
+    },
+    "comparisons": {
+      "mode": "reference",
+      "reference_group": {
+        "tenure": 1
+      },
+      "include_ratio": true
+    },
+    "limit": null,
+    "resolved_weight": {
+      "dataset": "household",
+      "column": "WEIGHT"
+    },
+    "resolved_suppression": {
+      "policy_id": "demo_unweighted_minimums_v1",
+      "minimum_unweighted_denominator": 2,
+      "minimum_unweighted_numerator": 1,
+      "minimum_unweighted_complement": 1,
+      "action": "null_estimate"
+    }
+  },
+  "request_fingerprint": "db33c3719a20384fad05294c73a18b2f59615336ae0f9a19fe20ec225c086b84",
+  "datasets_used": [
+    "household"
+  ],
+  "join_contract_ids": [],
+  "group_aliases": [
+    "tenure"
+  ],
+  "normalized_reference_group": {
+    "tenure": 1
+  },
+  "formulas": [
+    {
+      "estimate_alias": "occupied_units",
+      "statistic": "weighted_count",
+      "numerator_formula": "sum(w_i * I_i)",
+      "denominator_formula": "sum(w_i * D_i), reported for audit but not used in the count formula",
+      "estimate_formula": "sum(w_i * I_i)",
+      "missing_value_rule": "Rows failing the numerator condition contribute zero; ineligible weights are excluded.",
+      "weight_rule": "Only non-null positive weights are eligible."
+    },
+    {
+      "estimate_alias": "high_cost_burden_pct",
+      "statistic": "weighted_percentage",
+      "numerator_formula": "sum(w_i * I_i)",
+      "denominator_formula": "sum(w_i * D_i)",
+      "estimate_formula": "100 * sum(w_i * I_i) / sum(w_i * D_i)",
+      "missing_value_rule": "Numerator is a subset of the denominator; ineligible weights are excluded.",
+      "weight_rule": "Only non-null positive weights are eligible."
+    },
+    {
+      "estimate_alias": "mean_household_income",
+      "statistic": "weighted_mean",
+      "numerator_formula": "sum(w_i * y_i) over nonmissing y_i",
+      "denominator_formula": "sum(w_i) over nonmissing y_i",
+      "estimate_formula": "sum(w_i * y_i) / sum(w_i) over nonmissing y_i",
+      "missing_value_rule": "Rows with missing y_i or ineligible weights are excluded from both terms.",
+      "weight_rule": "Only non-null positive weights are eligible."
+    }
+  ]
+}

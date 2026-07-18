@@ -1,0 +1,14 @@
+{
+  "base_dataset": "household",
+  "select": [
+    {"kind": "column", "column": {"dataset": "household", "column": "CONTROL"}},
+    {"kind": "column", "column": {"dataset": "household", "column": "TENURE"}},
+    {"kind": "column", "column": {"dataset": "household", "column": "WEIGHT"}}
+  ],
+  "filters": [
+    {"column": {"dataset": "household", "column": "INTSTATUS"}, "operator": "eq", "value": "1"},
+    {"column": {"dataset": "household", "column": "TENURE"}, "operator": "in", "value": ["2", "3"]}
+  ],
+  "order_by": [{"output_alias": "CONTROL", "direction": "asc"}],
+  "limit": 100
+}

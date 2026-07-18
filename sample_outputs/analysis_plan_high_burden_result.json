@@ -1,0 +1,332 @@
+{
+  "plan": {
+    "plan_version": "1.0",
+    "user_question": "What percentage of occupied housing units has housing costs at or above 50 percent of income?",
+    "dataset": "household",
+    "measure": {
+      "alias": "high_burden_pct",
+      "statistic": "percentage",
+      "value": null
+    },
+    "numerator": {
+      "role": "condition_true",
+      "description": "Valid TOTHCPCT at or above 50",
+      "filters": [
+        {
+          "column": {
+            "dataset": "household",
+            "column": "TOTHCPCT"
+          },
+          "operator": "ge",
+          "value": 50
+        }
+      ]
+    },
+    "denominator": {
+      "role": "eligible_units",
+      "description": "Occupied units with nonmissing TOTHCPCT",
+      "filters": []
+    },
+    "universe": {
+      "universe_id": "occupied_housing_units",
+      "description": "Occupied interviewed housing units"
+    },
+    "filters": [],
+    "grouping_dimensions": [
+      {
+        "dataset": "household",
+        "column": "TENURE"
+      }
+    ],
+    "weight": {
+      "mode": "weighted",
+      "column": {
+        "dataset": "household",
+        "column": "WEIGHT"
+      }
+    },
+    "required_variables": [
+      {
+        "dataset": "household",
+        "column": "INTSTATUS"
+      },
+      {
+        "dataset": "household",
+        "column": "TENURE"
+      },
+      {
+        "dataset": "household",
+        "column": "TOTHCPCT"
+      },
+      {
+        "dataset": "household",
+        "column": "WEIGHT"
+      }
+    ],
+    "derived_recodes": [
+      {
+        "recode_id": "cost_burden_50_v1",
+        "output_name": "HIGH_BURDEN",
+        "purpose": "Record the approved deterministic threshold used by the numerator"
+      }
+    ],
+    "joins": [],
+    "comparisons": {
+      "mode": "reference",
+      "reference_group": {
+        "TENURE": 1
+      },
+      "include_ratio": true
+    },
+    "validation_checks": {
+      "schema_variables": true,
+      "puf_access": true,
+      "universe_compatibility": true,
+      "measure_compatibility": true,
+      "numerator_denominator_compatibility": true,
+      "weight_compatibility": true,
+      "required_variable_closure": true,
+      "approved_join_paths": true,
+      "missing_value_codes": true,
+      "empty_denominator_runtime_flag": true
+    },
+    "output_format": {
+      "format": "json_records",
+      "include_analysis_plan": true,
+      "include_generated_sql": true,
+      "include_execution_metadata": true,
+      "include_formula_metadata": true,
+      "limit": 100
+    }
+  },
+  "plan_fingerprint": "b1e364d911700fbfe966e80d51f4f118f24078c5efbb5150fa5d352dc39b5368",
+  "validation_messages": [
+    "PLAN_SCHEMA_VALID",
+    "DATASET_AND_UNIVERSE_RESOLVED",
+    "PUF_ACCESS_CONFIRMED",
+    "REQUIRED_VARIABLE_CLOSURE_CONFIRMED",
+    "JOIN_PATHS_APPROVED",
+    "NUMERATOR_DENOMINATOR_COMPATIBLE",
+    "WEIGHT_MODE_COMPATIBLE",
+    "MISSING_VALUE_CODES_BOUND_TO_DENOMINATOR",
+    "READY_FOR_DETERMINISTIC_SQL_COMPILATION"
+  ],
+  "output_format": {
+    "format": "json_records",
+    "include_analysis_plan": true,
+    "include_generated_sql": true,
+    "include_execution_metadata": true,
+    "include_formula_metadata": true,
+    "limit": 100
+  },
+  "result": {
+    "estimates": [
+      {
+        "group": {
+          "TENURE": 1
+        },
+        "weighting_mode": "weighted",
+        "estimate_alias": "high_burden_pct",
+        "statistic": "weighted_percentage",
+        "estimate": "0.000000",
+        "weighted_numerator": "0.000000",
+        "weighted_denominator": "21.000000",
+        "unweighted_numerator": 0,
+        "unweighted_denominator": 2,
+        "unweighted_complement": 2,
+        "invalid_weight_rows_excluded": 0,
+        "missing_value_rows_excluded": 0,
+        "suppression": {
+          "suppressed": false,
+          "action": "null_estimate",
+          "reasons": [],
+          "policy_id": "configured_unweighted_cell_thresholds_v1"
+        },
+        "formula": "100 * sum(w_i * I_i) / sum(w_i * D_i)",
+        "standard_error": null,
+        "confidence_interval": null
+      },
+      {
+        "group": {
+          "TENURE": 2
+        },
+        "weighting_mode": "weighted",
+        "estimate_alias": "high_burden_pct",
+        "statistic": "weighted_percentage",
+        "estimate": "68.085106",
+        "weighted_numerator": "32.000000",
+        "weighted_denominator": "47.000000",
+        "unweighted_numerator": 2,
+        "unweighted_denominator": 3,
+        "unweighted_complement": 1,
+        "invalid_weight_rows_excluded": 0,
+        "missing_value_rows_excluded": 0,
+        "suppression": {
+          "suppressed": false,
+          "action": "null_estimate",
+          "reasons": [],
+          "policy_id": "configured_unweighted_cell_thresholds_v1"
+        },
+        "formula": "100 * sum(w_i * I_i) / sum(w_i * D_i)",
+        "standard_error": null,
+        "confidence_interval": null
+      },
+      {
+        "group": {
+          "TENURE": 3
+        },
+        "weighting_mode": "weighted",
+        "estimate_alias": "high_burden_pct",
+        "statistic": "weighted_percentage",
+        "estimate": "0.000000",
+        "weighted_numerator": "0.000000",
+        "weighted_denominator": "7.000000",
+        "unweighted_numerator": 0,
+        "unweighted_denominator": 1,
+        "unweighted_complement": 1,
+        "invalid_weight_rows_excluded": 0,
+        "missing_value_rows_excluded": 0,
+        "suppression": {
+          "suppressed": false,
+          "action": "null_estimate",
+          "reasons": [],
+          "policy_id": "configured_unweighted_cell_thresholds_v1"
+        },
+        "formula": "100 * sum(w_i * I_i) / sum(w_i * D_i)",
+        "standard_error": null,
+        "confidence_interval": null
+      }
+    ],
+    "comparisons": [
+      {
+        "estimate_alias": "high_burden_pct",
+        "statistic": "weighted_percentage",
+        "left_group": {
+          "TENURE": 2
+        },
+        "right_group": {
+          "TENURE": 1
+        },
+        "difference": "68.085106",
+        "ratio": null,
+        "suppressed": false,
+        "reasons": [],
+        "warnings": [
+          "RATIO_UNDEFINED_ZERO_REFERENCE_ESTIMATE"
+        ],
+        "inferential_test": "NOT_PERFORMED",
+        "standard_error": null,
+        "p_value": null
+      },
+      {
+        "estimate_alias": "high_burden_pct",
+        "statistic": "weighted_percentage",
+        "left_group": {
+          "TENURE": 3
+        },
+        "right_group": {
+          "TENURE": 1
+        },
+        "difference": "0.000000",
+        "ratio": null,
+        "suppressed": false,
+        "reasons": [],
+        "warnings": [
+          "RATIO_UNDEFINED_ZERO_REFERENCE_ESTIMATE"
+        ],
+        "inferential_test": "NOT_PERFORMED",
+        "standard_error": null,
+        "p_value": null
+      }
+    ],
+    "generated_sql": "SELECT \"b\".\"TENURE\" AS \"TENURE\", COALESCE(SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (-6, -7, -8, -9)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= 50)) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_num_w\", COALESCE(SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (-6, -7, -8, -9)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_den_w\", SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (-6, -7, -8, -9)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= 50)) THEN 1 ELSE 0 END) AS \"__e0_num_n\", SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (-6, -7, -8, -9)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e0_den_n\", SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (-6, -7, -8, -9)))) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e0_invalid_w_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND NOT (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (-6, -7, -8, -9)))) THEN 1 ELSE 0 END) AS \"__e0_missing_y_n\" FROM \"ahs_household\" AS \"b\" WHERE (\"b\".\"INTSTATUS\" = 1) GROUP BY \"b\".\"TENURE\" ORDER BY \"TENURE\" ASC NULLS LAST LIMIT 101",
+    "parameterized_sql": "SELECT \"b\".\"TENURE\" AS \"TENURE\", COALESCE(SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (?, ?, ?, ?)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= ?)) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_num_w\", COALESCE(SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (?, ?, ?, ?)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN CAST(\"b\".\"WEIGHT\" AS DECIMAL(18,6)) ELSE CAST(0 AS DECIMAL(18,6)) END), CAST(0 AS DECIMAL(18,6))) AS \"__e0_den_w\", SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (?, ?, ?, ?)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND ((\"b\".\"TOTHCPCT\" >= ?)) THEN 1 ELSE 0 END) AS \"__e0_num_n\", SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (?, ?, ?, ?)))) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e0_den_n\", SUM(CASE WHEN (TRUE) AND (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (?, ?, ?, ?)))) AND NOT (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) THEN 1 ELSE 0 END) AS \"__e0_invalid_w_n\", SUM(CASE WHEN (TRUE) AND (\"b\".\"WEIGHT\" IS NOT NULL AND \"b\".\"WEIGHT\" > 0) AND NOT (((\"b\".\"TOTHCPCT\" IS NOT NULL) AND (\"b\".\"TOTHCPCT\" NOT IN (?, ?, ?, ?)))) THEN 1 ELSE 0 END) AS \"__e0_missing_y_n\" FROM \"ahs_household\" AS \"b\" WHERE (\"b\".\"INTSTATUS\" = ?) GROUP BY \"b\".\"TENURE\" ORDER BY \"TENURE\" ASC NULLS LAST LIMIT 101",
+    "parameters": [
+      -6,
+      -7,
+      -8,
+      -9,
+      50,
+      -6,
+      -7,
+      -8,
+      -9,
+      -6,
+      -7,
+      -8,
+      -9,
+      50,
+      -6,
+      -7,
+      -8,
+      -9,
+      -6,
+      -7,
+      -8,
+      -9,
+      -6,
+      -7,
+      -8,
+      -9,
+      1
+    ],
+    "formulas": [
+      {
+        "estimate_alias": "high_burden_pct",
+        "statistic": "weighted_percentage",
+        "numerator_formula": "sum(w_i * I_i)",
+        "denominator_formula": "sum(w_i * D_i)",
+        "estimate_formula": "100 * sum(w_i * I_i) / sum(w_i * D_i)",
+        "missing_value_rule": "Numerator is evaluated within the denominator after declared missing-value exclusions.",
+        "weight_rule": "Only non-null positive weights are eligible."
+      }
+    ],
+    "metadata": {
+      "run_id": "3702b400-c5ce-4419-9c9f-d1e5b62f389a",
+      "request_fingerprint": "83acaea81d5adb86e07e24e6fafed3011bd6873cbad5a68794615cbd6ba0e6a2",
+      "sql_fingerprint": "6ff9944a07a90ca0e6930e5e6be3f51ce61ea196e355db352c733f441d7e9f46",
+      "started_at": "2026-07-18T18:25:03.622284Z",
+      "finished_at": "2026-07-18T18:25:03.639142Z",
+      "elapsed_ms": 16.853947000072367,
+      "duckdb_version": "v1.5.4",
+      "database": ":memory:",
+      "memory_limit": "512MB",
+      "temp_directory": "/mnt/data/ahs_copilot_day3/.duckdb_tmp",
+      "threads": 4,
+      "datasets": [
+        {
+          "logical_name": "household",
+          "source_file_id": "source_national_puf_household",
+          "physical_path": "/mnt/data/ahs_copilot_day3/tests/fixtures/synthetic/household.csv",
+          "synthetic_fixture": true,
+          "size_bytes": 436,
+          "modified_ns": 1784398864839100080
+        }
+      ],
+      "join_contract_ids": [],
+      "group_rows": 3,
+      "comparisons_returned": 2,
+      "estimation_scope": "DESCRIPTIVE_WEIGHTED_ESTIMATES",
+      "weight_column": {
+        "dataset": "household",
+        "column": "WEIGHT"
+      },
+      "weight_eligibility_rule": "weight IS NOT NULL AND weight > 0",
+      "arithmetic_rule": "DuckDB DECIMAL(18,6) component sums; final ratios rounded HALF_EVEN to 6 decimal places",
+      "suppression_policy": {
+        "policy_id": "configured_unweighted_cell_thresholds_v1",
+        "minimum_unweighted_denominator": 1,
+        "minimum_unweighted_numerator": 0,
+        "minimum_unweighted_complement": 0,
+        "action": "null_estimate"
+      },
+      "variance": {
+        "status": "NOT_ESTIMATED",
+        "replicate_weights_used": false,
+        "approved_method": null,
+        "standard_errors_valid": false,
+        "message": "Descriptive weighted estimates only. Standard errors, confidence intervals, and significance tests are unavailable until replicate weights and an approved variance method are implemented."
+      }
+    }
+  }
+}

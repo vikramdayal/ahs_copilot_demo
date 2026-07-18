@@ -1,0 +1,130 @@
+{
+  "columns": [
+    "CONTROL",
+    "TENURE",
+    "WEIGHT"
+  ],
+  "rows": [
+    {
+      "CONTROL": 1002,
+      "TENURE": 2,
+      "WEIGHT": 20.0
+    },
+    {
+      "CONTROL": 1003,
+      "TENURE": 3,
+      "WEIGHT": 7.0
+    },
+    {
+      "CONTROL": 1005,
+      "TENURE": 2,
+      "WEIGHT": 15.0
+    },
+    {
+      "CONTROL": 1006,
+      "TENURE": 2,
+      "WEIGHT": 12.0
+    }
+  ],
+  "generated_sql": "SELECT \"b\".\"CONTROL\" AS \"CONTROL\", \"b\".\"TENURE\" AS \"TENURE\", \"b\".\"WEIGHT\" AS \"WEIGHT\" FROM \"ahs_household\" AS \"b\" WHERE (\"b\".\"INTSTATUS\" = 1) AND (\"b\".\"TENURE\" IN (2, 3)) ORDER BY \"CONTROL\" ASC LIMIT 101",
+  "parameterized_sql": "SELECT \"b\".\"CONTROL\" AS \"CONTROL\", \"b\".\"TENURE\" AS \"TENURE\", \"b\".\"WEIGHT\" AS \"WEIGHT\" FROM \"ahs_household\" AS \"b\" WHERE (\"b\".\"INTSTATUS\" = ?) AND (\"b\".\"TENURE\" IN (?, ?)) ORDER BY \"CONTROL\" ASC LIMIT 101",
+  "parameters": [
+    1,
+    2,
+    3
+  ],
+  "metadata": {
+    "run_id": "61ce4456-9fef-4085-afbc-48ecaf256658",
+    "query_fingerprint": "db85181dd1f70e72775ece0067d71d735d64b5453a5686dfd5773685aa58c9b1",
+    "sql_fingerprint": "e215ac294080cbf3c142579dead6c5c0ed58dece59c7f409624367adde14a816",
+    "started_at": "2026-07-18T17:55:17.128364Z",
+    "finished_at": "2026-07-18T17:55:17.137216Z",
+    "elapsed_ms": 8.835592999957953,
+    "duckdb_version": "v1.5.4",
+    "database": ":memory:",
+    "memory_limit": "512MB",
+    "temp_directory": "/mnt/data/ahs_copilot_day3/.duckdb_tmp",
+    "threads": 4,
+    "datasets": [
+      {
+        "logical_name": "household",
+        "source_file_id": "source_national_puf_household",
+        "physical_path": "/mnt/data/ahs_copilot_day3/tests/fixtures/synthetic/household.csv",
+        "synthetic_fixture": true,
+        "size_bytes": 441,
+        "modified_ns": 1784397313936353059,
+        "columns": [
+          {
+            "name": "CONTROL",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "INTSTATUS",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "TENURE",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "WEIGHT",
+            "duckdb_type": "DOUBLE",
+            "nullable": true
+          },
+          {
+            "name": "SP1WEIGHT",
+            "duckdb_type": "DOUBLE",
+            "nullable": true
+          },
+          {
+            "name": "OMB13CBSA",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "TOTHCAMT",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "HINCP",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "TOTHCPCT",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "ADEQUACY",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "BLD",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "HIMOVFRC",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          },
+          {
+            "name": "HIWORRY",
+            "duckdb_type": "BIGINT",
+            "nullable": true
+          }
+        ]
+      }
+    ],
+    "join_contract_ids": [],
+    "rows_returned": 4,
+    "result_truncated": false,
+    "variance_estimation": "NOT_IMPLEMENTED"
+  }
+}

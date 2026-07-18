@@ -1,0 +1,86 @@
+{
+  "$defs": {
+    "ColumnSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "duckdb_type": {
+          "title": "Duckdb Type",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "duckdb_type",
+        "nullable"
+      ],
+      "title": "ColumnSchema",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "logical_name": {
+      "title": "Logical Name",
+      "type": "string"
+    },
+    "source_file_id": {
+      "title": "Source File Id",
+      "type": "string"
+    },
+    "source_name": {
+      "title": "Source Name",
+      "type": "string"
+    },
+    "relation": {
+      "title": "Relation",
+      "type": "string"
+    },
+    "grain": {
+      "title": "Grain",
+      "type": "string"
+    },
+    "join_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Join Keys",
+      "type": "array"
+    },
+    "physical_path": {
+      "title": "Physical Path",
+      "type": "string"
+    },
+    "synthetic_fixture": {
+      "title": "Synthetic Fixture",
+      "type": "boolean"
+    },
+    "columns": {
+      "items": {
+        "$ref": "#/$defs/ColumnSchema"
+      },
+      "title": "Columns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "logical_name",
+    "source_file_id",
+    "source_name",
+    "relation",
+    "grain",
+    "join_keys",
+    "physical_path",
+    "synthetic_fixture",
+    "columns"
+  ],
+  "title": "DatasetSchema",
+  "type": "object"
+}

@@ -1,0 +1,70 @@
+{
+  "plan_version": "1.0",
+  "user_question": "How many occupied housing units are represented by the 2023 AHS PUF?",
+  "dataset": "household",
+  "measure": {
+    "alias": "occupied_units",
+    "statistic": "count",
+    "value": null
+  },
+  "numerator": {
+    "role": "eligible_units",
+    "description": "All units in the approved occupied-housing-unit universe",
+    "filters": []
+  },
+  "denominator": {
+    "role": "eligible_units",
+    "description": "All units in the approved occupied-housing-unit universe",
+    "filters": []
+  },
+  "universe": {
+    "universe_id": "occupied_housing_units",
+    "description": "Occupied interviewed housing units"
+  },
+  "filters": [],
+  "grouping_dimensions": [],
+  "weight": {
+    "mode": "weighted",
+    "column": {
+      "dataset": "household",
+      "column": "WEIGHT"
+    }
+  },
+  "required_variables": [
+    {
+      "dataset": "household",
+      "column": "INTSTATUS"
+    },
+    {
+      "dataset": "household",
+      "column": "WEIGHT"
+    }
+  ],
+  "derived_recodes": [],
+  "joins": [],
+  "comparisons": {
+    "mode": "none",
+    "reference_group": null,
+    "include_ratio": true
+  },
+  "validation_checks": {
+    "schema_variables": true,
+    "puf_access": true,
+    "universe_compatibility": true,
+    "measure_compatibility": true,
+    "numerator_denominator_compatibility": true,
+    "weight_compatibility": true,
+    "required_variable_closure": true,
+    "approved_join_paths": true,
+    "missing_value_codes": true,
+    "empty_denominator_runtime_flag": true
+  },
+  "output_format": {
+    "format": "json_records",
+    "include_analysis_plan": true,
+    "include_generated_sql": true,
+    "include_execution_metadata": true,
+    "include_formula_metadata": true,
+    "limit": 100
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "catalog_version": "0.3.0-certified-query-core",
+  "access_mode": "PUF",
+  "approved_relations": ["household", "mortgage", "projects"],
+  "relationships": [
+    {
+      "relationship_id": "rel_household_mortgage_control",
+      "parent_relation": "household",
+      "child_relation": "mortgage",
+      "keys": ["CONTROL"],
+      "parent_to_child": "ONE_TO_MANY",
+      "child_to_parent": "MANY_TO_ONE",
+      "permitted_directions": ["parent_to_child", "child_to_parent"],
+      "parent_to_child_requires_preaggregation": true,
+      "preaggregation_grain": "HOUSING_UNIT",
+      "notes": ["Mortgage rows must be reduced to one row per CONTROL before a housing-unit estimate."]
+    },
+    {
+      "relationship_id": "rel_household_projects_control",
+      "parent_relation": "household",
+      "child_relation": "projects",
+      "keys": ["CONTROL"],
+      "parent_to_child": "ONE_TO_MANY",
+      "child_to_parent": "MANY_TO_ONE",
+      "permitted_directions": ["parent_to_child", "child_to_parent"],
+      "parent_to_child_requires_preaggregation": true,
+      "preaggregation_grain": "HOUSING_UNIT",
+      "notes": ["Project rows must be reduced to one row per CONTROL before a housing-unit estimate."]
+    }
+  ]
+}

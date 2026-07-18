@@ -1,0 +1,48 @@
+{
+  "base_dataset": "household",
+  "universe_filters": [
+    {
+      "column": {"dataset": "household", "column": "INTSTATUS"},
+      "operator": "eq",
+      "value": 1
+    }
+  ],
+  "joins": [
+    {
+      "dataset": "mortgage",
+      "how": "left",
+      "aggregation": {
+        "group_by": ["CONTROL"],
+        "aggregates": [
+          {"function": "count", "alias": "mortgage_count"},
+          {"function": "sum", "column": "MORTAMT", "alias": "mortgage_total"}
+        ]
+      }
+    }
+  ],
+  "estimates": [
+    {
+      "alias": "households_with_mortgage_pct",
+      "statistic": "weighted_percentage",
+      "numerator_filters": [
+        {
+          "column": {"dataset": "mortgage", "column": "mortgage_count"},
+          "operator": "ge",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "alias": "mean_mortgage_total_among_mortgaged",
+      "statistic": "weighted_mean",
+      "value": {"dataset": "mortgage", "column": "mortgage_total"},
+      "denominator_filters": [
+        {
+          "column": {"dataset": "mortgage", "column": "mortgage_count"},
+          "operator": "ge",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}
