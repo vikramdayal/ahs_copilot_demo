@@ -7,6 +7,7 @@ This checkpoint implements a deterministic execution path from a structured `Ana
 - **Governed DuckDB query engine:** configuration-driven CSV resolution, runtime schema inspection, typed filters, bound parameters, certified joins, mandatory child preaggregation, generated SQL, and execution metadata.
 - **Descriptive survey estimator:** weighted or unit-weight counts, percentages, means, explicit denominators, missing-code exclusions, suppression flags, grouped comparisons, and deterministic decimal arithmetic.
 - **AnalysisPlan validator:** validates datasets, universes, PUF access, physical variables, filter types, weight compatibility, required-variable closure, recodes, grains, and joins before SQL generation.
+- **LangGraph agent workflow:** a structured-output planner may propose only typed `AnalysisPlan` objects; deterministic nodes own validation, SQL compilation, survey execution, integrity checks, result criticism, approval routing, bounded plan repair and result re-execution, and audit logging.
 
 The public contracts contain no raw-SQL field. Mortgage and project rows must be reduced to one row per `CONTROL` before household weighting. Mortgage-to-project joins are not approved.
 
@@ -21,7 +22,36 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-The latest clean-environment run passed 32 tests; the 11-test critical AnalysisPlan checkpoint also passed. Exact commands and results are in `docs/execution_report.md`.
+The latest regression run passed 48 tests: the original 32 deterministic-engine tests plus 16 LangGraph workflow and result-critic tests. Exact commands and results are in `docs/execution_report.md`.
+
+## LangGraph workflow
+
+The model is wrapped with `with_structured_output(AnalysisPlan)`. It has no SQL tool and no public input schema contains a SQL field. Invalid plans return deterministic validation issues to the planner for at most the configured number of attempts. A validated plan then pauses for explicit approval before deterministic compilation and execution.
+
+```python
+from ahs_copilot.agent_workflow import (
+    AHSAgentWorkflow,
+    AgentWorkflowRequest,
+    LangChainStructuredPlanModel,
+)
+from ahs_copilot.analysis_plan import AnalysisPlanService
+
+planner = LangChainStructuredPlanModel(chat_model)
+workflow = AHSAgentWorkflow(planner, AnalysisPlanService(engine))
+
+pause = workflow.invoke(
+    AgentWorkflowRequest(
+        question="Compare renter cost burden in New York and Miami.",
+        approval_mode="interrupt",
+    ),
+    thread_id="ahs-demo-1",
+)
+result = workflow.resume("ahs-demo-1", {"decision": "approved"})
+```
+
+`MockAnalysisPlanModel` provides a network-free mode for unit tests. `auto_approve` is available for tests and controlled batch runs; interactive use should retain the default interrupt approval gate. See `docs/agent_workflow.md`.
+
+After execution, a deterministic result-critic node checks denominator arithmetic, percentage plausibility, category exclusivity, required groups, unexpected nulls, and explicitly supplied approved reference estimates. It cannot edit results. Its typed decision is limited to `approve`, `reject`, or `request_reexecution`; re-execution reruns the same validated plan through the deterministic service.
 
 ## Configuration and large CSVs
 
@@ -49,6 +79,7 @@ ahs-plan --config config/ahs_engine.example.toml --plan examples/analysis_plan_h
 
 - `NEXT_CHAT_HANDOFF.md` — authoritative current checkpoint and next steps.
 - `docs/analysis_plan.md` — structured plan contract and validation order.
+- `docs/agent_workflow.md` — LangGraph state, nodes, edges, approval, retries, model adapters, and result checks.
 - `docs/survey_estimation.md` — deterministic formulas, suppression, and variance boundary.
 - `docs/execution_report.md` — exact verification commands and test results.
 - `docs/RUN_ON_MAC.md` — macOS installation, verification, fixture, real-data, and troubleshooting instructions.

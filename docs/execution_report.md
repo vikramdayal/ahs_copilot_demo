@@ -1,10 +1,10 @@
-# Day 3 critical-checkpoint execution report
+# AHS deterministic core and LangGraph workflow execution report
 
-**Checkpoint:** Structured `AnalysisPlan` contract, validation-first compilation, deterministic descriptive survey estimation, and required universe/access/join/error tests.
+**Checkpoint:** Deterministic `AnalysisPlan` execution core plus the LangGraph natural-language planning, approval, bounded-repair, execution, and result-validation workflow.
 
-**Execution date:** 2026-07-18  
-**Package version:** `ahs-copilot 0.5.0`  
-**Runtime:** Python 3.13.5, DuckDB 1.5.4, Pydantic 2.13.4, pytest 9.1.1
+**Execution date:** 2026-07-19  
+**Package version:** `ahs-copilot 0.7.0`  
+**Runtime:** Python 3.13.5, DuckDB 1.5.4, Pydantic 2.13.4, LangGraph 1.2.9, LangChain Core 1.4.9, pytest 9.0.2
 
 ## Implemented checkpoint controls
 
@@ -25,18 +25,28 @@
 15. Empty denominators return an undefined estimate plus deterministic suppression reasons rather than division errors.
 16. Variance remains explicitly separate and unavailable: no valid standard errors, confidence intervals, p-values, or significance tests are produced.
 
+## LangGraph workflow controls added in 0.6.0 and result critic added in 0.7.0
+
+1. `LangChainStructuredPlanModel` binds model output directly to the strict `AnalysisPlan` schema.
+2. The model has no SQL tool, and `AgentWorkflowRequest` also rejects a supplied `sql` property.
+3. JSON-serializable `AHSAgentState` supports durable LangGraph checkpointing.
+4. Conditional edges implement plan proposal, deterministic validation, bounded repair, approval, compilation, execution, result checks, and terminal outcomes.
+5. `max_plan_attempts` bounds both model/schema failures and validation-repair loops; a graph recursion limit provides a second guard.
+6. `interrupt()` provides explicit human approval with approve, reject, and revise decisions.
+7. `MockAnalysisPlanModel` provides network-free deterministic unit tests.
+8. `AnalysisPlanService.compile_validated()` and `.execute_validated()` preserve the validated plan boundary without model involvement.
+9. `AnalysisResultChecker` verifies fingerprints, SQL, parameters, datasets, join contracts, aliases, and the non-inferential statistical boundary.
+10. Structured `WorkflowEvent` records are appended at every node and also emitted through Python logging.
+11. The planning context keeps `CONTROL` as the sole required PUF project relationship key, omits unresolved `PROJECTNO` from planner-visible PUF fields, and requires project preaggregation to `CONTROL`.
+
 ## Exact verification commands
 
-The following commands were executed from `/mnt/data/ahs_copilot_day3`:
+The following commands were executed from the reconstructed active Drive repository at `/mnt/data/ahs_repo`:
 
 ```bash
-rm -rf /tmp/ahs_day3_checkpoint_venv
-python -m venv /tmp/ahs_day3_checkpoint_venv
-/tmp/ahs_day3_checkpoint_venv/bin/python -m pip install -e '.[dev]'
-/tmp/ahs_day3_checkpoint_venv/bin/python -m pip check
-/tmp/ahs_day3_checkpoint_venv/bin/python -m compileall -q src tests
-/tmp/ahs_day3_checkpoint_venv/bin/python -m pytest -vv tests/test_analysis_plan.py
-/tmp/ahs_day3_checkpoint_venv/bin/python -m pytest -q
+PYTHONPATH=src python -m compileall -q src tests
+PYTHONPATH=src python -m pytest -q tests/test_agent_workflow.py
+PYTHONPATH=src python -m pytest -q
 ```
 
 The example artifacts were generated with:
@@ -71,10 +81,12 @@ compileall: PASS
 The clean environment installed:
 
 ```text
-ahs-copilot=0.5.0
+ahs-copilot=0.7.0 (source tree)
 duckdb=1.5.4
 pydantic=2.13.4
-pytest=9.1.1
+langgraph=1.2.9
+langchain-core=1.4.9
+pytest=9.0.2
 ```
 
 ## Critical AnalysisPlan test results
@@ -99,11 +111,20 @@ tests/test_analysis_plan.py::test_analysis_plan_rejects_raw_sql_property PASSED
 ============================== 11 passed in 0.70s ==============================
 ```
 
+## LangGraph workflow and result-critic test result
+
+```text
+................                                                         [100%]
+16 passed
+```
+
+The workflow tests cover successful execution, deterministic validation repair, model-output schema failure and retry exhaustion, interrupt/resume approval, rejection before compilation, human revision, the projects `CONTROL` invariant, result-tamper detection, SQL-field rejection, explicit binding of the LangChain model to `AnalysisPlan` structured output, denominator and percentage checks, missing groups, unexpected nulls, mutually exclusive categories, reference-estimate discrepancies, deterministic re-execution, and retry-budget rejection.
+
 ## Full regression result
 
 ```text
-................................                                         [100%]
-32 passed
+................................................                         [100%]
+48 passed
 ```
 
 ## Required checkpoint matrix
@@ -133,3 +154,17 @@ The executed AnalysisPlan sample contains:
 ```
 
 Every estimate has `standard_error: null` and `confidence_interval: null`. Group comparisons have `inferential_test: "NOT_PERFORMED"` and `p_value: null`. The implementation makes no standard-error or significance claim.
+
+
+## Result-critic verification
+
+The result critic is deterministic and non-mutating. Its public decision is limited to `approve`, `reject`, or `request_reexecution`. It validates denominator arithmetic, percentage range and formulas, group completeness and exclusivity, unexpected nulls, and approved reference estimates with explicit tolerances. Re-execution uses the same validated plan and deterministic execution service; no critic field can replace an estimate.
+
+```text
+PYTHONPATH=src pytest -q
+................................................                         [100%]
+48 passed
+
+PYTHONPATH=src python -m compileall -q src tests
+PASS
+```

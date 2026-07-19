@@ -2,110 +2,441 @@
   "catalog_version": "0.5.0-analysis-plan-core",
   "access_mode": "PUF",
   "variables": [
-    {"dataset":"household","name":"CONTROL","data_type":"identifier","access_level":"PUF","role":"identifier","missing_codes":[],"notes":[]},
-    {"dataset":"household","name":"INTSTATUS","data_type":"integer","access_level":"PUF","role":"universe","missing_codes":[-6,-7,-8,-9],"notes":["1 identifies occupied interviewed housing units in the certified fixture contract."]},
-    {"dataset":"household","name":"TENURE","data_type":"integer","access_level":"PUF","role":"dimension","missing_codes":[-6,-7,-8,-9],"notes":["Certified demo logic: 1 owner, 2 renter, 3 occupied without payment."]},
-    {"dataset":"household","name":"WEIGHT","data_type":"numeric","access_level":"PUF","role":"weight","missing_codes":[],"notes":["Default final housing-unit weight for deterministic descriptive estimates."]},
-    {"dataset":"household","name":"SP1WEIGHT","data_type":"numeric","access_level":"PUF","role":"weight","missing_codes":[],"notes":["Present but not approved as the general final weight in this execution catalog."]},
-    {"dataset":"household","name":"OMB13CBSA","data_type":"integer","access_level":"PUF","role":"dimension","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"TOTHCAMT","data_type":"numeric","access_level":"PUF","role":"measure","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"HINCP","data_type":"numeric","access_level":"PUF","role":"measure","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"TOTHCPCT","data_type":"numeric","access_level":"PUF","role":"measure","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"ADEQUACY","data_type":"integer","access_level":"PUF","role":"dimension","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"BLD","data_type":"integer","access_level":"PUF","role":"dimension","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"HIMOVFRC","data_type":"integer","access_level":"PUF","role":"measure","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"HIWORRY","data_type":"integer","access_level":"PUF","role":"measure","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"household","name":"IUF_ONLY_STATE_CODE","data_type":"integer","access_level":"IUF","role":"dimension","missing_codes":[],"notes":["Deliberate access-control sentinel used by checkpoint tests."]},
-    {"dataset":"mortgage","name":"CONTROL","data_type":"identifier","access_level":"PUF","role":"identifier","missing_codes":[],"notes":[]},
-    {"dataset":"mortgage","name":"MORTLINE","data_type":"integer","access_level":"PUF","role":"identifier","missing_codes":[],"notes":[]},
-    {"dataset":"mortgage","name":"MORTAMT","data_type":"numeric","access_level":"PUF","role":"measure","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"mortgage","name":"MORTTYPE","data_type":"integer","access_level":"PUF","role":"dimension","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"projects","name":"CONTROL","data_type":"identifier","access_level":"PUF","role":"identifier","missing_codes":[],"notes":[]},
-    {"dataset":"projects","name":"PROJECTNO","data_type":"integer","access_level":"PUF","role":"identifier","missing_codes":[],"notes":[]},
-    {"dataset":"projects","name":"PROJECTCOST","data_type":"numeric","access_level":"PUF","role":"measure","missing_codes":[-6,-7,-8,-9],"notes":[]},
-    {"dataset":"projects","name":"PROJECTTYPE","data_type":"string","access_level":"PUF","role":"dimension","missing_codes":[],"notes":[]}
-  ],
-  "universes": [
     {
-      "universe_id":"all_housing_units",
-      "dataset":"household",
-      "label":"All sampled housing units",
-      "filters":[],
-      "required_variables":[]
+      "dataset": "household",
+      "name": "CONTROL",
+      "data_type": "identifier",
+      "access_level": "PUF",
+      "role": "identifier",
+      "missing_codes": [],
+      "notes": []
     },
     {
-      "universe_id":"occupied_housing_units",
-      "dataset":"household",
-      "label":"Occupied interviewed housing units",
-      "filters":[{"column":{"dataset":"household","column":"INTSTATUS"},"operator":"eq","value":1}],
-      "required_variables":[{"dataset":"household","column":"INTSTATUS"}]
-    },
-    {
-      "universe_id":"owner_occupied_housing_units",
-      "dataset":"household",
-      "label":"Owner-occupied housing units",
-      "filters":[
-        {"column":{"dataset":"household","column":"INTSTATUS"},"operator":"eq","value":1},
-        {"column":{"dataset":"household","column":"TENURE"},"operator":"eq","value":1}
+      "dataset": "household",
+      "name": "INTSTATUS",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "universe",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
       ],
-      "required_variables":[
-        {"dataset":"household","column":"INTSTATUS"},
-        {"dataset":"household","column":"TENURE"}
+      "notes": [
+        "1 identifies occupied interviewed housing units in the certified fixture contract."
       ]
     },
     {
-      "universe_id":"renter_occupied_housing_units",
-      "dataset":"household",
-      "label":"Renter-occupied housing units",
-      "filters":[
-        {"column":{"dataset":"household","column":"INTSTATUS"},"operator":"eq","value":1},
-        {"column":{"dataset":"household","column":"TENURE"},"operator":"eq","value":2}
+      "dataset": "household",
+      "name": "TENURE",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "dimension",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
       ],
-      "required_variables":[
-        {"dataset":"household","column":"INTSTATUS"},
-        {"dataset":"household","column":"TENURE"}
+      "notes": [
+        "Certified demo logic: 1 owner, 2 renter, 3 occupied without payment."
+      ]
+    },
+    {
+      "dataset": "household",
+      "name": "WEIGHT",
+      "data_type": "numeric",
+      "access_level": "PUF",
+      "role": "weight",
+      "missing_codes": [],
+      "notes": [
+        "Default final housing-unit weight for deterministic descriptive estimates."
+      ]
+    },
+    {
+      "dataset": "household",
+      "name": "SP1WEIGHT",
+      "data_type": "numeric",
+      "access_level": "PUF",
+      "role": "weight",
+      "missing_codes": [],
+      "notes": [
+        "Present but not approved as the general final weight in this execution catalog."
+      ]
+    },
+    {
+      "dataset": "household",
+      "name": "OMB13CBSA",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "dimension",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "TOTHCAMT",
+      "data_type": "numeric",
+      "access_level": "PUF",
+      "role": "measure",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "HINCP",
+      "data_type": "numeric",
+      "access_level": "PUF",
+      "role": "measure",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "TOTHCPCT",
+      "data_type": "numeric",
+      "access_level": "PUF",
+      "role": "measure",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "ADEQUACY",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "dimension",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "BLD",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "dimension",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "HIMOVFRC",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "measure",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "HIWORRY",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "measure",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "household",
+      "name": "IUF_ONLY_STATE_CODE",
+      "data_type": "integer",
+      "access_level": "IUF",
+      "role": "dimension",
+      "missing_codes": [],
+      "notes": [
+        "Deliberate access-control sentinel used by checkpoint tests."
+      ]
+    },
+    {
+      "dataset": "mortgage",
+      "name": "CONTROL",
+      "data_type": "identifier",
+      "access_level": "PUF",
+      "role": "identifier",
+      "missing_codes": [],
+      "notes": []
+    },
+    {
+      "dataset": "mortgage",
+      "name": "MORTLINE",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "identifier",
+      "missing_codes": [],
+      "notes": []
+    },
+    {
+      "dataset": "mortgage",
+      "name": "MORTAMT",
+      "data_type": "numeric",
+      "access_level": "PUF",
+      "role": "measure",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "mortgage",
+      "name": "MORTTYPE",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "dimension",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "projects",
+      "name": "CONTROL",
+      "data_type": "identifier",
+      "access_level": "PUF",
+      "role": "identifier",
+      "missing_codes": [],
+      "notes": []
+    },
+    {
+      "dataset": "projects",
+      "name": "PROJECTNO",
+      "data_type": "integer",
+      "access_level": "PUF",
+      "role": "identifier",
+      "missing_codes": [],
+      "notes": [
+        "Optional/unresolved PUF project row identity. It is not a required relationship key and must not be used unless the physical file and semantics are verified."
+      ]
+    },
+    {
+      "dataset": "projects",
+      "name": "PROJECTCOST",
+      "data_type": "numeric",
+      "access_level": "PUF",
+      "role": "measure",
+      "missing_codes": [
+        -6,
+        -7,
+        -8,
+        -9
+      ],
+      "notes": []
+    },
+    {
+      "dataset": "projects",
+      "name": "PROJECTTYPE",
+      "data_type": "string",
+      "access_level": "PUF",
+      "role": "dimension",
+      "missing_codes": [],
+      "notes": []
+    }
+  ],
+  "universes": [
+    {
+      "universe_id": "all_housing_units",
+      "dataset": "household",
+      "label": "All sampled housing units",
+      "filters": [],
+      "required_variables": []
+    },
+    {
+      "universe_id": "occupied_housing_units",
+      "dataset": "household",
+      "label": "Occupied interviewed housing units",
+      "filters": [
+        {
+          "column": {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          "operator": "eq",
+          "value": 1
+        }
+      ],
+      "required_variables": [
+        {
+          "dataset": "household",
+          "column": "INTSTATUS"
+        }
+      ]
+    },
+    {
+      "universe_id": "owner_occupied_housing_units",
+      "dataset": "household",
+      "label": "Owner-occupied housing units",
+      "filters": [
+        {
+          "column": {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          "operator": "eq",
+          "value": 1
+        },
+        {
+          "column": {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          "operator": "eq",
+          "value": 1
+        }
+      ],
+      "required_variables": [
+        {
+          "dataset": "household",
+          "column": "INTSTATUS"
+        },
+        {
+          "dataset": "household",
+          "column": "TENURE"
+        }
+      ]
+    },
+    {
+      "universe_id": "renter_occupied_housing_units",
+      "dataset": "household",
+      "label": "Renter-occupied housing units",
+      "filters": [
+        {
+          "column": {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          "operator": "eq",
+          "value": 1
+        },
+        {
+          "column": {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          "operator": "eq",
+          "value": 2
+        }
+      ],
+      "required_variables": [
+        {
+          "dataset": "household",
+          "column": "INTSTATUS"
+        },
+        {
+          "dataset": "household",
+          "column": "TENURE"
+        }
       ]
     }
   ],
   "weights": [
     {
-      "weight_id":"final_household_weight",
-      "dataset":"household",
-      "column":"WEIGHT",
-      "access_level":"PUF",
-      "approved_universes":[
+      "weight_id": "final_household_weight",
+      "dataset": "household",
+      "column": "WEIGHT",
+      "access_level": "PUF",
+      "approved_universes": [
         "all_housing_units",
         "occupied_housing_units",
         "owner_occupied_housing_units",
         "renter_occupied_housing_units"
       ],
-      "description":"Final housing-unit weight for descriptive weighted estimates."
+      "description": "Final housing-unit weight for descriptive weighted estimates."
     }
   ],
   "recodes": [
     {
-      "recode_id":"tenure_owner_renter_other_v1",
-      "source":{"dataset":"household","column":"TENURE"},
-      "access_level":"PUF",
-      "description":"Owner, renter, occupied-without-payment deterministic tenure grouping.",
-      "deterministic_definition":"TENURE=1 -> OWNER; TENURE=2 -> RENTER; TENURE=3 -> NO_PAYMENT; declared missing codes -> MISSING",
-      "required_variables":[{"dataset":"household","column":"TENURE"}]
+      "recode_id": "tenure_owner_renter_other_v1",
+      "source": {
+        "dataset": "household",
+        "column": "TENURE"
+      },
+      "access_level": "PUF",
+      "description": "Owner, renter, occupied-without-payment deterministic tenure grouping.",
+      "deterministic_definition": "TENURE=1 -> OWNER; TENURE=2 -> RENTER; TENURE=3 -> NO_PAYMENT; declared missing codes -> MISSING",
+      "required_variables": [
+        {
+          "dataset": "household",
+          "column": "TENURE"
+        }
+      ]
     },
     {
-      "recode_id":"cost_burden_50_v1",
-      "source":{"dataset":"household","column":"TOTHCPCT"},
-      "access_level":"PUF",
-      "description":"Housing cost burden at or above 50 percent.",
-      "deterministic_definition":"TOTHCPCT >= 50 -> HIGH_BURDEN; valid TOTHCPCT < 50 -> NOT_HIGH_BURDEN; declared missing codes -> MISSING",
-      "required_variables":[{"dataset":"household","column":"TOTHCPCT"}]
+      "recode_id": "cost_burden_50_v1",
+      "source": {
+        "dataset": "household",
+        "column": "TOTHCPCT"
+      },
+      "access_level": "PUF",
+      "description": "Housing cost burden at or above 50 percent.",
+      "deterministic_definition": "TOTHCPCT >= 50 -> HIGH_BURDEN; valid TOTHCPCT < 50 -> NOT_HIGH_BURDEN; declared missing codes -> MISSING",
+      "required_variables": [
+        {
+          "dataset": "household",
+          "column": "TOTHCPCT"
+        }
+      ]
     },
     {
-      "recode_id":"iuf_state_group_v1",
-      "source":{"dataset":"household","column":"IUF_ONLY_STATE_CODE"},
-      "access_level":"IUF",
-      "description":"IUF-only state grouping sentinel.",
-      "deterministic_definition":"IUF-only",
-      "required_variables":[{"dataset":"household","column":"IUF_ONLY_STATE_CODE"}]
+      "recode_id": "iuf_state_group_v1",
+      "source": {
+        "dataset": "household",
+        "column": "IUF_ONLY_STATE_CODE"
+      },
+      "access_level": "IUF",
+      "description": "IUF-only state grouping sentinel.",
+      "deterministic_definition": "IUF-only",
+      "required_variables": [
+        {
+          "dataset": "household",
+          "column": "IUF_ONLY_STATE_CODE"
+        }
+      ]
     }
   ]
 }

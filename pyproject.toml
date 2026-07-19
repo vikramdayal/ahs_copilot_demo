@@ -4,13 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ahs-copilot"
-version = "0.5.0"
+version = "0.7.0"
 description = "Governed DuckDB query engine for the 2023 American Housing Survey PUF"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "duckdb>=1.1,<2",
   "pydantic>=2.10,<3",
+  "langgraph>=1.2,<2",
+  "langchain-core>=1.2,<2",
 ]
 
 [project.optional-dependencies]

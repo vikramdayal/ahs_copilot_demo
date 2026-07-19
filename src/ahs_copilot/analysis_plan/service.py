@@ -20,12 +20,14 @@ class AnalysisPlanService:
     def validate(self, plan: AnalysisPlan | dict[str, Any]) -> ValidatedAnalysisPlan:
         return self.validator.validate(plan)
 
-    def compile(self, plan: AnalysisPlan | dict[str, Any]) -> CompiledSurveyEstimate:
-        validated = self.validate(plan)
+    def compile_validated(self, validated: ValidatedAnalysisPlan) -> CompiledSurveyEstimate:
+        """Compile a previously validated plan through the deterministic estimator."""
         return self.estimator.compile(validated.survey_request)
 
-    def execute(self, plan: AnalysisPlan | dict[str, Any]) -> AnalysisPlanExecutionResult:
-        validated = self.validate(plan)
+    def execute_validated(
+        self, validated: ValidatedAnalysisPlan
+    ) -> AnalysisPlanExecutionResult:
+        """Execute a previously validated plan and preserve its audit fingerprint."""
         result = self.estimator.execute(validated.survey_request)
         return AnalysisPlanExecutionResult(
             plan=validated.plan,
@@ -34,3 +36,9 @@ class AnalysisPlanService:
             output_format=validated.plan.output_format,
             result=result,
         )
+
+    def compile(self, plan: AnalysisPlan | dict[str, Any]) -> CompiledSurveyEstimate:
+        return self.compile_validated(self.validate(plan))
+
+    def execute(self, plan: AnalysisPlan | dict[str, Any]) -> AnalysisPlanExecutionResult:
+        return self.execute_validated(self.validate(plan))

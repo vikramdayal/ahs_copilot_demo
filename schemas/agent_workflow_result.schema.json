@@ -1,0 +1,1960 @@
+{
+  "$defs": {
+    "AnalysisPlan": {
+      "additionalProperties": false,
+      "description": "Structured, non-SQL analysis contract accepted before deterministic compilation.",
+      "properties": {
+        "comparisons": {
+          "$ref": "#/$defs/ComparisonSpec"
+        },
+        "dataset": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Dataset",
+          "type": "string"
+        },
+        "denominator": {
+          "$ref": "#/$defs/DenominatorSpec"
+        },
+        "derived_recodes": {
+          "items": {
+            "$ref": "#/$defs/DerivedRecodeSpec"
+          },
+          "title": "Derived Recodes",
+          "type": "array"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/TypedFilter"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "grouping_dimensions": {
+          "items": {
+            "$ref": "#/$defs/QualifiedColumn"
+          },
+          "title": "Grouping Dimensions",
+          "type": "array"
+        },
+        "joins": {
+          "items": {
+            "$ref": "#/$defs/JoinSpec"
+          },
+          "title": "Joins",
+          "type": "array"
+        },
+        "measure": {
+          "$ref": "#/$defs/MeasureSpec"
+        },
+        "numerator": {
+          "$ref": "#/$defs/NumeratorSpec"
+        },
+        "output_format": {
+          "$ref": "#/$defs/OutputFormatSpec"
+        },
+        "plan_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Plan Version",
+          "type": "string"
+        },
+        "required_variables": {
+          "items": {
+            "$ref": "#/$defs/QualifiedColumn"
+          },
+          "minItems": 1,
+          "title": "Required Variables",
+          "type": "array"
+        },
+        "universe": {
+          "$ref": "#/$defs/UniverseSpec"
+        },
+        "user_question": {
+          "minLength": 3,
+          "title": "User Question",
+          "type": "string"
+        },
+        "validation_checks": {
+          "$ref": "#/$defs/ValidationChecks"
+        },
+        "weight": {
+          "$ref": "#/$defs/WeightSpec"
+        }
+      },
+      "required": [
+        "user_question",
+        "dataset",
+        "measure",
+        "numerator",
+        "denominator",
+        "universe",
+        "weight",
+        "required_variables"
+      ],
+      "title": "AnalysisPlan",
+      "type": "object"
+    },
+    "AnalysisPlanExecutionResult": {
+      "additionalProperties": false,
+      "properties": {
+        "output_format": {
+          "$ref": "#/$defs/OutputFormatSpec"
+        },
+        "plan": {
+          "$ref": "#/$defs/AnalysisPlan"
+        },
+        "plan_fingerprint": {
+          "title": "Plan Fingerprint",
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/$defs/SurveyEstimateResult"
+        },
+        "validation_messages": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validation Messages",
+          "type": "array"
+        }
+      },
+      "required": [
+        "plan",
+        "plan_fingerprint",
+        "validation_messages",
+        "output_format",
+        "result"
+      ],
+      "title": "AnalysisPlanExecutionResult",
+      "type": "object"
+    },
+    "ApprovalDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "enum": [
+            "approved",
+            "rejected",
+            "revise"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "feedback": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Feedback"
+        }
+      },
+      "required": [
+        "decision"
+      ],
+      "title": "ApprovalDecision",
+      "type": "object"
+    },
+    "ChildAggregate": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Alias",
+          "type": "string"
+        },
+        "column": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Column"
+        },
+        "function": {
+          "enum": [
+            "count",
+            "count_distinct",
+            "sum",
+            "avg",
+            "min",
+            "max"
+          ],
+          "title": "Function",
+          "type": "string"
+        }
+      },
+      "required": [
+        "function",
+        "alias"
+      ],
+      "title": "ChildAggregate",
+      "type": "object"
+    },
+    "ChildAggregation": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregates": {
+          "items": {
+            "$ref": "#/$defs/ChildAggregate"
+          },
+          "minItems": 1,
+          "title": "Aggregates",
+          "type": "array"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/TypedFilter"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "group_by": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Group By",
+          "type": "array"
+        }
+      },
+      "required": [
+        "aggregates"
+      ],
+      "title": "ChildAggregation",
+      "type": "object"
+    },
+    "ComparisonSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "include_ratio": {
+          "default": true,
+          "title": "Include Ratio",
+          "type": "boolean"
+        },
+        "mode": {
+          "default": "none",
+          "enum": [
+            "none",
+            "reference",
+            "all_pairs"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "reference_group": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Group"
+        }
+      },
+      "title": "ComparisonSpec",
+      "type": "object"
+    },
+    "CompiledSurveyEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_request": {
+          "additionalProperties": true,
+          "title": "Canonical Request",
+          "type": "object"
+        },
+        "datasets_used": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Datasets Used",
+          "type": "array"
+        },
+        "display_sql": {
+          "title": "Display Sql",
+          "type": "string"
+        },
+        "effective_limit": {
+          "title": "Effective Limit",
+          "type": "integer"
+        },
+        "formulas": {
+          "items": {
+            "$ref": "#/$defs/FormulaDescriptor"
+          },
+          "title": "Formulas",
+          "type": "array"
+        },
+        "group_aliases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Group Aliases",
+          "type": "array"
+        },
+        "join_contract_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Join Contract Ids",
+          "type": "array"
+        },
+        "normalized_reference_group": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Normalized Reference Group"
+        },
+        "parameters": {
+          "items": {},
+          "title": "Parameters",
+          "type": "array"
+        },
+        "request_fingerprint": {
+          "title": "Request Fingerprint",
+          "type": "string"
+        },
+        "sql": {
+          "title": "Sql",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sql",
+        "display_sql",
+        "parameters",
+        "effective_limit",
+        "canonical_request",
+        "request_fingerprint",
+        "datasets_used",
+        "join_contract_ids",
+        "group_aliases",
+        "normalized_reference_group",
+        "formulas"
+      ],
+      "title": "CompiledSurveyEstimate",
+      "type": "object"
+    },
+    "DatasetEstimateMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "logical_name": {
+          "title": "Logical Name",
+          "type": "string"
+        },
+        "modified_ns": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Modified Ns"
+        },
+        "physical_path": {
+          "title": "Physical Path",
+          "type": "string"
+        },
+        "size_bytes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Size Bytes"
+        },
+        "source_file_id": {
+          "title": "Source File Id",
+          "type": "string"
+        },
+        "synthetic_fixture": {
+          "title": "Synthetic Fixture",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "logical_name",
+        "source_file_id",
+        "physical_path",
+        "synthetic_fixture",
+        "size_bytes",
+        "modified_ns"
+      ],
+      "title": "DatasetEstimateMetadata",
+      "type": "object"
+    },
+    "DenominatorSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/TypedFilter"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "role": {
+          "enum": [
+            "eligible_units",
+            "nonmissing_weight_sum"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "description"
+      ],
+      "title": "DenominatorSpec",
+      "type": "object"
+    },
+    "DerivedRecodeSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "output_name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Output Name",
+          "type": "string"
+        },
+        "purpose": {
+          "minLength": 1,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "recode_id": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Recode Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "recode_id",
+        "output_name",
+        "purpose"
+      ],
+      "title": "DerivedRecodeSpec",
+      "type": "object"
+    },
+    "EstimateDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Alias",
+          "type": "string"
+        },
+        "denominator_filters": {
+          "items": {
+            "$ref": "#/$defs/TypedFilter"
+          },
+          "title": "Denominator Filters",
+          "type": "array"
+        },
+        "missing_value_rules": {
+          "items": {
+            "$ref": "#/$defs/MissingValueRule"
+          },
+          "title": "Missing Value Rules",
+          "type": "array"
+        },
+        "numerator_filters": {
+          "items": {
+            "$ref": "#/$defs/TypedFilter"
+          },
+          "title": "Numerator Filters",
+          "type": "array"
+        },
+        "statistic": {
+          "enum": [
+            "weighted_count",
+            "weighted_percentage",
+            "weighted_mean"
+          ],
+          "title": "Statistic",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualifiedColumn"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "alias",
+        "statistic"
+      ],
+      "title": "EstimateDefinition",
+      "type": "object"
+    },
+    "FormulaDescriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator_formula": {
+          "title": "Denominator Formula",
+          "type": "string"
+        },
+        "estimate_alias": {
+          "title": "Estimate Alias",
+          "type": "string"
+        },
+        "estimate_formula": {
+          "title": "Estimate Formula",
+          "type": "string"
+        },
+        "missing_value_rule": {
+          "title": "Missing Value Rule",
+          "type": "string"
+        },
+        "numerator_formula": {
+          "title": "Numerator Formula",
+          "type": "string"
+        },
+        "statistic": {
+          "enum": [
+            "weighted_count",
+            "weighted_percentage",
+            "weighted_mean"
+          ],
+          "title": "Statistic",
+          "type": "string"
+        },
+        "weight_rule": {
+          "title": "Weight Rule",
+          "type": "string"
+        }
+      },
+      "required": [
+        "estimate_alias",
+        "statistic",
+        "numerator_formula",
+        "denominator_formula",
+        "estimate_formula",
+        "missing_value_rule",
+        "weight_rule"
+      ],
+      "title": "FormulaDescriptor",
+      "type": "object"
+    },
+    "GroupComparison": {
+      "additionalProperties": false,
+      "properties": {
+        "difference": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Difference"
+        },
+        "estimate_alias": {
+          "title": "Estimate Alias",
+          "type": "string"
+        },
+        "inferential_test": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Inferential Test",
+          "type": "string"
+        },
+        "left_group": {
+          "additionalProperties": true,
+          "title": "Left Group",
+          "type": "object"
+        },
+        "p_value": {
+          "default": null,
+          "title": "P Value",
+          "type": "null"
+        },
+        "ratio": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ratio"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "right_group": {
+          "additionalProperties": true,
+          "title": "Right Group",
+          "type": "object"
+        },
+        "standard_error": {
+          "default": null,
+          "title": "Standard Error",
+          "type": "null"
+        },
+        "statistic": {
+          "enum": [
+            "weighted_count",
+            "weighted_percentage",
+            "weighted_mean"
+          ],
+          "title": "Statistic",
+          "type": "string"
+        },
+        "suppressed": {
+          "title": "Suppressed",
+          "type": "boolean"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "estimate_alias",
+        "statistic",
+        "left_group",
+        "right_group",
+        "difference",
+        "ratio",
+        "suppressed",
+        "reasons"
+      ],
+      "title": "GroupComparison",
+      "type": "object"
+    },
+    "GroupDimension": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alias"
+        },
+        "column": {
+          "$ref": "#/$defs/QualifiedColumn"
+        }
+      },
+      "required": [
+        "column"
+      ],
+      "title": "GroupDimension",
+      "type": "object"
+    },
+    "JoinSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ChildAggregation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "dataset": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Dataset",
+          "type": "string"
+        },
+        "how": {
+          "default": "left",
+          "enum": [
+            "inner",
+            "left"
+          ],
+          "title": "How",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset"
+      ],
+      "title": "JoinSpec",
+      "type": "object"
+    },
+    "MeasureSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Alias",
+          "type": "string"
+        },
+        "statistic": {
+          "enum": [
+            "count",
+            "percentage",
+            "mean"
+          ],
+          "title": "Statistic",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualifiedColumn"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "alias",
+        "statistic"
+      ],
+      "title": "MeasureSpec",
+      "type": "object"
+    },
+    "MissingValueRule": {
+      "additionalProperties": false,
+      "properties": {
+        "codes": {
+          "items": {},
+          "title": "Codes",
+          "type": "array"
+        },
+        "column": {
+          "$ref": "#/$defs/QualifiedColumn"
+        }
+      },
+      "required": [
+        "column"
+      ],
+      "title": "MissingValueRule",
+      "type": "object"
+    },
+    "NumeratorSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/TypedFilter"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "role": {
+          "enum": [
+            "eligible_units",
+            "condition_true",
+            "weighted_value_sum"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "description"
+      ],
+      "title": "NumeratorSpec",
+      "type": "object"
+    },
+    "OutputFormatSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "default": "json_records",
+          "enum": [
+            "json_records",
+            "table"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "include_analysis_plan": {
+          "default": true,
+          "title": "Include Analysis Plan",
+          "type": "boolean"
+        },
+        "include_execution_metadata": {
+          "default": true,
+          "title": "Include Execution Metadata",
+          "type": "boolean"
+        },
+        "include_formula_metadata": {
+          "default": true,
+          "title": "Include Formula Metadata",
+          "type": "boolean"
+        },
+        "include_generated_sql": {
+          "default": true,
+          "title": "Include Generated Sql",
+          "type": "boolean"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        }
+      },
+      "title": "OutputFormatSpec",
+      "type": "object"
+    },
+    "QualifiedColumn": {
+      "additionalProperties": false,
+      "properties": {
+        "column": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Column",
+          "type": "string"
+        },
+        "dataset": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Dataset",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset",
+        "column"
+      ],
+      "title": "QualifiedColumn",
+      "type": "object"
+    },
+    "ResultCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "title": "Check Id",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "check_id",
+        "passed",
+        "message"
+      ],
+      "title": "ResultCheck",
+      "type": "object"
+    },
+    "ResultCheckReport": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/ResultCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "passed",
+        "checks"
+      ],
+      "title": "ResultCheckReport",
+      "type": "object"
+    },
+    "ResultCriticCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "title": "Check Id",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_applicable"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "check_id",
+        "status",
+        "message"
+      ],
+      "title": "ResultCriticCheck",
+      "type": "object"
+    },
+    "ResultCriticReport": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/ResultCriticCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "decision": {
+          "enum": [
+            "approve",
+            "reject",
+            "request_reexecution"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "failed_check_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Failed Check Ids",
+          "type": "array"
+        },
+        "max_reexecutions": {
+          "minimum": 0,
+          "title": "Max Reexecutions",
+          "type": "integer"
+        },
+        "numeric_results_unchanged": {
+          "const": true,
+          "default": true,
+          "title": "Numeric Results Unchanged",
+          "type": "boolean"
+        },
+        "reexecution_count": {
+          "minimum": 0,
+          "title": "Reexecution Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "decision",
+        "checks",
+        "reexecution_count",
+        "max_reexecutions"
+      ],
+      "title": "ResultCriticReport",
+      "type": "object"
+    },
+    "SuppressionDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "flag",
+            "null_estimate"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "policy_id": {
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "suppressed": {
+          "title": "Suppressed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "suppressed",
+        "action",
+        "reasons",
+        "policy_id"
+      ],
+      "title": "SuppressionDecision",
+      "type": "object"
+    },
+    "SuppressionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "default": "null_estimate",
+          "enum": [
+            "flag",
+            "null_estimate"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "minimum_unweighted_complement": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Minimum Unweighted Complement",
+          "type": "integer"
+        },
+        "minimum_unweighted_denominator": {
+          "default": 1,
+          "minimum": 0,
+          "title": "Minimum Unweighted Denominator",
+          "type": "integer"
+        },
+        "minimum_unweighted_numerator": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Minimum Unweighted Numerator",
+          "type": "integer"
+        },
+        "policy_id": {
+          "default": "configured_unweighted_cell_thresholds_v1",
+          "title": "Policy Id",
+          "type": "string"
+        }
+      },
+      "title": "SuppressionPolicy",
+      "type": "object"
+    },
+    "SurveyEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence_interval": {
+          "default": null,
+          "title": "Confidence Interval",
+          "type": "null"
+        },
+        "estimate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Estimate"
+        },
+        "estimate_alias": {
+          "title": "Estimate Alias",
+          "type": "string"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "group": {
+          "additionalProperties": true,
+          "title": "Group",
+          "type": "object"
+        },
+        "invalid_weight_rows_excluded": {
+          "title": "Invalid Weight Rows Excluded",
+          "type": "integer"
+        },
+        "missing_value_rows_excluded": {
+          "title": "Missing Value Rows Excluded",
+          "type": "integer"
+        },
+        "standard_error": {
+          "default": null,
+          "title": "Standard Error",
+          "type": "null"
+        },
+        "statistic": {
+          "enum": [
+            "weighted_count",
+            "weighted_percentage",
+            "weighted_mean"
+          ],
+          "title": "Statistic",
+          "type": "string"
+        },
+        "suppression": {
+          "$ref": "#/$defs/SuppressionDecision"
+        },
+        "unweighted_complement": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unweighted Complement"
+        },
+        "unweighted_denominator": {
+          "title": "Unweighted Denominator",
+          "type": "integer"
+        },
+        "unweighted_numerator": {
+          "title": "Unweighted Numerator",
+          "type": "integer"
+        },
+        "weighted_denominator": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Weighted Denominator"
+        },
+        "weighted_numerator": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Weighted Numerator"
+        },
+        "weighting_mode": {
+          "enum": [
+            "weighted",
+            "unweighted"
+          ],
+          "title": "Weighting Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "group",
+        "weighting_mode",
+        "estimate_alias",
+        "statistic",
+        "estimate",
+        "weighted_numerator",
+        "weighted_denominator",
+        "unweighted_numerator",
+        "unweighted_denominator",
+        "unweighted_complement",
+        "invalid_weight_rows_excluded",
+        "missing_value_rows_excluded",
+        "suppression",
+        "formula"
+      ],
+      "title": "SurveyEstimate",
+      "type": "object"
+    },
+    "SurveyEstimateRequest": {
+      "additionalProperties": false,
+      "description": "Governed descriptive-estimation input. Raw SQL is intentionally impossible.",
+      "properties": {
+        "base_dataset": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Base Dataset",
+          "type": "string"
+        },
+        "comparisons": {
+          "$ref": "#/$defs/ComparisonSpec"
+        },
+        "estimates": {
+          "items": {
+            "$ref": "#/$defs/EstimateDefinition"
+          },
+          "minItems": 1,
+          "title": "Estimates",
+          "type": "array"
+        },
+        "group_by": {
+          "items": {
+            "$ref": "#/$defs/GroupDimension"
+          },
+          "title": "Group By",
+          "type": "array"
+        },
+        "joins": {
+          "items": {
+            "$ref": "#/$defs/JoinSpec"
+          },
+          "title": "Joins",
+          "type": "array"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        },
+        "suppression": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SuppressionPolicy"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "universe_filters": {
+          "items": {
+            "$ref": "#/$defs/TypedFilter"
+          },
+          "title": "Universe Filters",
+          "type": "array"
+        },
+        "weight": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualifiedColumn"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "weighting_mode": {
+          "default": "weighted",
+          "enum": [
+            "weighted",
+            "unweighted"
+          ],
+          "title": "Weighting Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "base_dataset",
+        "estimates"
+      ],
+      "title": "SurveyEstimateRequest",
+      "type": "object"
+    },
+    "SurveyEstimateResult": {
+      "additionalProperties": false,
+      "properties": {
+        "comparisons": {
+          "items": {
+            "$ref": "#/$defs/GroupComparison"
+          },
+          "title": "Comparisons",
+          "type": "array"
+        },
+        "estimates": {
+          "items": {
+            "$ref": "#/$defs/SurveyEstimate"
+          },
+          "title": "Estimates",
+          "type": "array"
+        },
+        "formulas": {
+          "items": {
+            "$ref": "#/$defs/FormulaDescriptor"
+          },
+          "title": "Formulas",
+          "type": "array"
+        },
+        "generated_sql": {
+          "title": "Generated Sql",
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/$defs/SurveyExecutionMetadata"
+        },
+        "parameterized_sql": {
+          "title": "Parameterized Sql",
+          "type": "string"
+        },
+        "parameters": {
+          "items": {},
+          "title": "Parameters",
+          "type": "array"
+        }
+      },
+      "required": [
+        "estimates",
+        "comparisons",
+        "generated_sql",
+        "parameterized_sql",
+        "parameters",
+        "formulas",
+        "metadata"
+      ],
+      "title": "SurveyEstimateResult",
+      "type": "object"
+    },
+    "SurveyExecutionMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "arithmetic_rule": {
+          "title": "Arithmetic Rule",
+          "type": "string"
+        },
+        "comparisons_returned": {
+          "title": "Comparisons Returned",
+          "type": "integer"
+        },
+        "database": {
+          "title": "Database",
+          "type": "string"
+        },
+        "datasets": {
+          "items": {
+            "$ref": "#/$defs/DatasetEstimateMetadata"
+          },
+          "title": "Datasets",
+          "type": "array"
+        },
+        "duckdb_version": {
+          "title": "Duckdb Version",
+          "type": "string"
+        },
+        "elapsed_ms": {
+          "title": "Elapsed Ms",
+          "type": "number"
+        },
+        "estimation_scope": {
+          "enum": [
+            "DESCRIPTIVE_WEIGHTED_ESTIMATES",
+            "DESCRIPTIVE_UNWEIGHTED_ESTIMATES"
+          ],
+          "title": "Estimation Scope",
+          "type": "string"
+        },
+        "finished_at": {
+          "format": "date-time",
+          "title": "Finished At",
+          "type": "string"
+        },
+        "group_rows": {
+          "title": "Group Rows",
+          "type": "integer"
+        },
+        "join_contract_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Join Contract Ids",
+          "type": "array"
+        },
+        "memory_limit": {
+          "title": "Memory Limit",
+          "type": "string"
+        },
+        "request_fingerprint": {
+          "title": "Request Fingerprint",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "sql_fingerprint": {
+          "title": "Sql Fingerprint",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "suppression_policy": {
+          "$ref": "#/$defs/SuppressionPolicy"
+        },
+        "temp_directory": {
+          "title": "Temp Directory",
+          "type": "string"
+        },
+        "threads": {
+          "title": "Threads",
+          "type": "integer"
+        },
+        "variance": {
+          "$ref": "#/$defs/VarianceMetadata"
+        },
+        "weight_column": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualifiedColumn"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weight_eligibility_rule": {
+          "title": "Weight Eligibility Rule",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "request_fingerprint",
+        "sql_fingerprint",
+        "started_at",
+        "finished_at",
+        "elapsed_ms",
+        "duckdb_version",
+        "database",
+        "memory_limit",
+        "temp_directory",
+        "threads",
+        "datasets",
+        "join_contract_ids",
+        "group_rows",
+        "comparisons_returned",
+        "estimation_scope",
+        "weight_column",
+        "weight_eligibility_rule",
+        "arithmetic_rule",
+        "suppression_policy"
+      ],
+      "title": "SurveyExecutionMetadata",
+      "type": "object"
+    },
+    "TypedFilter": {
+      "additionalProperties": false,
+      "properties": {
+        "column": {
+          "$ref": "#/$defs/QualifiedColumn"
+        },
+        "operator": {
+          "enum": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in",
+            "not_in",
+            "between",
+            "is_null",
+            "is_not_null"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "column",
+        "operator"
+      ],
+      "title": "TypedFilter",
+      "type": "object"
+    },
+    "UniverseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "universe_id": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Universe Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "universe_id",
+        "description"
+      ],
+      "title": "UniverseSpec",
+      "type": "object"
+    },
+    "ValidatedAnalysisPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "approved_recode_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Approved Recode Ids",
+          "type": "array"
+        },
+        "inferred_required_variables": {
+          "items": {
+            "$ref": "#/$defs/QualifiedColumn"
+          },
+          "title": "Inferred Required Variables",
+          "type": "array"
+        },
+        "normalized_dataset": {
+          "title": "Normalized Dataset",
+          "type": "string"
+        },
+        "normalized_universe_id": {
+          "title": "Normalized Universe Id",
+          "type": "string"
+        },
+        "plan": {
+          "$ref": "#/$defs/AnalysisPlan"
+        },
+        "plan_fingerprint": {
+          "title": "Plan Fingerprint",
+          "type": "string"
+        },
+        "survey_request": {
+          "$ref": "#/$defs/SurveyEstimateRequest"
+        },
+        "validation_messages": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validation Messages",
+          "type": "array"
+        }
+      },
+      "required": [
+        "plan",
+        "plan_fingerprint",
+        "normalized_dataset",
+        "normalized_universe_id",
+        "inferred_required_variables",
+        "approved_recode_ids",
+        "validation_messages",
+        "survey_request"
+      ],
+      "title": "ValidatedAnalysisPlan",
+      "type": "object"
+    },
+    "ValidationChecks": {
+      "additionalProperties": false,
+      "properties": {
+        "approved_join_paths": {
+          "const": true,
+          "default": true,
+          "title": "Approved Join Paths",
+          "type": "boolean"
+        },
+        "empty_denominator_runtime_flag": {
+          "const": true,
+          "default": true,
+          "title": "Empty Denominator Runtime Flag",
+          "type": "boolean"
+        },
+        "measure_compatibility": {
+          "const": true,
+          "default": true,
+          "title": "Measure Compatibility",
+          "type": "boolean"
+        },
+        "missing_value_codes": {
+          "const": true,
+          "default": true,
+          "title": "Missing Value Codes",
+          "type": "boolean"
+        },
+        "numerator_denominator_compatibility": {
+          "const": true,
+          "default": true,
+          "title": "Numerator Denominator Compatibility",
+          "type": "boolean"
+        },
+        "puf_access": {
+          "const": true,
+          "default": true,
+          "title": "Puf Access",
+          "type": "boolean"
+        },
+        "required_variable_closure": {
+          "const": true,
+          "default": true,
+          "title": "Required Variable Closure",
+          "type": "boolean"
+        },
+        "schema_variables": {
+          "const": true,
+          "default": true,
+          "title": "Schema Variables",
+          "type": "boolean"
+        },
+        "universe_compatibility": {
+          "const": true,
+          "default": true,
+          "title": "Universe Compatibility",
+          "type": "boolean"
+        },
+        "weight_compatibility": {
+          "const": true,
+          "default": true,
+          "title": "Weight Compatibility",
+          "type": "boolean"
+        }
+      },
+      "title": "ValidationChecks",
+      "type": "object"
+    },
+    "VarianceMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "approved_method": {
+          "default": null,
+          "title": "Approved Method",
+          "type": "null"
+        },
+        "message": {
+          "default": "Descriptive weighted estimates only. Standard errors, confidence intervals, and significance tests are unavailable until replicate weights and an approved variance method are implemented.",
+          "title": "Message",
+          "type": "string"
+        },
+        "replicate_weights_used": {
+          "const": false,
+          "default": false,
+          "title": "Replicate Weights Used",
+          "type": "boolean"
+        },
+        "standard_errors_valid": {
+          "const": false,
+          "default": false,
+          "title": "Standard Errors Valid",
+          "type": "boolean"
+        },
+        "status": {
+          "const": "NOT_ESTIMATED",
+          "default": "NOT_ESTIMATED",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "title": "VarianceMetadata",
+      "type": "object"
+    },
+    "WeightSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "column": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualifiedColumn"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mode": {
+          "enum": [
+            "weighted",
+            "unweighted"
+          ],
+          "title": "Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "title": "WeightSpec",
+      "type": "object"
+    },
+    "WorkflowError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "node": {
+          "title": "Node",
+          "type": "string"
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "node",
+        "message"
+      ],
+      "title": "WorkflowError",
+      "type": "object"
+    },
+    "WorkflowEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt": {
+          "default": 0,
+          "title": "Attempt",
+          "type": "integer"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "event": {
+          "title": "Event",
+          "type": "string"
+        },
+        "level": {
+          "default": "INFO",
+          "enum": [
+            "INFO",
+            "WARNING",
+            "ERROR"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "node": {
+          "title": "Node",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node",
+        "event",
+        "message"
+      ],
+      "title": "WorkflowEvent",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "approval": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ApprovalDecision"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "attempts": {
+      "title": "Attempts",
+      "type": "integer"
+    },
+    "audit_log": {
+      "items": {
+        "$ref": "#/$defs/WorkflowEvent"
+      },
+      "title": "Audit Log",
+      "type": "array"
+    },
+    "compiled": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CompiledSurveyEstimate"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/WorkflowError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "execution": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnalysisPlanExecutionResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "plan": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnalysisPlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "question": {
+      "title": "Question",
+      "type": "string"
+    },
+    "result_checks": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ResultCheckReport"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "result_critique": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ResultCriticReport"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "failed",
+        "rejected"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "validated_plan": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ValidatedAnalysisPlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "status",
+    "question",
+    "attempts"
+  ],
+  "title": "AgentWorkflowResult",
+  "type": "object"
+}

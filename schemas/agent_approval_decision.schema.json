@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "enum": [
+        "approved",
+        "rejected",
+        "revise"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "feedback": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Feedback"
+    }
+  },
+  "required": [
+    "decision"
+  ],
+  "title": "ApprovalDecision",
+  "type": "object"
+}

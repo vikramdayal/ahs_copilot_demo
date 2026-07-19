@@ -1,0 +1,223 @@
+{
+  "$defs": {
+    "ExpectedResultGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "estimate_alias": {
+          "title": "Estimate Alias",
+          "type": "string"
+        },
+        "group": {
+          "additionalProperties": true,
+          "title": "Group",
+          "type": "object"
+        }
+      },
+      "required": [
+        "estimate_alias",
+        "group"
+      ],
+      "title": "ExpectedResultGroup",
+      "type": "object"
+    },
+    "MutuallyExclusiveGroupSet": {
+      "additionalProperties": false,
+      "properties": {
+        "categories": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "minItems": 2,
+          "title": "Categories",
+          "type": "array"
+        },
+        "estimate_alias": {
+          "title": "Estimate Alias",
+          "type": "string"
+        },
+        "require_all_categories": {
+          "default": true,
+          "title": "Require All Categories",
+          "type": "boolean"
+        },
+        "set_id": {
+          "minLength": 1,
+          "title": "Set Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "set_id",
+        "estimate_alias",
+        "categories"
+      ],
+      "title": "MutuallyExclusiveGroupSet",
+      "type": "object"
+    },
+    "ReferenceEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "absolute_tolerance": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Absolute Tolerance"
+        },
+        "estimate_alias": {
+          "title": "Estimate Alias",
+          "type": "string"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Expected"
+        },
+        "group": {
+          "additionalProperties": true,
+          "title": "Group",
+          "type": "object"
+        },
+        "relative_tolerance": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relative Tolerance"
+        },
+        "source_id": {
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "estimate_alias",
+        "expected",
+        "source_id"
+      ],
+      "title": "ReferenceEstimate",
+      "type": "object"
+    },
+    "ResultCriticConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_groups": {
+          "items": {
+            "$ref": "#/$defs/ExpectedResultGroup"
+          },
+          "title": "Expected Groups",
+          "type": "array"
+        },
+        "max_reexecutions": {
+          "default": 1,
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Max Reexecutions",
+          "type": "integer"
+        },
+        "mutually_exclusive_group_sets": {
+          "items": {
+            "$ref": "#/$defs/MutuallyExclusiveGroupSet"
+          },
+          "title": "Mutually Exclusive Group Sets",
+          "type": "array"
+        },
+        "numeric_tolerance": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "default": "0.000001",
+          "title": "Numeric Tolerance"
+        },
+        "reference_estimates": {
+          "items": {
+            "$ref": "#/$defs/ReferenceEstimate"
+          },
+          "title": "Reference Estimates",
+          "type": "array"
+        },
+        "reject_null_group_values": {
+          "default": true,
+          "title": "Reject Null Group Values",
+          "type": "boolean"
+        }
+      },
+      "title": "ResultCriticConfig",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Public graph input. Arbitrary SQL is intentionally not representable.",
+  "properties": {
+    "approval_mode": {
+      "default": "interrupt",
+      "enum": [
+        "interrupt",
+        "auto_approve"
+      ],
+      "title": "Approval Mode",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": true,
+      "title": "Context",
+      "type": "object"
+    },
+    "max_plan_attempts": {
+      "default": 3,
+      "maximum": 10,
+      "minimum": 1,
+      "title": "Max Plan Attempts",
+      "type": "integer"
+    },
+    "question": {
+      "minLength": 3,
+      "title": "Question",
+      "type": "string"
+    },
+    "result_critic": {
+      "$ref": "#/$defs/ResultCriticConfig"
+    }
+  },
+  "required": [
+    "question"
+  ],
+  "title": "AgentWorkflowRequest",
+  "type": "object"
+}

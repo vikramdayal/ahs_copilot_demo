@@ -93,7 +93,8 @@
       "home improvement projects"
     ],
     "notes": [
-      "One-to-many child relation used by Home Improvement Costs."
+      "One-to-many child relation used by Home Improvement Costs.",
+      "CONTROL is the only required PUF relationship key; project row identity is optional and unresolved, and project rows must be preaggregated to CONTROL before household joins."
     ],
     "source_locators": []
   },
