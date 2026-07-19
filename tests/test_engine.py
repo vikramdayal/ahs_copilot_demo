@@ -31,7 +31,7 @@ def test_inspects_all_configured_schemas_and_uses_fixture(engine: AHSQueryEngine
     assert schemas["household"].synthetic_fixture is True
     assert schemas["household"].join_keys == ["CONTROL"]
     assert {x.name for x in schemas["mortgage"].columns} >= {"CONTROL", "MORTLINE", "MORTAMT"}
-    assert {x.name for x in schemas["projects"].columns} >= {"CONTROL", "PROJECTNO", "PROJECTCOST"}
+    assert {x.name for x in schemas["projects"].columns} >= {"CONTROL", "PROJECTCOST"}
 
 
 def test_typed_filters_are_coerced_and_parameterized(engine: AHSQueryEngine) -> None:

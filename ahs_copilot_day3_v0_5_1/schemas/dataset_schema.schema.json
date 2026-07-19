@@ -1,0 +1,116 @@
+{
+  "$defs": {
+    "ColumnSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "duckdb_type": {
+          "title": "Duckdb Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "duckdb_type"
+      ],
+      "title": "ColumnSchema",
+      "type": "object"
+    },
+    "DatasetSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "logical_dataset": {
+          "title": "Logical Dataset",
+          "type": "string"
+        },
+        "physical_path": {
+          "title": "Physical Path",
+          "type": "string"
+        },
+        "source_file_id": {
+          "title": "Source File Id",
+          "type": "string"
+        },
+        "grain": {
+          "title": "Grain",
+          "type": "string"
+        },
+        "relationship_keys": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Relationship Keys",
+          "type": "array"
+        },
+        "row_identity_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Row Identity Columns",
+          "type": "array"
+        },
+        "declared_primary_key": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Declared Primary Key"
+        },
+        "fixture_used": {
+          "title": "Fixture Used",
+          "type": "boolean"
+        },
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/ColumnSchema"
+          },
+          "title": "Columns",
+          "type": "array"
+        }
+      },
+      "required": [
+        "logical_dataset",
+        "physical_path",
+        "source_file_id",
+        "grain",
+        "relationship_keys",
+        "row_identity_columns",
+        "declared_primary_key",
+        "fixture_used",
+        "columns"
+      ],
+      "title": "DatasetSchema",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "engine_version": {
+      "title": "Engine Version",
+      "type": "string"
+    },
+    "datasets": {
+      "items": {
+        "$ref": "#/$defs/DatasetSchema"
+      },
+      "title": "Datasets",
+      "type": "array"
+    }
+  },
+  "required": [
+    "engine_version",
+    "datasets"
+  ],
+  "title": "SchemaInspection",
+  "type": "object"
+}

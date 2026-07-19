@@ -1,0 +1,157 @@
+{
+  "$defs": {
+    "Condition": {
+      "additionalProperties": false,
+      "properties": {
+        "variable": {
+          "title": "Variable",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "eq",
+            "ne",
+            "gt",
+            "ge",
+            "lt",
+            "le",
+            "in",
+            "not_in",
+            "between",
+            "is_null",
+            "not_null"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "values": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Values"
+        },
+        "lower": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lower"
+        },
+        "upper": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper"
+        }
+      },
+      "required": [
+        "variable",
+        "operator"
+      ],
+      "title": "Condition",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dataset": {
+      "default": "household",
+      "title": "Dataset",
+      "type": "string"
+    },
+    "measure": {
+      "enum": [
+        "count",
+        "percentage",
+        "mean"
+      ],
+      "title": "Measure",
+      "type": "string"
+    },
+    "universe_id": {
+      "title": "Universe Id",
+      "type": "string"
+    },
+    "numerator_conditions": {
+      "items": {
+        "$ref": "#/$defs/Condition"
+      },
+      "title": "Numerator Conditions",
+      "type": "array"
+    },
+    "denominator_conditions": {
+      "items": {
+        "$ref": "#/$defs/Condition"
+      },
+      "title": "Denominator Conditions",
+      "type": "array"
+    },
+    "grouping_dimensions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Grouping Dimensions",
+      "type": "array"
+    },
+    "weight_id": {
+      "default": "final_household_weight",
+      "title": "Weight Id",
+      "type": "string"
+    },
+    "value_variable": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value Variable"
+    },
+    "minimum_unweighted_n": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Minimum Unweighted N"
+    }
+  },
+  "required": [
+    "measure",
+    "universe_id"
+  ],
+  "title": "SurveyEstimateRequest",
+  "type": "object"
+}

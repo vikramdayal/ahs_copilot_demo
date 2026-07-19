@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SourceFileRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_file_id",
+    "logical_dataset",
+    "label",
+    "access_level",
+    "grain",
+    "relationship_keys",
+    "row_identity_columns"
+  ],
+  "properties": {
+    "source_file_id": {
+      "type": "string"
+    },
+    "logical_dataset": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "access_level": {
+      "enum": [
+        "PUF",
+        "IUF"
+      ]
+    },
+    "grain": {
+      "type": "string"
+    },
+    "relationship_keys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "row_identity_columns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "declared_primary_key": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

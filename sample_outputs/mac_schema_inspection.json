@@ -1,0 +1,151 @@
+{
+  "household": {
+    "logical_name": "household",
+    "source_file_id": "source_national_puf_household",
+    "source_name": "National PUF.household",
+    "relation": "household",
+    "grain": "HOUSING_UNIT",
+    "join_keys": [
+      "CONTROL"
+    ],
+    "physical_path": "/Users/vdayal/HUD-demo/ahs_copilot_demo/tests/fixtures/synthetic/household.csv",
+    "synthetic_fixture": true,
+    "columns": [
+      {
+        "name": "CONTROL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "INTSTATUS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TENURE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WEIGHT",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1WEIGHT",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "OMB13CBSA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TOTHCAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HINCP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TOTHCPCT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ADEQUACY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "BLD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIMOVFRC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIWORRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      }
+    ]
+  },
+  "mortgage": {
+    "logical_name": "mortgage",
+    "source_file_id": "source_puf_mortgage",
+    "source_name": "PUF.mortgage",
+    "relation": "mortgage",
+    "grain": "MORTGAGE",
+    "join_keys": [
+      "CONTROL",
+      "MORTLINE"
+    ],
+    "physical_path": "/Users/vdayal/HUD-demo/ahs_copilot_demo/tests/fixtures/synthetic/mortgage.csv",
+    "synthetic_fixture": true,
+    "columns": [
+      {
+        "name": "CONTROL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTLINE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      }
+    ]
+  },
+  "projects": {
+    "logical_name": "projects",
+    "source_file_id": "source_puf_projects",
+    "source_name": "PUF.projects",
+    "relation": "projects",
+    "grain": "PROJECT",
+    "join_keys": [
+      "CONTROL",
+      "PROJECTNO"
+    ],
+    "physical_path": "/Users/vdayal/HUD-demo/ahs_copilot_demo/tests/fixtures/synthetic/projects.csv",
+    "synthetic_fixture": true,
+    "columns": [
+      {
+        "name": "CONTROL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PROJECTNO",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PROJECTCOST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PROJECTTYPE",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      }
+    ]
+  }
+}

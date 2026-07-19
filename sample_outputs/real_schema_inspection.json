@@ -1,0 +1,6205 @@
+{
+  "household": {
+    "logical_name": "household",
+    "source_file_id": "source_national_puf_household",
+    "source_name": "National PUF.household",
+    "relation": "household",
+    "grain": "HOUSING_UNIT",
+    "join_keys": [
+      "CONTROL"
+    ],
+    "physical_path": "/Users/vdayal/Data/AHS-2023/household.csv",
+    "synthetic_fixture": false,
+    "columns": [
+      {
+        "name": "CONTROL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TOTROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PERPOVLVL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JACPRIMARY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JACSECNDRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JADEQUACY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JAIRRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JBATHEXCLU",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JBATHROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JBEDROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JBLD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCELLPHONE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCHEMSTOR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLDCOST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLDEQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLDEQFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLDHTCAP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLDINSUL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLDOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOLDUTIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCONDO",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOOKFUEL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JCOOKTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JDINING",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JDISHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JDISHWASH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JDPGENERT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JDRYER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JDWNPAYPCT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JELECAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JENTRYSYS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JERHEATREL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFINCP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFINROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFIREPLACE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFIRSTHOME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFLOORHOLE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFNDCRUMB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFOUNDTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFRIDGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JFUSEBLOW",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JGARAGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JGASAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JGRANDHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHEATFUEL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHEATTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHADLTKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHAGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHCARE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHCITSHP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHDTHSP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHENROLL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHERRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHFNTVTY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHGEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHGRAD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHHEAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHINUSYR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHLDASTHMA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHLDASTHMAER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHMAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHMEMRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHMNTVTY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHMOVE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHNATVTY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHOLDKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHPRNTHOME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHPRNTPURCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHRACE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHRACEAS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHRACEPI",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHSEE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHSEX",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHSOGIG",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHSOGILGBT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHSOGISO",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHSPAN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHWALK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHHYNGKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIAFFORD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIBEHINDFRQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIEVICLK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIEVICNOTE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIEVICTHT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIHALF",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIHMLESSNESS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHILVEFORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIMORTFORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIMOVFRC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHINCP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHINFORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHINOWHERE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHINUMOVE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIPREVNUM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHISTPAY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHIWORRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHLTHRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHMRACCESS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHMRENEFF",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHMRSALE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOAAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTCLCAP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTCOST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTEQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTEQFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTINSUL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTLEAK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTUTIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOTWATER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHOWBUY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHSHLDTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHUDSUB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JINSURAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JKITCHENS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JKITCHSINK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JKITEXCLU",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLANDLINE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLAUNDY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEADINSP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKI",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKIDK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKIOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKIPIPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKIPLUM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKIWATH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKO",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKOBASE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKOOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKOROOF",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLEAKOWALL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLOTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLOTSIZE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMAINTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMARKETVAL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMGRONSITE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMHANCHOR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMHMOVE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMHWIDE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMILHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOLDBASEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOLDBATH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOLDBEDRM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOLDKITCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOLDLROOM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOLDOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMONLSTOCC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMONOXIDE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMORTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOVDISFIRE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOVDISOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOVFORCE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMOVWHY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMULTIGEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMUST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG1COST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG1LOC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG1PER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG1STAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG1TEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG1TYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG2COST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG2LOC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG2PER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG2STAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG2TEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG2TYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG3COST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG3LOC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG3PER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG3STAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG3TEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMVG3TYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNEARABAND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNEARBARCL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNEARTRASH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNHQPCRIME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNHQPUBTRN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNHQRISK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNHQSCHOOL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNHQSCRIME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNOISE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNOSTEP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNOTOIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNOTOILFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNOWAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNOWATFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNOWIRE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMADULTS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMASTHMAST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMCARE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMELDERS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMERRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMHEAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMMEMRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMNONREL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMOLDKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMPEOPLE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMSECFAM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMSEE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMSUBFAM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMVETS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMWALK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JNUMYNGKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCAPRIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCAUGUST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCDECEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCFEBRU",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCJANUR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCJULY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCJUNE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCMARCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCMAY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCNOVEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCOCTOB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCSEPTEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOCCYRRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOILAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOTHERAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTAGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTAGEFRQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTFLOOD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTFOOD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTLET",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTMED",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTMEDDEV",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTPIPEFZ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTSTAY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOUTWORK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOWNLOT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPAINTPEEL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPARTNER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPERMNEAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPERPOVLVL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPLUGS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPOOLSAFE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPORCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPOVLVLINC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPROTAXAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRADONTEST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRATINGHS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRATINGNH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JREMODAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JREMODJOBS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRENT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRENTCNTRL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRENTSUB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMCHANGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMCOMMUTE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMCOSTS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMFAMILY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMHOME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMHOOD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMJOB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRMOWNHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JROACH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JRODENT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JROOFHOLE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JROOFSAG",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JROOFSHIN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSAFE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSAFEU7KD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSAMESEXHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHFAM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHLIST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHNET",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHPUB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHREA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHSIGN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEARCHSTOP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSECSMK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEWBREAK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEWTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSEWUSERS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSHADEBLK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSHADEUNT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPLEAKS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPLGT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPNZEIN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPNZEOUT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPODOR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPOTHRW",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPPESTS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSLEEPTEMP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSMKR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSMOKALRM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSOGIRESP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSOLAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSPRNKSYSTM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRBRK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRGAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRHND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRLIT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRNAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRSIN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRSLP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAIRSOUT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTAYCOOL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSTORIES",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSUBDIV",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSUITYRRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSUPP1HEAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JSUPP2HEAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JTENURE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JTIMESHARE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JTOTBALAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JTOTHCAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JTOTROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JTRASHAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JUFINROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JUNITFLOORS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JUNITSIZE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JUPKEEP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JUTILAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACANCY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACINHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACINVEST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACMONTHS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACPRIRES",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACREC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACRESDAYS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACRNTDAYS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVACSELL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVENTBATH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JVENTKITC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWALLCRACK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWALLSIDE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWALLSLOPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWASHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWATERAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWATSAFE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWATSOURCE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWINBARS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWINBOARD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWINBROKE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JWORNCORD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JYRBUILT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPTEMP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPLGT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPNZEIN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPNZEOUT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPODOR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPPESTS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPLEAKS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SLEEPOTHRW",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "POOLSAFE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTAGEFRQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "DPGENERT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTAGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTFLOOD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTFOOD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTMED",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTMEDDEV",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTPIPEFZ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTSTAY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTWORK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NOISE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RENT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "BATHEXCLU",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "DISHWASH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SOLAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "GARAGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "DINING",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LAUNDY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NOSTEP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "CONDO",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHFAM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHLIST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHNET",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHPUB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHREA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHSIGN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMCHANGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMCOMMUTE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMCOSTS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMFAMILY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMHOME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMHOOD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMJOB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMOWNHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RMOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HMRACCESS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HMRENEFF",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HMRSALE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RATINGHS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RATINGNH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NHQPCRIME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NHQPUBTRN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NHQRISK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NHQSCHOOL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NHQSCRIME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SUBDIV",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "CHEMSTOR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OUTLET",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SECSMK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SMKR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NOWIRE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TENURE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MHWIDE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "CELLPHONE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LANDLINE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ERHEATREL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SHADEBLK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SHADEUNT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAYCOOL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIEVICLK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HILVEFORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIMOVFRC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HINFORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIAFFORD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIHALF",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HISTPAY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PLUGS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SOGIRESP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PORCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKO",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKI",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NOTOIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PAINTPEEL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOWBUY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCJANUR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCFEBRU",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCMARCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCAPRIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCMAY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCJUNE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCJULY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCAUGUST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCSEPTEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCOCTOB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCNOVEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCDECEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OCCYRRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEADINSP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MONLSTOCC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SUITYRRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TIMESHARE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACRESDAYS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACRNTDAYS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PERMNEAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACPRIRES",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACREC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACINVEST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACSELL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACINHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OWNLOT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RENTCNTRL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RENTSUB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NEARABAND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NEARBARCL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NEARTRASH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "INTLANG",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "OMB13CBSA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "DIVISION",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WEIGHT",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1WEIGHT",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2WEIGHT",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "INTSTATUS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "INTMODE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "INTMONTH",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "BLD",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "ENTRYSYS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHSEX",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHMAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHSPAN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHCITSHP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MILHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHDTHSP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHAGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHMOVE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHINUSYR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHRACE",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "HHRACEAS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHRACEPI",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHGRAD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHNATVTY",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "HHENROLL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PARTNER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SAMESEXHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HSHLDTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMELDERS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMADULTS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMNONREL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHYNGKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHOLDKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMVETS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMYNGKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMOLDKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMSUBFAM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMSECFAM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMPEOPLE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHADLTKIDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "GRANDHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MULTIGEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SAMEHHLD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHFNTVTY",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "HHMNTVTY",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "HHPRNTPURCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHPRNTHOME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHGEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHSOGILGBT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHSOGISO",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHSOGIG",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "UFINROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STORIES",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MHANCHOR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LOTSIZE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FINROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "YRBUILT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FOUNDTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "UNITFLOORS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "UNITSIZE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "BEDROOMS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "KITCHENS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MONOXIDE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SMOKALRM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SPRNKSYSTM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WATSOURCE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEWUSERS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "KITEXCLU",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FRIDGE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "KITCHSINK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WASHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COOKTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COOKFUEL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "DRYER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEWTYPE",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "BATHROOMS",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "HOTWATER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HEATFUEL",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "FIREPLACE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ACPRIMARY",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "ACSECNDRY",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "HEATTYPE",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "SUPP1HEAT",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "SUPP2HEAT",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "HOTEQFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOTEQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOTUTIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOTCLCAP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOTLEAK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOTINSUL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOTCOST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOTOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLDEQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NOWAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLDUTIL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLDHTCAP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLDINSUL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLDCOST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLDOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKOROOF",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKOBASE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKOWALL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKOOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKIPLUM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKIPIPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKIWATH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKIOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LEAKIDK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WALLCRACK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FLOORHOLE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FNDCRUMB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ROOFSHIN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ROOFHOLE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ROOFSAG",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WALLSIDE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WALLSLOPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WINBOARD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WINBROKE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WINBARS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "COLDEQFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NOWATFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NOTOILFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOLDKITCH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOLDBATH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOLDBEDRM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOLDBASEM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOLDLROOM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOLDOTHER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RODENT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ROACH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEWBREAK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FUSEBLOW",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACMONTHS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "DWNPAYPCT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MHMOVE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ELECAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "GASAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OILAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "OTHERAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TRASHAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WATERAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "UTILAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "REMODJOBS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHHEAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHSEE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHMEMRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHWALK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHCARE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHERRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMHEAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMSEE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMMEMRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMWALK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMCARE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMERRND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "DISHH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG1TYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG2TYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG3TYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG1TEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG2TEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG3TEN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG1PER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG2PER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG3PER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG1COST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG2COST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG3COST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG1STAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG2STAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG3STAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG1LOC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG2LOC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MVG3LOC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SEARCHSTOP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOVFORCE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOVWHY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOVDISFIRE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MOVDISOTH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIBEHINDFRQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HINOWHERE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIHMLESSNESS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIPREVNUM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIWORRY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIEVICTHT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIEVICNOTE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HIMORTFORC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MUST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SAFE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HINUMOVE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRBRK",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRLIT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRHND",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRNAR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRSLP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WORNCORD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SAFEU7KD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRSIN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRSOUT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "STAIRGAT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "WATSAFE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "AIRRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "RADONTEST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VENTBATH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VENTKITC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HLTHRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHLDASTHMA",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "NUMASTHMAST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HHLDASTHMAER",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MGRONSITE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "ADEQUACY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "POVLVLINC",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HUDSUB",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "UPKEEP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "SPLITSAMP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "VACANCY",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT1",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT2",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT3",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT4",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT5",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT6",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT7",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT8",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT9",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT10",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT11",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT12",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT13",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT14",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT15",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT16",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT17",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT18",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT19",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT20",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT21",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT22",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT23",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT24",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT25",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT26",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT27",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT28",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT29",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT30",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT31",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT32",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT33",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT34",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT35",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT36",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT37",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT38",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT39",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT40",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT41",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT42",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT43",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT44",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT45",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT46",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT47",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT48",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT49",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT50",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT51",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT52",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT53",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT54",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT55",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT56",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT57",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT58",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT59",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT60",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT61",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT62",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT63",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT64",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT65",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT66",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT67",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT68",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT69",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT70",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT71",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT72",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT73",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT74",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT75",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT76",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT77",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT78",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT79",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT80",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT81",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT82",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT83",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT84",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT85",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT86",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT87",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT88",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT89",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT90",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT91",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT92",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT93",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT94",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT95",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT96",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT97",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT98",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT99",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT100",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT101",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT102",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT103",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT104",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT105",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT106",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT107",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT108",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT109",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT110",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT111",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT112",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT113",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT114",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT115",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT116",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT117",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT118",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT119",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT120",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT121",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT122",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT123",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT124",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT125",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT126",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT127",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT128",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT129",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT130",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT131",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT132",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT133",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT134",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT135",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT136",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT137",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT138",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT139",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT140",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT141",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT142",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT143",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT144",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT145",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT146",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT147",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT148",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT149",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT150",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT151",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT152",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT153",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT154",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT155",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT156",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT157",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT158",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT159",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "REPWEIGHT160",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT1",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT2",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT3",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT4",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT5",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT6",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT7",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT8",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT9",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT10",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT11",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT12",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT13",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT14",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT15",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT16",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT17",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT18",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT19",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT20",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT21",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT22",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT23",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT24",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT25",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT26",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT27",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT28",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT29",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT30",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT31",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT32",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT33",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT34",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT35",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT36",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT37",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT38",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT39",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT40",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT41",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT42",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT43",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT44",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT45",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT46",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT47",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT48",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT49",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT50",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT51",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT52",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT53",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT54",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT55",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT56",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT57",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT58",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT59",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT60",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT61",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT62",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT63",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT64",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT65",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT66",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT67",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT68",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT69",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT70",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT71",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT72",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT73",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT74",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT75",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT76",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT77",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT78",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT79",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT80",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT81",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT82",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT83",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT84",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT85",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT86",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT87",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT88",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT89",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT90",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT91",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT92",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT93",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT94",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT95",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT96",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT97",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT98",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT99",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT100",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT101",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT102",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT103",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT104",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT105",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT106",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT107",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT108",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT109",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT110",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT111",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT112",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT113",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT114",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT115",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT116",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT117",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT118",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT119",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT120",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT121",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT122",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT123",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT124",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT125",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT126",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT127",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT128",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT129",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT130",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT131",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT132",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT133",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT134",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT135",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT136",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT137",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT138",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT139",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT140",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT141",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT142",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT143",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT144",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT145",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT146",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT147",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT148",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT149",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT150",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT151",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT152",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT153",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT154",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT155",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT156",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT157",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT158",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT159",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP1REPWGT160",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT1",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT2",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT3",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT4",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT5",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT6",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT7",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT8",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT9",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT10",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT11",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT12",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT13",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT14",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT15",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT16",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT17",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT18",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT19",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT20",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT21",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT22",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT23",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT24",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT25",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT26",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT27",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT28",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT29",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT30",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT31",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT32",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT33",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT34",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT35",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT36",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT37",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT38",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT39",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT40",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT41",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT42",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT43",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT44",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT45",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT46",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT47",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT48",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT49",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT50",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT51",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT52",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT53",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT54",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT55",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT56",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT57",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT58",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT59",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT60",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT61",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT62",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT63",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT64",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT65",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT66",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT67",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT68",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT69",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT70",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT71",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT72",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT73",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT74",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT75",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT76",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT77",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT78",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT79",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT80",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT81",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT82",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT83",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT84",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT85",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT86",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT87",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT88",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT89",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT90",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT91",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT92",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT93",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT94",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT95",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT96",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT97",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT98",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT99",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT100",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT101",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT102",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT103",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT104",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT105",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT106",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT107",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT108",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT109",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT110",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT111",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT112",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT113",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT114",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT115",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT116",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT117",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT118",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT119",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT120",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT121",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT122",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT123",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT124",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT125",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT126",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT127",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT128",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT129",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT130",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT131",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT132",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT133",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT134",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT135",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT136",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT137",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT138",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT139",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT140",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT141",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT142",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT143",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT144",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT145",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT146",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT147",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT148",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT149",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT150",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT151",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT152",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT153",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT154",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT155",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT156",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT157",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT158",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT159",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "SP2REPWGT160",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      },
+      {
+        "name": "FIRSTHOME",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MARKETVAL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TOTBALAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PROTAXAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "INSURAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HOAAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LOTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MAINTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HINCP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "FINCP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "REMODAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TOTHCAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      }
+    ]
+  },
+  "mortgage": {
+    "logical_name": "mortgage",
+    "source_file_id": "source_puf_mortgage",
+    "source_name": "PUF.mortgage",
+    "relation": "mortgage",
+    "grain": "MORTGAGE",
+    "join_keys": [
+      "CONTROL",
+      "MORTLINE"
+    ],
+    "physical_path": "/Users/vdayal/Data/AHS-2023/mortgage.csv",
+    "synthetic_fixture": false,
+    "columns": [
+      {
+        "name": "CONTROL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JAMMORT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHELOCADD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHELOCBAL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JHELOCLIM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JINTRATE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JLOANTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMISCPMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMORTADDTN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMORTCLASS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMORTLINE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JMORTTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPMTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPMTFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JPMTONLY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JREFI",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JREFICSH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JREFICSHAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JTAXPMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "AMMORT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "REFI",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTCLASS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "TAXPMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PMTONLY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTLINE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "REFICSHAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MORTADDTN",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HELOCLIM",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "REFICSH",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HELOCBAL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "HELOCADD",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PMTFREQ",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "LOANTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "MISCPMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "PMTAMT",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "INTRATE",
+        "duckdb_type": "DOUBLE",
+        "nullable": true
+      }
+    ]
+  },
+  "projects": {
+    "logical_name": "projects",
+    "source_file_id": "source_puf_projects",
+    "source_name": "PUF.projects",
+    "relation": "projects",
+    "grain": "PROJECT",
+    "join_keys": [
+      "CONTROL"
+    ],
+    "physical_path": "/Users/vdayal/Data/AHS-2023/projects.csv",
+    "synthetic_fixture": false,
+    "columns": [
+      {
+        "name": "CONTROL",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JJOBCOMP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JJOBCOMPYR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JJOBCOST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JJOBDIY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JJOBFUNDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JJOBTYPE",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JJOBWORKYR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOBTYPE",
+        "duckdb_type": "VARCHAR",
+        "nullable": true
+      },
+      {
+        "name": "JOBDIY",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOBCOST",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOBCOMP",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOBCOMPYR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOBWORKYR",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      },
+      {
+        "name": "JOBFUNDS",
+        "duckdb_type": "BIGINT",
+        "nullable": true
+      }
+    ]
+  }
+}

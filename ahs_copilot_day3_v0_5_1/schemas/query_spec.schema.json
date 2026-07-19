@@ -1,0 +1,281 @@
+{
+  "$defs": {
+    "AggregateSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "function": {
+          "enum": [
+            "count",
+            "sum",
+            "avg",
+            "min",
+            "max"
+          ],
+          "title": "Function",
+          "type": "string"
+        },
+        "column": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Column"
+        },
+        "alias": {
+          "title": "Alias",
+          "type": "string"
+        },
+        "distinct": {
+          "default": false,
+          "title": "Distinct",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "function",
+        "alias"
+      ],
+      "title": "AggregateSpec",
+      "type": "object"
+    },
+    "FilterSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "column": {
+          "title": "Column",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "eq",
+            "ne",
+            "gt",
+            "ge",
+            "lt",
+            "le",
+            "in",
+            "not_in",
+            "between",
+            "is_null",
+            "not_null"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "values": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Values"
+        },
+        "lower": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lower"
+        },
+        "upper": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper"
+        }
+      },
+      "required": [
+        "column",
+        "operator"
+      ],
+      "title": "FilterSpec",
+      "type": "object"
+    },
+    "JoinSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "relationship_id": {
+          "title": "Relationship Id",
+          "type": "string"
+        },
+        "join_type": {
+          "default": "left",
+          "enum": [
+            "left",
+            "inner"
+          ],
+          "title": "Join Type",
+          "type": "string"
+        },
+        "aggregates": {
+          "items": {
+            "$ref": "#/$defs/AggregateSpec"
+          },
+          "title": "Aggregates",
+          "type": "array"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/FilterSpec"
+          },
+          "title": "Filters",
+          "type": "array"
+        }
+      },
+      "required": [
+        "relationship_id",
+        "aggregates"
+      ],
+      "title": "JoinSpec",
+      "type": "object"
+    },
+    "OrderSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "output": {
+          "title": "Output",
+          "type": "string"
+        },
+        "direction": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "title": "Direction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "output"
+      ],
+      "title": "OrderSpec",
+      "type": "object"
+    },
+    "SelectColumn": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dataset"
+        },
+        "column": {
+          "title": "Column",
+          "type": "string"
+        },
+        "alias": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alias"
+        }
+      },
+      "required": [
+        "column"
+      ],
+      "title": "SelectColumn",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "base_dataset": {
+      "title": "Base Dataset",
+      "type": "string"
+    },
+    "columns": {
+      "items": {
+        "$ref": "#/$defs/SelectColumn"
+      },
+      "title": "Columns",
+      "type": "array"
+    },
+    "aggregates": {
+      "items": {
+        "$ref": "#/$defs/AggregateSpec"
+      },
+      "title": "Aggregates",
+      "type": "array"
+    },
+    "filters": {
+      "items": {
+        "$ref": "#/$defs/FilterSpec"
+      },
+      "title": "Filters",
+      "type": "array"
+    },
+    "joins": {
+      "items": {
+        "$ref": "#/$defs/JoinSpec"
+      },
+      "title": "Joins",
+      "type": "array"
+    },
+    "group_by": {
+      "items": {
+        "$ref": "#/$defs/SelectColumn"
+      },
+      "title": "Group By",
+      "type": "array"
+    },
+    "order_by": {
+      "items": {
+        "$ref": "#/$defs/OrderSpec"
+      },
+      "title": "Order By",
+      "type": "array"
+    },
+    "limit": {
+      "default": 1000,
+      "minimum": 1,
+      "title": "Limit",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "base_dataset"
+  ],
+  "title": "QuerySpec",
+  "type": "object"
+}

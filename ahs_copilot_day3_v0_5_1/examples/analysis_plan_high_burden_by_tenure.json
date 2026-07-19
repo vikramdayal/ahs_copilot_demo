@@ -1,0 +1,38 @@
+{
+  "user_question": "Compare severe housing cost burden by tenure among occupied units.",
+  "dataset": "household",
+  "measure": "percentage",
+  "numerator": [
+    {
+      "variable": "TOTHCPCT",
+      "operator": "gt",
+      "value": 50
+    }
+  ],
+  "denominator": [
+    {
+      "variable": "TOTHCPCT",
+      "operator": "gt",
+      "value": 0
+    }
+  ],
+  "universe": "occupied_housing_units",
+  "filters": [],
+  "grouping_dimensions": [
+    "TENURE"
+  ],
+  "weight": "final_household_weight",
+  "required_variables": [
+    "INTSTATUS",
+    "TOTHCPCT",
+    "TENURE",
+    "WEIGHT"
+  ],
+  "derived_recodes": [
+    "cost_burden_50_v1"
+  ],
+  "validation_checks": [
+    "percentage_between_zero_and_one_hundred"
+  ],
+  "output_format": "json"
+}

@@ -6,18 +6,10 @@
     "sample_scope": "NATIONAL",
     "relation": "household",
     "grain": "HOUSING_UNIT",
-    "join_keys": [
-      "CONTROL"
-    ],
+    "join_keys": ["CONTROL"],
     "parent_source_file_id": null,
-    "aliases": [
-      "household",
-      "national household",
-      "housing unit"
-    ],
-    "notes": [
-      "Parent relation for household-weighted estimates."
-    ],
+    "aliases": ["household", "national household", "housing unit"],
+    "notes": ["Parent relation for household-weighted estimates."],
     "source_locators": []
   },
   {
@@ -27,13 +19,9 @@
     "sample_scope": "METROPOLITAN",
     "relation": "household",
     "grain": "HOUSING_UNIT",
-    "join_keys": [
-      "CONTROL"
-    ],
+    "join_keys": ["CONTROL"],
     "parent_source_file_id": null,
-    "aliases": [
-      "metro household"
-    ],
+    "aliases": ["metro household"],
     "notes": [],
     "source_locators": []
   },
@@ -44,17 +32,10 @@
     "sample_scope": "NATIONAL_OR_METRO",
     "relation": "person",
     "grain": "PERSON",
-    "join_keys": [
-      "CONTROL",
-      "PERSONNO"
-    ],
+    "join_keys": ["CONTROL", "PERSONNO"],
     "parent_source_file_id": "source_national_puf_household",
-    "aliases": [
-      "person"
-    ],
-    "notes": [
-      "One-to-many child relation; aggregate before housing-unit estimation."
-    ],
+    "aliases": ["person"],
+    "notes": ["One-to-many child relation; aggregate before housing-unit estimation."],
     "source_locators": []
   },
   {
@@ -64,17 +45,10 @@
     "sample_scope": "NATIONAL_OR_METRO",
     "relation": "mortgage",
     "grain": "MORTGAGE",
-    "join_keys": [
-      "CONTROL",
-      "MORTLINE"
-    ],
+    "join_keys": ["CONTROL", "MORTLINE"],
     "parent_source_file_id": "source_national_puf_household",
-    "aliases": [
-      "mortgage"
-    ],
-    "notes": [
-      "One-to-many child relation; aggregate before housing-unit estimation."
-    ],
+    "aliases": ["mortgage"],
+    "notes": ["One-to-many child relation; aggregate before housing-unit estimation."],
     "source_locators": []
   },
   {
@@ -84,17 +58,10 @@
     "sample_scope": "NATIONAL_OR_METRO",
     "relation": "projects",
     "grain": "PROJECT",
-    "join_keys": [
-      "CONTROL"
-    ],
+    "join_keys": ["CONTROL", "PROJECTNO"],
     "parent_source_file_id": "source_national_puf_household",
-    "aliases": [
-      "projects",
-      "home improvement projects"
-    ],
-    "notes": [
-      "One-to-many child relation used by Home Improvement Costs."
-    ],
+    "aliases": ["projects", "home improvement projects"],
+    "notes": ["One-to-many child relation used by Home Improvement Costs."],
     "source_locators": []
   },
   {
@@ -104,13 +71,9 @@
     "sample_scope": "STATE_IUF",
     "relation": "household",
     "grain": "HOUSING_UNIT",
-    "join_keys": [
-      "CONTROL"
-    ],
+    "join_keys": ["CONTROL"],
     "parent_source_file_id": null,
-    "aliases": [
-      "internal household"
-    ],
+    "aliases": ["internal household"],
     "notes": [],
     "source_locators": []
   },
@@ -121,14 +84,9 @@
     "sample_scope": "STATE_IUF",
     "relation": "mortgage",
     "grain": "MORTGAGE",
-    "join_keys": [
-      "CONTROL",
-      "MORTLINE"
-    ],
+    "join_keys": ["CONTROL", "MORTLINE"],
     "parent_source_file_id": "source_iuf_household",
-    "aliases": [
-      "internal mortgage"
-    ],
+    "aliases": ["internal mortgage"],
     "notes": [],
     "source_locators": []
   },
@@ -139,14 +97,9 @@
     "sample_scope": "STATE_IUF",
     "relation": "projects",
     "grain": "PROJECT",
-    "join_keys": [
-      "CONTROL",
-      "PROJECTNO"
-    ],
+    "join_keys": ["CONTROL", "PROJECTNO"],
     "parent_source_file_id": "source_iuf_household",
-    "aliases": [
-      "internal projects"
-    ],
+    "aliases": ["internal projects"],
     "notes": [],
     "source_locators": []
   }
