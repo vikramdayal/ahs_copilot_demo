@@ -71,3 +71,12 @@ External model providers can propose broader typed plans, but the deterministic 
 Every completed result must retain its universe, weight, weighted and unweighted denominators, source files, missing-value exclusions, suppression status, generated SQL, and limitations. The current engine does not implement replicate-weight variance estimation, standard errors, confidence intervals, p-values, statistical significance, causal effects, or predictive effects.
 
 Projects retain the durable relationship invariant: `CONTROL` is the only required PUF relationship key, project row identity is optional and unresolved, and project data must be preaggregated to one row per `CONTROL` before any household join.
+
+
+## Comparison workspace
+
+After a baseline analysis completes, the interface exposes a governed comparison workspace. The researcher can change approved geography, tenure, and structure-type selections without rewriting or replanning the research question. Year-built controls appear only when `YRBUILT` is present in the approved executable metadata catalog; otherwise the control is visibly disabled and the application fails closed.
+
+The workspace clones the already validated `AnalysisPlan` and changes only the managed top-level filters for `OMB13CBSA`, `TENURE`, `BLD`, or `YRBUILT`. The original question, dataset, measure, universe, numerator, denominator, weight, grouping dimensions, joins, recodes, validation checks, and output contract remain unchanged. A structural contract fingerprint is checked before execution.
+
+Each modified plan is deterministically revalidated, compiled, executed, checked, and reviewed by the result critic. The planner model is not called again. Identical comparison selections use a stable cache key and reuse the completed comparison result. The workspace displays the filter mutation audit, baseline and comparison fingerprints, generated SQL, result deltas, validation checks, critic decision, trace, and dedicated CSV/JSON downloads.

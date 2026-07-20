@@ -14,8 +14,16 @@ import pandas as pd
 import streamlit as st
 
 from .support import (
+    COMPARISON_DIMENSIONS,
     SUGGESTED_QUESTIONS,
+    TENURE_LABELS,
+    YEAR_BUILT_PRESETS,
     BlockedRequest,
+    approved_catalog_columns,
+    build_comparison_plan,
+    comparison_cache_key,
+    comparison_capabilities,
+    comparison_selections_from_plan,
     format_estimate,
     group_label,
     object_to_json_bytes,
@@ -26,7 +34,7 @@ from .support import (
     to_plain,
 )
 
-APP_VERSION = "0.8.0"
+APP_VERSION = "0.9.0"
 PROVIDER_DEMO = "No-network certified demo"
 PROVIDER_OPENAI = "OpenAI / OpenAI-compatible"
 PROVIDER_ANTHROPIC = "Anthropic"
@@ -159,6 +167,14 @@ def _inject_css() -> None:
           border: 1px solid rgba(240,180,41,.55); border-left: 5px solid var(--ahs-gold);
           background: #fff9e8; border-radius: 14px; padding: 18px 20px; margin: 12px 0;
         }
+        .ahs-comparison {
+          border: 1px solid rgba(0,166,166,.42); border-radius: 16px; padding: 18px 20px;
+          background: linear-gradient(135deg, rgba(235,251,250,.92), rgba(255,255,255,.96));
+          margin: 18px 0; box-shadow: 0 10px 30px rgba(16,42,67,.06);
+        }
+        .ahs-comparison-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 10px; }
+        .ahs-contract-chip { border: 1px solid #cbdbe7; border-radius: 10px; padding: 8px 10px; background: #fff; font-size: .78rem; }
+        .ahs-contract-chip strong { color: #006d72; display: block; margin-bottom: 2px; }
         [data-testid="stMetric"] {
           border: 1px solid #d9e2ec; border-radius: 13px; padding: 13px 14px;
           background: rgba(255,255,255,.9); box-shadow: 0 8px 20px rgba(16,42,67,.05);
@@ -170,7 +186,7 @@ def _inject_css() -> None:
         .stButton > button[kind="primary"] { background: #007f86; border-color: #007f86; }
         div[data-testid="stExpander"] { border: 1px solid #d9e2ec; border-radius: 12px; background: rgba(255,255,255,.85); }
         code { font-size: .82rem !important; }
-        @media (max-width: 760px) { .ahs-stage-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 760px) { .ahs-stage-grid { grid-template-columns: 1fr 1fr; } .ahs-comparison-grid { grid-template-columns: 1fr; } }
         </style>
         """,
         unsafe_allow_html=True,
@@ -407,6 +423,9 @@ def _reset_state() -> None:
         "ahs_question",
         "ahs_stage",
         "revision_feedback",
+        "ahs_comparison_runs",
+        "ahs_active_comparison_key",
+        "ahs_comparison_error",
     ):
         st.session_state.pop(key, None)
 
@@ -478,7 +497,7 @@ def _store_workflow_output(output: Any) -> None:
         st.session_state.pop("ahs_pause", None)
         status = getattr(output, "status", "failed")
         st.session_state["ahs_stage"] = "results" if status == "completed" else status
-        if status in {"completed", "failed", "rejected"}:
+        if status in {"failed", "rejected"}:
             _dispose_runtime()
 
 
@@ -874,7 +893,12 @@ def _render_trace(result: Any) -> None:
             st.info("No audit events were returned.")
 
 
-def _render_downloads(result: Any, records: list[dict[str, Any]]) -> None:
+def _render_downloads(
+    result: Any,
+    records: list[dict[str, Any]],
+    *,
+    file_prefix: str = "ahs_research_copilot",
+) -> None:
     csv_bytes = records_to_csv(records)
     json_bytes = object_to_json_bytes(result)
     col1, col2, col3 = st.columns([1, 1, 2])
@@ -882,7 +906,7 @@ def _render_downloads(result: Any, records: list[dict[str, Any]]) -> None:
         st.download_button(
             "Download CSV",
             data=csv_bytes,
-            file_name="ahs_research_copilot_results.csv",
+            file_name=f"{file_prefix}_results.csv",
             mime="text/csv",
             use_container_width=True,
             disabled=not bool(csv_bytes),
@@ -891,7 +915,7 @@ def _render_downloads(result: Any, records: list[dict[str, Any]]) -> None:
         st.download_button(
             "Download JSON",
             data=json_bytes,
-            file_name="ahs_research_copilot_result.json",
+            file_name=f"{file_prefix}_result.json",
             mime="application/json",
             use_container_width=True,
         )
@@ -899,10 +923,100 @@ def _render_downloads(result: Any, records: list[dict[str, Any]]) -> None:
         st.caption("JSON includes the plan, SQL, execution metadata, critic report, and audit events.")
 
 
-def _render_result() -> None:
-    result = st.session_state.get("ahs_result")
-    if result is None:
-        return
+
+def _validated_plan_parts(result: Any) -> tuple[Any | None, str]:
+    validated = getattr(result, "validated_plan", None)
+    if validated is not None:
+        return getattr(validated, "plan", None), str(getattr(validated, "plan_fingerprint", ""))
+    return getattr(result, "plan", None), ""
+
+
+def _comparison_catalog_path() -> str:
+    return str(Path("metadata/semantic_catalog.json"))
+
+
+def _run_comparison_plan(base_result: Any, mutation: Any) -> None:
+    runtime: RuntimeBundle | None = st.session_state.get("ahs_runtime")
+    if runtime is None:
+        raise RuntimeError(
+            "The deterministic runtime is no longer available. Re-run the approved analysis "
+            "before starting a comparison."
+        )
+    domain = _import_domain()
+    plan = domain["AnalysisPlan"].model_validate(mutation.plan)
+    planner = domain["MockAnalysisPlanModel"]([plan], repeat_last=True)
+    workflow = domain["AHSAgentWorkflow"](planner, runtime.workflow.service)
+    _, base_fingerprint = _validated_plan_parts(base_result)
+    request = domain["AgentWorkflowRequest"](
+        question=plan.user_question,
+        context={
+            "channel": "streamlit_comparison_workspace",
+            "interface_version": APP_VERSION,
+            "descriptive_only": True,
+            "reused_validated_plan": True,
+            "base_plan_fingerprint": base_fingerprint,
+            "changed_filter_columns": list(mutation.changed_columns),
+            "model_planning_skipped": True,
+        },
+        approval_mode="auto_approve",
+        max_plan_attempts=1,
+        result_critic=domain["ResultCriticConfig"](max_reexecutions=1),
+    )
+    key = comparison_cache_key(base_fingerprint, mutation.selections)
+    cache = st.session_state.setdefault("ahs_comparison_runs", {})
+    if key not in cache:
+        output = workflow.invoke(request, thread_id=f"streamlit-comparison-{uuid4()}")
+        cache[key] = {"result": output, "mutation": mutation}
+    st.session_state["ahs_active_comparison_key"] = key
+    st.session_state.pop("ahs_comparison_error", None)
+
+
+def _comparison_delta_frame(base_result: Any, comparison_result: Any) -> pd.DataFrame:
+    base_payload = _result_payload(base_result)
+    comparison_payload = _result_payload(comparison_result)
+    base_records = result_records(base_payload) if base_payload is not None else []
+    comparison_records = result_records(comparison_payload) if comparison_payload is not None else []
+    if not base_records and not comparison_records:
+        return pd.DataFrame()
+    metric_columns = {
+        "estimate",
+        "weighted_numerator",
+        "weighted_denominator",
+        "unweighted_numerator",
+        "unweighted_denominator",
+        "missing_value_rows_excluded",
+        "suppressed",
+        "suppression_reasons",
+    }
+    all_columns = set().union(*(record.keys() for record in base_records + comparison_records))
+    keys = [column for column in all_columns if column not in metric_columns]
+    base_frame = pd.DataFrame(base_records)
+    comparison_frame = pd.DataFrame(comparison_records)
+    for frame in (base_frame, comparison_frame):
+        for key in keys:
+            if key not in frame:
+                frame[key] = None
+    base_keep = keys + ["estimate", "unweighted_denominator", "weighted_denominator"]
+    comparison_keep = keys + ["estimate", "unweighted_denominator", "weighted_denominator"]
+    merged = base_frame[base_keep].merge(
+        comparison_frame[comparison_keep],
+        on=keys,
+        how="outer",
+        suffixes=("_baseline", "_comparison"),
+    )
+    merged["estimate_baseline"] = pd.to_numeric(merged["estimate_baseline"], errors="coerce")
+    merged["estimate_comparison"] = pd.to_numeric(merged["estimate_comparison"], errors="coerce")
+    merged["estimate_change"] = merged["estimate_comparison"] - merged["estimate_baseline"]
+    return merged
+
+
+def _render_result_view(
+    result: Any,
+    *,
+    heading: str,
+    file_prefix: str,
+    include_workspace: bool = False,
+) -> None:
     status = getattr(result, "status", "failed")
     if status != "completed":
         error = getattr(result, "error", None)
@@ -919,7 +1033,7 @@ def _render_result() -> None:
         st.error("The workflow completed without an execution result.")
         return
     records = result_records(payload)
-    st.markdown('<div class="ahs-section-title">Survey-weighted results</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="ahs-section-title">{html.escape(heading)}</div>', unsafe_allow_html=True)
     _render_result_banners(result, payload, records)
     _render_run_metrics(result, payload, records)
     _render_estimate_metrics(payload)
@@ -929,8 +1043,181 @@ def _render_result() -> None:
     _render_sources_and_filters(result, payload)
     _render_sql(result, payload)
     _render_trace(result)
-    _render_downloads(result, records)
+    _render_downloads(result, records, file_prefix=file_prefix)
 
+
+def _render_comparison_workspace(base_result: Any) -> None:
+    base_plan, base_fingerprint = _validated_plan_parts(base_result)
+    if base_plan is None or not base_fingerprint:
+        return
+    catalog_path = _comparison_catalog_path()
+    if not Path(catalog_path).exists():
+        st.warning("Comparison workspace unavailable: executable semantic catalog was not found.")
+        return
+    capabilities = comparison_capabilities(base_plan, catalog_path)
+    approved = approved_catalog_columns(catalog_path, dataset=str(getattr(base_plan, "dataset", "household")))
+    current = comparison_selections_from_plan(base_plan)
+
+    st.markdown(
+        """
+        <div class="ahs-comparison">
+          <div class="ahs-plan-label">COMPARISON WORKSPACE · FILTER-ONLY REPLAY</div>
+          <div class="ahs-plan-title">Change comparison dimensions without rewriting the research question</div>
+          <p>The approved measure, universe, denominator, weight, joins, recodes, grouping dimensions,
+          and output contract remain fixed. Only approved top-level filters and their required-variable
+          closure may change.</p>
+          <div class="ahs-comparison-grid">
+            <div class="ahs-contract-chip"><strong>Question</strong>Preserved verbatim</div>
+            <div class="ahs-contract-chip"><strong>Planner</strong>Not called again</div>
+            <div class="ahs-contract-chip"><strong>Execution</strong>Revalidated, recompiled, rechecked</div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    geography_default = ", ".join(str(item) for item in current["geography"])
+    structure_default = ", ".join(str(item) for item in current["structure_type"])
+    year_enabled = bool(capabilities["year_built"]["enabled"])
+    with st.form(f"comparison-workspace-{base_fingerprint[:12]}", clear_on_submit=False):
+        col1, col2 = st.columns(2)
+        with col1:
+            geography = st.text_input(
+                "Geography codes",
+                value=geography_default,
+                placeholder="Example: 35620, 33100",
+                disabled=not capabilities["geography"]["enabled"],
+                help=(
+                    "Enter raw approved OMB13CBSA integer codes. The interface does not invent city or metro labels."
+                ),
+            )
+            tenure = st.multiselect(
+                "Tenure",
+                options=list(TENURE_LABELS),
+                default=current["tenure"],
+                format_func=lambda value: f"{value} · {TENURE_LABELS[value]}",
+                disabled=not capabilities["tenure"]["enabled"],
+            )
+        with col2:
+            structure = st.text_input(
+                "Structure-type codes",
+                value=structure_default,
+                placeholder="Comma-separated raw BLD codes",
+                disabled=not capabilities["structure_type"]["enabled"],
+                help="Raw BLD codes are used unless certified labels are present in metadata.",
+            )
+            year_options = list(YEAR_BUILT_PRESETS) + ["Custom range"]
+            year_choice = st.selectbox(
+                "Year-built group",
+                year_options,
+                disabled=not year_enabled,
+                help="This control is enabled only when YRBUILT is approved in the executable catalog.",
+            )
+        year_min: int | None = None
+        year_max: int | None = None
+        if year_enabled:
+            if year_choice == "Custom range":
+                year_col1, year_col2 = st.columns(2)
+                with year_col1:
+                    year_min_value = st.number_input("Minimum year", min_value=1600, max_value=2023, value=1980)
+                with year_col2:
+                    year_max_value = st.number_input("Maximum year", min_value=1600, max_value=2023, value=2023)
+                year_min, year_max = int(year_min_value), int(year_max_value)
+            else:
+                year_min, year_max = YEAR_BUILT_PRESETS[year_choice]
+        else:
+            st.info(capabilities["year_built"]["reason"] + " The control is disabled rather than inferred.")
+
+        run_comparison = st.form_submit_button(
+            "Apply filters and rerun",
+            type="primary",
+            use_container_width=True,
+        )
+
+    if run_comparison:
+        try:
+            mutation = build_comparison_plan(
+                base_plan,
+                {
+                    "geography": geography,
+                    "tenure": tenure,
+                    "structure_type": structure,
+                    "year_built": {"min": year_min, "max": year_max},
+                },
+                approved_columns=approved,
+            )
+            if not mutation.changed_columns:
+                st.info("The selected filters match the approved baseline plan; no rerun was needed.")
+            else:
+                with st.spinner("Revalidating the filter-only plan and regenerating deterministic results…"):
+                    _run_comparison_plan(base_result, mutation)
+                st.rerun()
+        except Exception as exc:
+            st.session_state["ahs_comparison_error"] = {
+                "message": str(exc),
+                "traceback": traceback.format_exc(),
+            }
+            st.rerun()
+
+    comparison_error = st.session_state.get("ahs_comparison_error")
+    if comparison_error:
+        st.error(comparison_error["message"])
+        with st.expander("Comparison technical details", expanded=False):
+            st.code(comparison_error.get("traceback", ""), language="text")
+
+    cache = st.session_state.get("ahs_comparison_runs", {})
+    active_key = st.session_state.get("ahs_active_comparison_key")
+    active = cache.get(active_key) if active_key else None
+    if active is None:
+        return
+    comparison_result = active["result"]
+    mutation = active["mutation"]
+    st.success(
+        "Comparison executed from the approved plan. Changed filters: "
+        + ", ".join(mutation.changed_columns)
+        + ". The original question and statistical contract were preserved."
+    )
+    summary_cols = st.columns(3)
+    summary_cols[0].metric("Base plan", base_fingerprint[:12])
+    comparison_plan, comparison_fingerprint = _validated_plan_parts(comparison_result)
+    summary_cols[1].metric("Comparison plan", comparison_fingerprint[:12] or "failed")
+    summary_cols[2].metric("Contract preserved", "YES" if mutation.contract_preserved else "NO")
+    with st.expander("Filter mutation audit", expanded=True):
+        st.json(
+            {
+                "question_unchanged": to_plain(comparison_plan).get("user_question")
+                == to_plain(base_plan).get("user_question") if comparison_plan is not None else False,
+                "changed_filter_columns": list(mutation.changed_columns),
+                "selections": mutation.selections,
+                "base_contract_fingerprint": mutation.base_contract_fingerprint,
+                "modified_contract_fingerprint": mutation.modified_contract_fingerprint,
+            },
+            expanded=2,
+        )
+    delta = _comparison_delta_frame(base_result, comparison_result)
+    if not delta.empty:
+        st.markdown("#### Baseline-to-comparison change")
+        st.dataframe(delta, use_container_width=True, hide_index=True)
+    with st.expander("Modified comparison result", expanded=True):
+        _render_result_view(
+            comparison_result,
+            heading="Filtered survey-weighted result",
+            file_prefix="ahs_research_copilot_comparison",
+        )
+
+
+def _render_result() -> None:
+    result = st.session_state.get("ahs_result")
+    if result is None:
+        return
+    if getattr(result, "status", "failed") == "completed":
+        _render_comparison_workspace(result)
+        st.divider()
+    _render_result_view(
+        result,
+        heading="Baseline survey-weighted results",
+        file_prefix="ahs_research_copilot",
+    )
 
 def _render_error() -> None:
     error = st.session_state.get("ahs_error")

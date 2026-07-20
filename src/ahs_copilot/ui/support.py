@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import copy
 import csv
+import hashlib
 import io
 import json
 from dataclasses import asdict, dataclass
@@ -317,3 +319,311 @@ def plan_summary(plan: Any) -> dict[str, Any]:
         "required_variables": payload.get("required_variables", []),
         "joins": payload.get("joins", []),
     }
+
+
+COMPARISON_DIMENSIONS: dict[str, dict[str, str]] = {
+    "geography": {
+        "column": "OMB13CBSA",
+        "label": "Geography (raw OMB13CBSA code)",
+    },
+    "tenure": {
+        "column": "TENURE",
+        "label": "Tenure",
+    },
+    "structure_type": {
+        "column": "BLD",
+        "label": "Structure type (raw BLD code)",
+    },
+    "year_built": {
+        "column": "YRBUILT",
+        "label": "Year-built group",
+    },
+}
+
+TENURE_LABELS: dict[int, str] = {
+    1: "Owner occupied",
+    2: "Renter occupied",
+    3: "Occupied without payment",
+}
+
+YEAR_BUILT_PRESETS: dict[str, tuple[int | None, int | None]] = {
+    "All approved years": (None, None),
+    "2010 or later": (2010, None),
+    "2000–2009": (2000, 2009),
+    "1990–1999": (1990, 1999),
+    "1980–1989": (1980, 1989),
+    "1960–1979": (1960, 1979),
+    "Before 1960": (None, 1959),
+}
+
+
+@dataclass(frozen=True)
+class ComparisonPlanMutation:
+    """Filter-only clone of an already approved AnalysisPlan."""
+
+    plan: dict[str, Any]
+    changed_columns: tuple[str, ...]
+    selections: dict[str, Any]
+    base_contract_fingerprint: str
+    modified_contract_fingerprint: str
+
+    @property
+    def contract_preserved(self) -> bool:
+        return self.base_contract_fingerprint == self.modified_contract_fingerprint
+
+
+def _catalog_payload(catalog: Mapping[str, Any] | str | None) -> Mapping[str, Any]:
+    if catalog is None:
+        return {}
+    if isinstance(catalog, Mapping):
+        return catalog
+    with open(catalog, encoding="utf-8") as handle:
+        payload = json.load(handle)
+    if not isinstance(payload, Mapping):
+        raise ValueError("Semantic catalog must contain a JSON object")
+    return payload
+
+
+def approved_catalog_columns(
+    catalog: Mapping[str, Any] | str | None,
+    *,
+    dataset: str = "household",
+) -> set[str]:
+    """Return executable PUF variable names without inferring missing metadata."""
+
+    payload = _catalog_payload(catalog)
+    approved: set[str] = set()
+    for item in payload.get("variables", []) or []:
+        if not isinstance(item, Mapping):
+            continue
+        if str(item.get("dataset", "")).lower() != dataset.lower():
+            continue
+        if str(item.get("access_level", "")).upper() != "PUF":
+            continue
+        name = str(item.get("name", "")).upper()
+        if name:
+            approved.add(name)
+    return approved
+
+
+def comparison_capabilities(
+    plan: Any,
+    catalog: Mapping[str, Any] | str | None,
+) -> dict[str, dict[str, Any]]:
+    payload = to_plain(plan)
+    dataset = str(payload.get("dataset") or "household")
+    approved = approved_catalog_columns(catalog, dataset=dataset)
+    result: dict[str, dict[str, Any]] = {}
+    for dimension_id, spec in COMPARISON_DIMENSIONS.items():
+        column = spec["column"]
+        result[dimension_id] = {
+            **spec,
+            "enabled": column.upper() in approved,
+            "reason": (
+                None
+                if column.upper() in approved
+                else f"{column} is not approved in the executable {dataset} catalog."
+            ),
+        }
+    return result
+
+
+def parse_integer_codes(value: str | Iterable[Any] | None) -> list[int]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        tokens = [item.strip() for item in value.split(",") if item.strip()]
+    else:
+        tokens = list(value)
+    codes: list[int] = []
+    for token in tokens:
+        try:
+            code = int(token)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"Comparison codes must be integers; received {token!r}.") from exc
+        if code not in codes:
+            codes.append(code)
+    return codes
+
+
+def _comparison_contract_payload(plan: Any) -> dict[str, Any]:
+    """Remove only workspace-managed filters and their required-variable closure."""
+
+    payload = copy.deepcopy(to_plain(plan))
+    managed = {item["column"] for item in COMPARISON_DIMENSIONS.values()}
+    payload["filters"] = [
+        item
+        for item in payload.get("filters", [])
+        if str((item.get("column") or {}).get("column", "")).upper() not in managed
+    ]
+    payload["required_variables"] = [
+        item
+        for item in payload.get("required_variables", [])
+        if str(item.get("column", "")).upper() not in managed
+    ]
+    return payload
+
+
+def comparison_contract_fingerprint(plan: Any) -> str:
+    canonical = json.dumps(
+        _comparison_contract_payload(plan),
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def comparison_cache_key(base_plan_fingerprint: str, selections: Mapping[str, Any]) -> str:
+    canonical = json.dumps(
+        {"base_plan_fingerprint": base_plan_fingerprint, "selections": to_plain(selections)},
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def _managed_filter_signature(filters: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
+    managed = {item["column"] for item in COMPARISON_DIMENSIONS.values()}
+    result: dict[str, Any] = {}
+    for item in filters:
+        column = str((item.get("column") or {}).get("column", "")).upper()
+        if column in managed:
+            result[column] = {
+                "operator": item.get("operator"),
+                "value": to_plain(item.get("value")),
+            }
+    return result
+
+
+def build_comparison_plan(
+    base_plan: Any,
+    selections: Mapping[str, Any],
+    *,
+    approved_columns: set[str] | None = None,
+) -> ComparisonPlanMutation:
+    """Clone a validated plan and replace only approved top-level comparison filters.
+
+    The user question, measure, numerator, denominator, universe, weight, joins,
+    recodes, grouping dimensions, output contract, and validation checks are kept
+    byte-for-byte equivalent after canonical serialization.
+    """
+
+    base = copy.deepcopy(to_plain(base_plan))
+    if not isinstance(base, dict):
+        raise TypeError("base_plan must serialize to a mapping")
+    approved = {item.upper() for item in approved_columns} if approved_columns is not None else None
+    existing_filters = list(base.get("filters", []) or [])
+    managed_columns = {item["column"] for item in COMPARISON_DIMENSIONS.values()}
+    preserved_filters = [
+        item
+        for item in existing_filters
+        if str((item.get("column") or {}).get("column", "")).upper() not in managed_columns
+    ]
+    replacement_filters: list[dict[str, Any]] = []
+    normalized: dict[str, Any] = {}
+
+    for dimension_id in ("geography", "tenure", "structure_type"):
+        column = COMPARISON_DIMENSIONS[dimension_id]["column"]
+        codes = parse_integer_codes(selections.get(dimension_id))
+        normalized[dimension_id] = codes
+        if not codes:
+            continue
+        if approved is not None and column.upper() not in approved:
+            raise ValueError(f"{column} is not approved in the executable catalog.")
+        replacement_filters.append(typed_filter(column, "in", codes, str(base.get("dataset", "household"))))
+
+    year_selection = selections.get("year_built") or {}
+    if not isinstance(year_selection, Mapping):
+        raise ValueError("year_built selection must be an object containing min and max")
+    minimum = year_selection.get("min")
+    maximum = year_selection.get("max")
+    minimum = int(minimum) if minimum not in (None, "") else None
+    maximum = int(maximum) if maximum not in (None, "") else None
+    if minimum is not None and maximum is not None and minimum > maximum:
+        raise ValueError("Year-built minimum cannot exceed maximum.")
+    normalized["year_built"] = {"min": minimum, "max": maximum}
+    if minimum is not None or maximum is not None:
+        column = COMPARISON_DIMENSIONS["year_built"]["column"]
+        if approved is not None and column.upper() not in approved:
+            raise ValueError(f"{column} is not approved in the executable catalog.")
+        if minimum is not None and maximum is not None:
+            replacement_filters.append(
+                typed_filter(column, "between", [minimum, maximum], str(base.get("dataset", "household")))
+            )
+        elif minimum is not None:
+            replacement_filters.append(
+                typed_filter(column, "ge", minimum, str(base.get("dataset", "household")))
+            )
+        else:
+            replacement_filters.append(
+                typed_filter(column, "le", maximum, str(base.get("dataset", "household")))
+            )
+
+    modified = copy.deepcopy(base)
+    modified["filters"] = preserved_filters + replacement_filters
+    required = list(modified.get("required_variables", []) or [])
+    seen = {
+        (str(item.get("dataset", "")).lower(), str(item.get("column", "")).upper())
+        for item in required
+    }
+    for item in replacement_filters:
+        qcolumn = item["column"]
+        key = (str(qcolumn["dataset"]).lower(), str(qcolumn["column"]).upper())
+        if key not in seen:
+            required.append(qcolumn)
+            seen.add(key)
+    modified["required_variables"] = required
+
+    before = _managed_filter_signature(existing_filters)
+    after = _managed_filter_signature(modified["filters"])
+    changed_columns = tuple(sorted(set(before) | set(after), key=str))
+    changed_columns = tuple(column for column in changed_columns if before.get(column) != after.get(column))
+    mutation = ComparisonPlanMutation(
+        plan=modified,
+        changed_columns=changed_columns,
+        selections=normalized,
+        base_contract_fingerprint=comparison_contract_fingerprint(base),
+        modified_contract_fingerprint=comparison_contract_fingerprint(modified),
+    )
+    if not mutation.contract_preserved:
+        raise AssertionError("Comparison mutation changed the approved analysis contract.")
+    if modified.get("user_question") != base.get("user_question"):
+        raise AssertionError("Comparison mutation changed the original research question.")
+    return mutation
+
+
+def comparison_selections_from_plan(plan: Any) -> dict[str, Any]:
+    """Extract workspace selections from an existing plan's managed filters."""
+
+    payload = to_plain(plan)
+    by_column = {
+        spec["column"]: dimension_id for dimension_id, spec in COMPARISON_DIMENSIONS.items()
+    }
+    selections: dict[str, Any] = {
+        "geography": [],
+        "tenure": [],
+        "structure_type": [],
+        "year_built": {"min": None, "max": None},
+    }
+    for item in payload.get("filters", []) or []:
+        column = str((item.get("column") or {}).get("column", "")).upper()
+        dimension_id = by_column.get(column)
+        if dimension_id is None:
+            continue
+        operator = item.get("operator")
+        value = item.get("value")
+        if dimension_id != "year_built":
+            if operator == "eq":
+                selections[dimension_id] = parse_integer_codes([value])
+            elif operator == "in":
+                selections[dimension_id] = parse_integer_codes(value)
+            continue
+        if operator == "between" and isinstance(value, list) and len(value) == 2:
+            selections["year_built"] = {"min": int(value[0]), "max": int(value[1])}
+        elif operator == "ge":
+            selections["year_built"]["min"] = int(value)
+        elif operator == "le":
+            selections["year_built"]["max"] = int(value)
+        elif operator == "eq":
+            selections["year_built"] = {"min": int(value), "max": int(value)}
+    return selections

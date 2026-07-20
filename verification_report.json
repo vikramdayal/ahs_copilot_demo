@@ -1,0 +1,37 @@
+{
+  "version": "0.9.0",
+  "changed_files": [
+    "pyproject.toml",
+    "src/ahs_copilot/ui/support.py",
+    "src/ahs_copilot/ui/app.py",
+    "tests/test_ui_support.py",
+    "docs/streamlit_app.md",
+    "changed_files.txt"
+  ],
+  "verification": {
+    "compileall": "passed",
+    "pytest": {
+      "passed": 58,
+      "failed": 0
+    },
+    "streamlit_app_test": "passed; no exceptions",
+    "comparison_replay": {
+      "status": "completed",
+      "managed_columns_changed": [
+        "OMB13CBSA",
+        "TENURE",
+        "BLD"
+      ],
+      "question_preserved": true,
+      "analysis_contract_preserved": true,
+      "planner_model_reinvoked": false,
+      "validation_checks": "passed",
+      "result_critic": "approved"
+    }
+  },
+  "drive_write": {
+    "status": "not_written",
+    "reason": "Google Drive raw file replacement returned HTTP 407 Request rejected by proxy.",
+    "partial_changes_left_in_drive": false
+  }
+}

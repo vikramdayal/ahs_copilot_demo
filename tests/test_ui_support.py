@@ -5,6 +5,11 @@ from decimal import Decimal
 
 from ahs_copilot.ui.support import (
     BlockedRequest,
+    approved_catalog_columns,
+    build_comparison_plan,
+    comparison_cache_key,
+    comparison_capabilities,
+    comparison_selections_from_plan,
     SUGGESTED_QUESTIONS,
     format_estimate,
     insecurity_descriptive_plan,
@@ -88,3 +93,95 @@ def test_metric_formatting() -> None:
     assert format_estimate("12.34", "weighted_percentage") == "12.3%"
     assert format_estimate("1234.4", "weighted_count") == "1,234"
     assert format_estimate(None, "weighted_count") == "Suppressed / unavailable"
+
+
+
+def test_comparison_plan_changes_only_managed_filters() -> None:
+    base = quality_by_tenure_structure_plan(
+        "Compare housing-quality problems by tenure and structure type."
+    )
+    base["filters"] = [
+        {"column": {"dataset": "household", "column": "ADEQUACY"}, "operator": "in", "value": [1, 2]}
+    ]
+    mutation = build_comparison_plan(
+        base,
+        {
+            "geography": [35620, 33100],
+            "tenure": [2],
+            "structure_type": [2, 3],
+            "year_built": {"min": None, "max": None},
+        },
+        approved_columns={"ADEQUACY", "OMB13CBSA", "TENURE", "BLD"},
+    )
+    assert mutation.contract_preserved
+    assert mutation.plan["user_question"] == base["user_question"]
+    assert mutation.plan["measure"] == base["measure"]
+    assert mutation.plan["universe"] == base["universe"]
+    assert mutation.plan["weight"] == base["weight"]
+    assert set(mutation.changed_columns) == {"BLD", "OMB13CBSA", "TENURE"}
+    filters = {
+        item["column"]["column"]: item for item in mutation.plan["filters"]
+    }
+    assert filters["ADEQUACY"]["value"] == [1, 2]
+    assert filters["OMB13CBSA"]["operator"] == "in"
+    assert filters["OMB13CBSA"]["value"] == [35620, 33100]
+    assert filters["TENURE"]["value"] == [2]
+    assert filters["BLD"]["value"] == [2, 3]
+    assert "sql" not in mutation.plan
+
+
+def test_comparison_plan_rejects_unapproved_year_built() -> None:
+    base = quality_by_tenure_structure_plan("Housing quality comparison")
+    try:
+        build_comparison_plan(
+            base,
+            {
+                "geography": [],
+                "tenure": [],
+                "structure_type": [],
+                "year_built": {"min": 2000, "max": 2009},
+            },
+            approved_columns={"TENURE", "BLD"},
+        )
+    except ValueError as exc:
+        assert "YRBUILT" in str(exc)
+    else:
+        raise AssertionError("Unapproved YRBUILT filter should fail closed")
+
+
+def test_comparison_capabilities_are_catalog_driven() -> None:
+    base = quality_by_tenure_structure_plan("Housing quality comparison")
+    catalog = {
+        "variables": [
+            {"dataset": "household", "name": "TENURE", "access_level": "PUF"},
+            {"dataset": "household", "name": "BLD", "access_level": "PUF"},
+            {"dataset": "household", "name": "OMB13CBSA", "access_level": "PUF"},
+            {"dataset": "household", "name": "YRBUILT", "access_level": "IUF"},
+        ]
+    }
+    assert approved_catalog_columns(catalog) == {"TENURE", "BLD", "OMB13CBSA"}
+    capabilities = comparison_capabilities(base, catalog)
+    assert capabilities["geography"]["enabled"] is True
+    assert capabilities["tenure"]["enabled"] is True
+    assert capabilities["structure_type"]["enabled"] is True
+    assert capabilities["year_built"]["enabled"] is False
+
+
+def test_comparison_selections_round_trip_and_cache_key_is_stable() -> None:
+    base = quality_by_tenure_structure_plan("Housing quality comparison")
+    mutation = build_comparison_plan(
+        base,
+        {
+            "geography": "35620, 33100, 35620",
+            "tenure": [2],
+            "structure_type": [],
+            "year_built": {"min": None, "max": None},
+        },
+        approved_columns={"OMB13CBSA", "TENURE", "BLD"},
+    )
+    extracted = comparison_selections_from_plan(mutation.plan)
+    assert extracted["geography"] == [35620, 33100]
+    assert extracted["tenure"] == [2]
+    key1 = comparison_cache_key("base-fingerprint", mutation.selections)
+    key2 = comparison_cache_key("base-fingerprint", dict(reversed(list(mutation.selections.items()))))
+    assert key1 == key2
