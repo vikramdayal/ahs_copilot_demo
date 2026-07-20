@@ -1,0 +1,83 @@
+name: ci
+
+on:
+  push:
+    branches: [main, chat_gpt_branch]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install -e '.[dev,ui]'
+          python -m pip check
+      - name: Static startup checks
+        run: |
+          python -m compileall -q src tests scripts
+          bash -n scripts/start.sh scripts/docker-doctor.sh
+      - name: Test
+        run: python -m pytest -q
+      - name: Evaluation CLI smoke test
+        run: |
+          mkdir -p sample_outputs
+          ahs-eval \
+            --evaluation-set evaluation/example_refusal_eval.json \
+            --responses evaluation/example_refusal_response.json \
+            --output sample_outputs/example_refusal_report.json
+
+  docker-sample:
+    name: Docker sample smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare environment
+        run: cp .env.example .env
+      - name: Validate Compose
+        run: docker compose config --quiet
+      - name: Build and start sample service
+        run: docker compose --profile sample up --build -d
+      - name: Wait for healthy service
+        shell: bash
+        run: |
+          set -euo pipefail
+          container_id="$(docker compose --profile sample ps -q ahs-sample)"
+          test -n "$container_id"
+          for attempt in $(seq 1 36); do
+            status="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "$container_id")"
+            if [[ "$status" == "healthy" ]]; then
+              curl --fail --silent http://127.0.0.1:8501/_stcore/health
+              exit 0
+            fi
+            if [[ "$status" == "unhealthy" || "$status" == "exited" || "$status" == "dead" ]]; then
+              docker compose --profile sample logs --no-color ahs-sample
+              exit 1
+            fi
+            sleep 5
+          done
+          docker compose --profile sample logs --no-color ahs-sample
+          exit 1
+      - name: Logs
+        if: always()
+        run: docker compose --profile sample logs --no-color ahs-sample || true
+      - name: Cleanup
+        if: always()
+        run: docker compose --profile sample down --remove-orphans --volumes || true
