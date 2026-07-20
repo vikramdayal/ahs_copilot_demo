@@ -1,0 +1,52 @@
+name: ahs-copilot
+
+x-ahs-common: &ahs-common
+  build:
+    context: .
+    args:
+      AHS_MODEL_EXTRAS: ${AHS_MODEL_EXTRAS:-ui,model-openai,model-anthropic,model-bedrock}
+  image: ahs-copilot:${AHS_IMAGE_TAG:-local}
+  init: true
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=2g,mode=1777
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+  env_file:
+    - path: ${AHS_ENV_FILE:-.env}
+      required: false
+  healthcheck:
+    test: ["CMD", "python", "/app/scripts/healthcheck.py"]
+    interval: 30s
+    timeout: 5s
+    start_period: 30s
+    retries: 3
+
+services:
+  ahs-sample:
+    <<: *ahs-common
+    profiles: ["sample"]
+    environment:
+      AHS_DATA_MODE: sample
+      AHS_CONFIG_PATH: /app/config/ahs_engine.toml
+      PORT: 8501
+    ports:
+      - "${AHS_SAMPLE_PORT:-8501}:8501"
+    volumes:
+      - ./config/docker.sample.toml:/app/config/ahs_engine.toml:ro
+
+  ahs-production:
+    <<: *ahs-common
+    profiles: ["production"]
+    environment:
+      AHS_DATA_MODE: production
+      AHS_CONFIG_PATH: /app/config/ahs_engine.toml
+      PORT: 8501
+    ports:
+      - "${AHS_PRODUCTION_PORT:-8501}:8501"
+    volumes:
+      - ./config/docker.production.toml:/app/config/ahs_engine.toml:ro
+      - ${AHS_DATA_DIR:-./data}:/data/ahs:ro

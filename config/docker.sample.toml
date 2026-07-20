@@ -1,0 +1,47 @@
+[engine]
+database = ":memory:"
+memory_limit = "1GB"
+temp_directory = "/tmp/ahs-duckdb"
+threads = 4
+max_result_rows = 10000
+preserve_insertion_order = false
+
+[metadata]
+source_files = "../metadata/source_files.json"
+execution_catalog = "../metadata/execution_catalog.json"
+semantic_catalog = "../metadata/semantic_catalog.json"
+
+[fixture]
+# Docker sample mode is deterministic and never falls through to production files.
+mode = "required"
+directory = "/tmp/ahs-fixtures"
+
+[survey]
+default_weight_column = "WEIGHT"
+positive_weights_only = true
+decimal_precision = 18
+decimal_scale = 6
+output_decimal_places = 6
+max_comparisons = 10000
+
+[survey.suppression]
+policy_id = "configured_unweighted_cell_thresholds_v1"
+minimum_unweighted_denominator = 1
+minimum_unweighted_numerator = 0
+minimum_unweighted_complement = 0
+action = "null_estimate"
+
+[datasets.household]
+source_file_id = "source_national_puf_household"
+path = "${AHS_HOUSEHOLD_CSV:-/data/ahs/household.csv}"
+aliases = ["hh", "national_puf_household"]
+
+[datasets.mortgage]
+source_file_id = "source_puf_mortgage"
+path = "${AHS_MORTGAGE_CSV:-/data/ahs/mortgage.csv}"
+aliases = ["mort"]
+
+[datasets.projects]
+source_file_id = "source_puf_projects"
+path = "${AHS_PROJECTS_CSV:-/data/ahs/projects.csv}"
+aliases = ["project", "home_improvements"]

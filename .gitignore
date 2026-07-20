@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-.streamlit
 
 # === Virtual Environments ===
 .venv/
@@ -16,7 +15,18 @@ target/
 .env
 .env.*
 !.env.example
+.streamlit/secrets.toml
 secrets.toml
+local-secrets/
+*.pem
+*.key
+
+# === Local AHS Data and Runtime Configuration ===
+data/
+config/ahs_engine.toml
+.duckdb_tmp/
+*.duckdb
+*.duckdb.wal
 
 # === Distribution / Packaging ===
 bin/
@@ -56,7 +66,7 @@ coverage.xml
 # === Jupyter Notebooks ===
 .ipynb_checkpoints
 
-# === IDEs & Editors (Optional but recommended) ===
+# === IDEs & Editors ===
 .vscode/
 .idea/
 *.swp
