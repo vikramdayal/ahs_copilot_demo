@@ -11,6 +11,7 @@ The Streamlit interface exposes the governed v0.7.0 workflow as a product demons
 - Visible plan approval, revision, and rejection controls.
 - Metric cards, responsive bar charts, and result tables.
 - Expandable methodology, source variables, filters, generated SQL, and agent trace.
+- A structured **Why should I trust this?** disclosure panel covering scope, denominator, weight, transformations, validation evidence, reference comparisons, assumptions, and fingerprints.
 - Warning banners for synthetic fixtures, suppression, unresolved metadata, and the descriptive-only statistical boundary.
 - CSV result download and full JSON audit download.
 - Local CSV execution through `config/ahs_engine.toml` or `config/ahs_engine.example.toml`.
@@ -80,3 +81,19 @@ After a baseline analysis completes, the interface exposes a governed comparison
 The workspace clones the already validated `AnalysisPlan` and changes only the managed top-level filters for `OMB13CBSA`, `TENURE`, `BLD`, or `YRBUILT`. The original question, dataset, measure, universe, numerator, denominator, weight, grouping dimensions, joins, recodes, validation checks, and output contract remain unchanged. A structural contract fingerprint is checked before execution.
 
 Each modified plan is deterministically revalidated, compiled, executed, checked, and reviewed by the result critic. The planner model is not called again. Identical comparison selections use a stable cache key and reuse the completed comparison result. The workspace displays the filter mutation audit, baseline and comparison fingerprints, generated SQL, result deltas, validation checks, critic decision, trace, and dedicated CSV/JSON downloads.
+
+
+## Why should I trust this? disclosure panel
+
+Every completed result includes a deterministic disclosure assembled from the validated `AnalysisPlan`, compiled formulas, execution metadata, result-integrity checks, and the non-mutating result critic. The panel shows:
+
+- the selected universe and its resolved universe filters;
+- the denominator role, filters, deterministic denominator formula, and observed weighted/unweighted denominator values;
+- the selected and resolved survey-weight column plus its eligibility rule;
+- recorded derived recodes, filters, formulas, missing-value exclusions, and arithmetic rules;
+- plan-validation messages, deterministic integrity checks, critic checks, the critic decision, and failed check identifiers;
+- the approved reference-comparison contract and whether reference checks passed, failed, or were not performed;
+- explicitly recorded assumptions, if any; otherwise the precise statement **No assumptions recorded**, not an unsupported claim that no assumptions existed; and
+- plan, request, and SQL fingerprints for provenance.
+
+The disclosure builder does not infer missing facts. Unavailable evidence is labeled unavailable, and unresolved metadata remains blocked under the existing fail-closed governance policy.

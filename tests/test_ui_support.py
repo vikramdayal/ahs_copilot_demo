@@ -7,6 +7,7 @@ from ahs_copilot.ui.support import (
     BlockedRequest,
     approved_catalog_columns,
     build_comparison_plan,
+    build_trust_disclosure,
     comparison_cache_key,
     comparison_capabilities,
     comparison_selections_from_plan,
@@ -185,3 +186,122 @@ def test_comparison_selections_round_trip_and_cache_key_is_stable() -> None:
     key1 = comparison_cache_key("base-fingerprint", mutation.selections)
     key2 = comparison_cache_key("base-fingerprint", dict(reversed(list(mutation.selections.items()))))
     assert key1 == key2
+
+
+def test_trust_disclosure_exposes_required_governance_fields() -> None:
+    from types import SimpleNamespace
+
+    plan = quality_by_tenure_structure_plan(
+        "Compare housing-quality problems by tenure and structure type."
+    )
+    result = SimpleNamespace(
+        validated_plan={
+            "plan": plan,
+            "plan_fingerprint": "plan-fingerprint",
+            "normalized_universe_id": "occupied_housing_units",
+            "validation_messages": ["PLAN_SCHEMA_VALID", "WEIGHT_MODE_COMPATIBLE"],
+            "survey_request": {
+                "universe_filters": [
+                    {
+                        "column": {"dataset": "household", "column": "INTSTATUS"},
+                        "operator": "eq",
+                        "value": 1,
+                    }
+                ]
+            },
+        },
+        plan=plan,
+        compiled={
+            "formulas": [
+                {
+                    "estimate_alias": "housing_quality_units",
+                    "numerator_formula": "sum(w_i * I_i)",
+                    "denominator_formula": "sum(w_i * D_i)",
+                    "estimate_formula": "sum(w_i * I_i)",
+                }
+            ]
+        },
+        result_checks={
+            "passed": True,
+            "checks": [
+                {
+                    "check_id": "PLAN_FINGERPRINT_MATCH",
+                    "passed": True,
+                    "message": "Execution plan fingerprint matches.",
+                }
+            ],
+        },
+        result_critique={
+            "decision": "approve",
+            "checks": [
+                {
+                    "check_id": "REFERENCE_ESTIMATE_CONSISTENCY",
+                    "status": "not_applicable",
+                    "message": "No approved reference estimates were supplied.",
+                    "details": {},
+                }
+            ],
+        },
+    )
+    payload = {
+        "estimates": [
+            {
+                "estimate_alias": "housing_quality_units",
+                "unweighted_denominator": 3,
+                "weighted_denominator": "47.0",
+                "missing_value_rows_excluded": 0,
+            }
+        ],
+        "metadata": {
+            "weight_column": "household.WEIGHT",
+            "weight_eligibility_rule": "weight IS NOT NULL AND weight > 0",
+            "arithmetic_rule": "Decimal component sums",
+            "request_fingerprint": "request-fingerprint",
+            "sql_fingerprint": "sql-fingerprint",
+        },
+    }
+
+    disclosure = build_trust_disclosure(result, payload)
+
+    assert disclosure["universe"]["universe_id"] == "occupied_housing_units"
+    assert disclosure["universe"]["resolved_filters"][0]["column"]["column"] == "INTSTATUS"
+    assert disclosure["denominator"]["role"] == "eligible_units"
+    assert disclosure["denominator"]["formula"] == "sum(w_i * D_i)"
+    assert disclosure["denominator"]["observed_values"]["weighted"] == ["47.0"]
+    assert disclosure["survey_weight"]["selected_column"] == "household.WEIGHT"
+    assert disclosure["survey_weight"]["eligibility_rule"] == "weight IS NOT NULL AND weight > 0"
+    assert any(item["type"] == "deterministic_formula" for item in disclosure["transformations"])
+    assert disclosure["validation"]["overall_status"] == "passed"
+    assert disclosure["reference_comparison"]["status"] == "not_performed"
+    assert disclosure["assumptions"]["recorded"] is False
+    assert disclosure["assumptions"]["status"] == "NO_RECORDED_ASSUMPTIONS"
+
+
+def test_trust_disclosure_reports_explicit_assumptions_and_reference_failure() -> None:
+    from types import SimpleNamespace
+
+    plan = quality_by_tenure_structure_plan("Housing quality comparison")
+    plan["assumptions"] = ["Approved test-only assumption"]
+    result = SimpleNamespace(
+        validated_plan={"plan": plan, "validation_messages": []},
+        plan=plan,
+        compiled={"formulas": []},
+        result_checks={"checks": []},
+        result_critique={
+            "decision": "reject",
+            "checks": [
+                {
+                    "check_id": "REFERENCE_ESTIMATE_MATCH[0]",
+                    "status": "failed",
+                    "message": "Reference estimate did not match.",
+                    "details": {"source_id": "approved-reference"},
+                }
+            ],
+        },
+    )
+
+    disclosure = build_trust_disclosure(result, {"estimates": [], "metadata": {}})
+
+    assert disclosure["reference_comparison"]["status"] == "failed"
+    assert disclosure["assumptions"]["recorded"] is True
+    assert disclosure["assumptions"]["records"][0]["value"] == ["Approved test-only assumption"]

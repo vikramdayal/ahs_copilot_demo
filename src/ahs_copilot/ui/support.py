@@ -311,13 +311,243 @@ def plan_summary(plan: Any) -> dict[str, Any]:
     return {
         "dataset": payload.get("dataset"),
         "measure": payload.get("measure"),
+        "numerator": payload.get("numerator"),
+        "denominator": payload.get("denominator"),
         "universe": payload.get("universe"),
         "weight": payload.get("weight"),
         "grouping_dimensions": payload.get("grouping_dimensions", []),
         "filters": payload.get("filters", []),
         "numerator_filters": (payload.get("numerator") or {}).get("filters", []),
+        "denominator_filters": (payload.get("denominator") or {}).get("filters", []),
         "required_variables": payload.get("required_variables", []),
+        "derived_recodes": payload.get("derived_recodes", []),
         "joins": payload.get("joins", []),
+        "comparisons": payload.get("comparisons"),
+    }
+
+
+def _trust_plan(result: Any) -> tuple[dict[str, Any], dict[str, Any]]:
+    validated = to_plain(getattr(result, "validated_plan", None))
+    plan = validated.get("plan") if isinstance(validated, Mapping) else None
+    if not isinstance(plan, Mapping):
+        plan = to_plain(getattr(result, "plan", None))
+    return dict(plan or {}), dict(validated or {})
+
+
+def _assumption_records(value: Any, *, source: str) -> list[dict[str, Any]]:
+    """Return only explicitly recorded assumptions; absence is never converted into a guess."""
+
+    keys = {"assumption", "assumptions", "assumption_notes", "assumptions_made", "assumed"}
+    records: list[dict[str, Any]] = []
+
+    def visit(item: Any, path: str) -> None:
+        if isinstance(item, Mapping):
+            for key, nested in item.items():
+                key_text = str(key)
+                nested_path = f"{path}.{key_text}" if path else key_text
+                if key_text.lower() in keys and nested not in (None, "", [], {}, False):
+                    records.append(
+                        {
+                            "source": source,
+                            "path": nested_path,
+                            "value": to_plain(nested),
+                        }
+                    )
+                visit(nested, nested_path)
+        elif isinstance(item, (list, tuple)):
+            for index, nested in enumerate(item):
+                visit(nested, f"{path}[{index}]")
+
+    visit(value, "")
+    return records
+
+
+def _observed_denominators(payload: Mapping[str, Any]) -> dict[str, list[Any]]:
+    observed: dict[str, list[Any]] = {
+        "unweighted": [],
+        "weighted": [],
+    }
+    for estimate in payload.get("estimates", []) or []:
+        if not isinstance(estimate, Mapping):
+            continue
+        for target, field in (
+            ("unweighted", "unweighted_denominator"),
+            ("weighted", "weighted_denominator"),
+        ):
+            value = estimate.get(field)
+            if value is not None and value not in observed[target]:
+                observed[target].append(value)
+    return observed
+
+
+def build_trust_disclosure(result: Any, payload: Any) -> dict[str, Any]:
+    """Build the user-facing trust disclosure from governed workflow artifacts only."""
+
+    result_payload = to_plain(payload)
+    if not isinstance(result_payload, Mapping):
+        result_payload = {}
+    plan, validated = _trust_plan(result)
+    compiled = to_plain(getattr(result, "compiled", None))
+    compiled = dict(compiled or {}) if isinstance(compiled, Mapping) else {}
+    metadata = result_payload.get("metadata") or {}
+    metadata = dict(metadata) if isinstance(metadata, Mapping) else {}
+    checks = to_plain(getattr(result, "result_checks", None))
+    checks = dict(checks or {}) if isinstance(checks, Mapping) else {}
+    critique = to_plain(getattr(result, "result_critique", None))
+    critique = dict(critique or {}) if isinstance(critique, Mapping) else {}
+
+    measure_alias = str((plan.get("measure") or {}).get("alias") or "")
+    formulas = compiled.get("formulas") or result_payload.get("formulas") or []
+    formula = next(
+        (
+            item
+            for item in formulas
+            if isinstance(item, Mapping)
+            and (not measure_alias or str(item.get("estimate_alias") or "") == measure_alias)
+        ),
+        {},
+    )
+
+    denominator = dict(plan.get("denominator") or {})
+    denominator["formula"] = formula.get("denominator_formula")
+    denominator["observed_values"] = _observed_denominators(result_payload)
+
+    weight = dict(plan.get("weight") or {})
+    column = weight.get("column")
+    if isinstance(column, Mapping):
+        weight["selected_column"] = f"{column.get('dataset')}.{column.get('column')}"
+    else:
+        weight["selected_column"] = metadata.get("weight_column") or "Unweighted"
+    weight["resolved_column"] = metadata.get("weight_column")
+    weight["eligibility_rule"] = metadata.get("weight_eligibility_rule")
+
+    transformations: list[dict[str, Any]] = []
+    for recode in plan.get("derived_recodes", []) or []:
+        transformations.append({"type": "derived_recode", "details": recode})
+    if formula:
+        transformations.append(
+            {
+                "type": "deterministic_formula",
+                "estimate_alias": formula.get("estimate_alias"),
+                "numerator_formula": formula.get("numerator_formula"),
+                "denominator_formula": formula.get("denominator_formula"),
+                "estimate_formula": formula.get("estimate_formula"),
+            }
+        )
+    if plan.get("filters"):
+        transformations.append({"type": "analysis_filters", "details": plan.get("filters")})
+    numerator_filters = (plan.get("numerator") or {}).get("filters", [])
+    if numerator_filters:
+        transformations.append({"type": "numerator_filters", "details": numerator_filters})
+    denominator_filters = (plan.get("denominator") or {}).get("filters", [])
+    if denominator_filters:
+        transformations.append({"type": "denominator_filters", "details": denominator_filters})
+    transformations.append(
+        {
+            "type": "arithmetic_and_missingness",
+            "arithmetic_rule": metadata.get("arithmetic_rule"),
+            "weight_eligibility_rule": metadata.get("weight_eligibility_rule"),
+            "missing_value_rows_excluded": sorted(
+                {
+                    item.get("missing_value_rows_excluded")
+                    for item in result_payload.get("estimates", []) or []
+                    if isinstance(item, Mapping)
+                    and item.get("missing_value_rows_excluded") is not None
+                },
+                key=str,
+            ),
+        }
+    )
+
+    deterministic_checks = []
+    for item in checks.get("checks", []) or []:
+        if not isinstance(item, Mapping):
+            continue
+        passed = item.get("passed")
+        deterministic_checks.append(
+            {
+                "check_id": item.get("check_id"),
+                "status": "passed" if passed is True else "failed" if passed is False else "unknown",
+                "message": item.get("message"),
+            }
+        )
+    critic_checks = [dict(item) for item in critique.get("checks", []) or [] if isinstance(item, Mapping)]
+    validation_messages = list(validated.get("validation_messages", []) or [])
+    failed_validation_ids = [
+        item.get("check_id")
+        for item in deterministic_checks + critic_checks
+        if item.get("status") == "failed"
+    ]
+    validation = {
+        "overall_status": "passed" if not failed_validation_ids else "failed",
+        "plan_validation_messages": validation_messages,
+        "deterministic_checks": deterministic_checks,
+        "result_critic_decision": critique.get("decision"),
+        "result_critic_checks": critic_checks,
+        "failed_check_ids": failed_validation_ids,
+    }
+
+    reference_checks = [
+        item for item in critic_checks if str(item.get("check_id") or "").startswith("REFERENCE_")
+    ]
+    if any(item.get("status") == "failed" for item in reference_checks):
+        reference_status = "failed"
+    elif any(item.get("status") == "passed" for item in reference_checks):
+        reference_status = "passed"
+    else:
+        reference_status = "not_performed"
+    reference_comparison = {
+        "status": reference_status,
+        "comparison_contract": plan.get("comparisons") or {"mode": "none"},
+        "checks": reference_checks,
+        "message": (
+            reference_checks[0].get("message")
+            if len(reference_checks) == 1
+            else "Approved reference comparisons are listed below."
+            if reference_checks
+            else "No approved reference comparison was recorded."
+        ),
+    }
+
+    assumption_records: list[dict[str, Any]] = []
+    for source, artifact in (
+        ("validated_plan", validated),
+        ("analysis_plan", plan),
+        ("execution_metadata", metadata),
+        ("result_critique", critique),
+    ):
+        assumption_records.extend(_assumption_records(artifact, source=source))
+    assumptions = {
+        "recorded": bool(assumption_records),
+        "status": "RECORDED_ASSUMPTIONS" if assumption_records else "NO_RECORDED_ASSUMPTIONS",
+        "statement": (
+            "Explicit assumptions were recorded in governed workflow artifacts."
+            if assumption_records
+            else (
+                "No assumptions are recorded in the validated plan, execution metadata, or result critic. "
+                "Unresolved metadata must be blocked rather than guessed."
+            )
+        ),
+        "records": assumption_records,
+    }
+
+    return {
+        "universe": {
+            **dict(plan.get("universe") or {}),
+            "normalized_universe_id": validated.get("normalized_universe_id"),
+            "resolved_filters": (validated.get("survey_request") or {}).get("universe_filters", []),
+        },
+        "denominator": denominator,
+        "survey_weight": weight,
+        "transformations": transformations,
+        "validation": validation,
+        "reference_comparison": reference_comparison,
+        "assumptions": assumptions,
+        "provenance": {
+            "plan_fingerprint": validated.get("plan_fingerprint"),
+            "request_fingerprint": metadata.get("request_fingerprint"),
+            "sql_fingerprint": metadata.get("sql_fingerprint"),
+        },
     }
 
 

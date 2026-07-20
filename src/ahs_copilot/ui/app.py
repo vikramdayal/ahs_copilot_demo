@@ -21,6 +21,7 @@ from .support import (
     BlockedRequest,
     approved_catalog_columns,
     build_comparison_plan,
+    build_trust_disclosure,
     comparison_cache_key,
     comparison_capabilities,
     comparison_selections_from_plan,
@@ -34,7 +35,7 @@ from .support import (
     to_plain,
 )
 
-APP_VERSION = "0.9.0"
+APP_VERSION = "0.10.0"
 PROVIDER_DEMO = "No-network certified demo"
 PROVIDER_OPENAI = "OpenAI / OpenAI-compatible"
 PROVIDER_ANTHROPIC = "Anthropic"
@@ -782,30 +783,159 @@ def _render_chart_and_table(records: list[dict[str, Any]]) -> None:
 
 
 def _render_trust_panel(result: Any, payload: Any) -> None:
-    plan = getattr(result, "validated_plan", None)
-    plan_obj = getattr(plan, "plan", None) or getattr(result, "plan", None)
-    summary = plan_summary(plan_obj) if plan_obj is not None else {}
-    metadata = to_plain(getattr(payload, "metadata", {}))
-    checks = to_plain(getattr(result, "result_checks", {}))
-    critique = to_plain(getattr(result, "result_critique", {}))
+    disclosure = build_trust_disclosure(result, payload)
+    universe = disclosure["universe"]
+    denominator = disclosure["denominator"]
+    weight = disclosure["survey_weight"]
+    validation = disclosure["validation"]
+    reference = disclosure["reference_comparison"]
+    assumptions = disclosure["assumptions"]
+    provenance = disclosure["provenance"]
+
+    universe_id = universe.get("universe_id") or universe.get("normalized_universe_id") or "unknown"
+    denominator_role = denominator.get("role") or "not specified"
+    weight_label = weight.get("selected_column") or weight.get("mode") or "unknown"
+    assumption_label = "Recorded" if assumptions.get("recorded") else "None recorded"
 
     with st.expander("Why should I trust this?", expanded=True):
-        trust_cols = st.columns(4)
-        trust_cols[0].metric("Universe", (summary.get("universe") or {}).get("universe_id", "unknown"))
-        trust_cols[1].metric("Weight mode", (summary.get("weight") or {}).get("mode", "unknown"))
-        trust_cols[2].metric("SQL fingerprint", str(metadata.get("sql_fingerprint", ""))[:12] or "n/a")
-        trust_cols[3].metric("Variance", (metadata.get("variance") or {}).get("status", "NOT_ESTIMATED"))
         st.markdown(
-            "The model selected a typed plan only. Deterministic services validated metadata, compiled "
-            "parameterized SQL, executed DuckDB, calculated survey estimates, and checked result integrity."
+            "This disclosure is generated from the validated analysis plan, deterministic compiler, "
+            "execution metadata, integrity checks, and result critic. Missing information is shown as "
+            "unavailable rather than inferred."
         )
-        left, right = st.columns(2)
-        with left:
-            st.markdown("**Deterministic checks**")
-            st.json(checks, expanded=1)
-        with right:
-            st.markdown("**Result critic**")
-            st.json(critique, expanded=1)
+        trust_cols = st.columns(4)
+        trust_cols[0].metric("Selected universe", universe_id)
+        trust_cols[1].metric("Denominator", denominator_role)
+        trust_cols[2].metric("Survey weight", weight_label)
+        trust_cols[3].metric("Assumptions", assumption_label)
+
+        st.markdown("#### Scope and denominator")
+        scope_col, denominator_col = st.columns(2)
+        with scope_col:
+            st.markdown("**Selected universe**")
+            st.json(
+                {
+                    "universe_id": universe.get("universe_id"),
+                    "description": universe.get("description"),
+                    "normalized_universe_id": universe.get("normalized_universe_id"),
+                    "resolved_filters": universe.get("resolved_filters", []),
+                },
+                expanded=2,
+            )
+        with denominator_col:
+            st.markdown("**Selected denominator**")
+            st.json(
+                {
+                    "role": denominator.get("role"),
+                    "description": denominator.get("description"),
+                    "filters": denominator.get("filters", []),
+                    "formula": denominator.get("formula"),
+                    "observed_values": denominator.get("observed_values", {}),
+                },
+                expanded=2,
+            )
+
+        st.markdown("#### Survey weight")
+        weight_col, eligibility_col = st.columns(2)
+        with weight_col:
+            st.markdown("**Selected and resolved weight**")
+            st.json(
+                {
+                    "mode": weight.get("mode"),
+                    "selected_column": weight.get("selected_column"),
+                    "resolved_column": weight.get("resolved_column"),
+                },
+                expanded=1,
+            )
+        with eligibility_col:
+            st.markdown("**Weight eligibility rule**")
+            st.code(str(weight.get("eligibility_rule") or "Not available"), language=None)
+
+        st.markdown("#### Transformations")
+        transformations = disclosure.get("transformations", [])
+        if transformations:
+            for item in transformations:
+                transformation_type = str(item.get("type") or "transformation").replace("_", " ").title()
+                st.markdown(f"**{transformation_type}**")
+                st.json(item, expanded=1)
+        else:
+            st.info("No transformations were recorded for this result.")
+
+        st.markdown("#### Validation checks")
+        deterministic_checks = validation.get("deterministic_checks", [])
+        critic_checks = validation.get("result_critic_checks", [])
+        failed_ids = validation.get("failed_check_ids", [])
+        validation_cols = st.columns(4)
+        validation_cols[0].metric(
+            "Plan validations",
+            len(validation.get("plan_validation_messages", [])),
+        )
+        validation_cols[1].metric(
+            "Integrity checks",
+            sum(1 for item in deterministic_checks if item.get("status") == "passed"),
+            delta=f"of {len(deterministic_checks)} passed",
+            delta_color="off",
+        )
+        validation_cols[2].metric(
+            "Critic decision",
+            str(validation.get("result_critic_decision") or "not available").upper(),
+        )
+        validation_cols[3].metric("Failed checks", len(failed_ids))
+        st.markdown("**Plan validation messages**")
+        st.json(validation.get("plan_validation_messages", []), expanded=1)
+        check_col, critic_col = st.columns(2)
+        with check_col:
+            st.markdown("**Deterministic integrity checks**")
+            if deterministic_checks:
+                st.dataframe(pd.DataFrame(deterministic_checks), hide_index=True, use_container_width=True)
+            else:
+                st.info("No deterministic result-check report was available.")
+        with critic_col:
+            st.markdown("**Result critic checks**")
+            if critic_checks:
+                critic_frame = pd.DataFrame(
+                    [
+                        {
+                            "check_id": item.get("check_id"),
+                            "status": item.get("status"),
+                            "message": item.get("message"),
+                        }
+                        for item in critic_checks
+                    ]
+                )
+                st.dataframe(critic_frame, hide_index=True, use_container_width=True)
+            else:
+                st.info("No result-critic report was available.")
+
+        st.markdown("#### Reference comparison")
+        if reference.get("status") == "passed":
+            st.success(reference.get("message") or "Approved reference comparison passed.")
+        elif reference.get("status") == "failed":
+            st.error(reference.get("message") or "Approved reference comparison failed.")
+        else:
+            st.info(reference.get("message") or "No approved reference comparison was performed.")
+        st.json(
+            {
+                "status": reference.get("status"),
+                "comparison_contract": reference.get("comparison_contract"),
+                "checks": reference.get("checks", []),
+            },
+            expanded=2,
+        )
+
+        st.markdown("#### Assumptions")
+        if assumptions.get("recorded"):
+            st.warning(assumptions.get("statement"))
+            st.json(assumptions.get("records", []), expanded=2)
+        else:
+            st.success(assumptions.get("statement"))
+
+        st.caption(
+            "Provenance · plan "
+            f"{str(provenance.get('plan_fingerprint') or '')[:12] or 'n/a'} · request "
+            f"{str(provenance.get('request_fingerprint') or '')[:12] or 'n/a'} · SQL "
+            f"{str(provenance.get('sql_fingerprint') or '')[:12] or 'n/a'}"
+        )
 
 
 def _render_methodology(result: Any, payload: Any) -> None:
