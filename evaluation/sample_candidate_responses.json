@@ -1,0 +1,18 @@
+{
+  "responses": [
+    {
+      "case_id": "AHS-EVAL-001",
+      "status": "completed",
+      "plan": {},
+      "plan_schema_valid": true,
+      "plan_validation_succeeded": true,
+      "plan_validation_errors": [],
+      "sql_execution_succeeded": true,
+      "execution_error": null,
+      "result_records": [],
+      "narrative": "Descriptive result narrative.",
+      "citations": [{"topic": "variable definition", "source": "AHS executable catalog", "locator": "TOTHCPCT"}],
+      "refusal_or_clarification_reason": null
+    }
+  ]
+}

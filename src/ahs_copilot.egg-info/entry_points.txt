@@ -1,3 +1,4 @@
 [console_scripts]
+ahs-eval = ahs_copilot.evaluation.cli:main
 ahs-plan = ahs_copilot.analysis_plan.cli:main
 ahs-query = ahs_copilot.query_engine.cli:main

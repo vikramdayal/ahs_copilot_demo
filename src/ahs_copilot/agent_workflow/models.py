@@ -23,6 +23,7 @@ ApprovalMode = Literal["interrupt", "auto_approve"]
 ApprovalAction = Literal["approved", "rejected", "revise"]
 ResultCriticDecision = Literal["approve", "reject", "request_reexecution"]
 CriticCheckStatus = Literal["passed", "failed", "not_applicable"]
+RequestGuardAction = Literal["allow", "clarify", "refuse"]
 WorkflowStatus = Literal[
     "planning",
     "awaiting_approval",
@@ -30,6 +31,20 @@ WorkflowStatus = Literal[
     "failed",
     "rejected",
 ]
+
+
+class RequestGuardFinding(StrictModel):
+    code: str
+    category: str
+    message: str
+
+
+class RequestGuardDecision(StrictModel):
+    action: RequestGuardAction
+    code: str
+    message: str
+    findings: list[RequestGuardFinding] = Field(default_factory=list)
+    narrative_constraints: list[str] = Field(default_factory=list)
 
 
 class ExpectedResultGroup(StrictModel):
@@ -178,5 +193,6 @@ class AgentWorkflowResult(StrictModel):
     execution: AnalysisPlanExecutionResult | None = None
     result_checks: ResultCheckReport | None = None
     result_critique: ResultCriticReport | None = None
+    request_guard: RequestGuardDecision | None = None
     error: WorkflowError | None = None
     audit_log: list[WorkflowEvent] = Field(default_factory=list)

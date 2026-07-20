@@ -8,6 +8,8 @@ from .models import (
     MutuallyExclusiveGroupSet,
     PlanProposalRequest,
     ReferenceEstimate,
+    RequestGuardDecision,
+    RequestGuardFinding,
     ResultCriticCheck,
     ResultCriticConfig,
     ResultCriticReport,
@@ -23,12 +25,14 @@ from .planner import (
     MockAnalysisPlanModel,
     build_semantic_planning_context,
 )
+from .request_guard import AHSRequestGuard
 from .result_critic import AnalysisResultCritic
 from .result_checks import AnalysisResultChecker
 
 __all__ = [
     "AHSAgentState",
     "AHSAgentWorkflow",
+    "AHSRequestGuard",
     "AgentWorkflowRequest",
     "AgentWorkflowResult",
     "AnalysisPlanModel",
@@ -42,6 +46,8 @@ __all__ = [
     "MutuallyExclusiveGroupSet",
     "PlanProposalRequest",
     "ReferenceEstimate",
+    "RequestGuardDecision",
+    "RequestGuardFinding",
     "ResultCriticCheck",
     "ResultCriticConfig",
     "ResultCriticReport",

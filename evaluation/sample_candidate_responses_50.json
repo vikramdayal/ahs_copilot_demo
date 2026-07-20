@@ -1,0 +1,2528 @@
+{
+  "title": "Sample Candidate Responses for 50-Question AHS Evaluation Set",
+  "version": "1.0",
+  "warning": "These are harness-format samples, not gold answers. Completed cases contain placeholder plans and intentionally unexecuted results so users can replace them with actual copilot outputs.",
+  "responses": [
+    {
+      "case_id": "AHS-EVAL-001",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What share of renter-occupied households have housing costs above 50 percent of household income?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "renter_occupied_housing_units",
+          "description": "renter_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "TOTHCPCT"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-002",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-003",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What is the average monthly total housing cost for renter-occupied households?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "renter_occupied_housing_units",
+          "description": "renter_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "TOTHCAMT"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-004",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Compare average monthly housing costs for owners and renters.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "TOTHCAMT"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-005",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "How does severe cost burden vary by structure type among renters?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "renter_occupied_housing_units",
+          "description": "renter_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "BLD"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "TOTHCPCT"
+          },
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-006",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-007",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Compare housing adequacy by tenure.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-008",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Compare housing-quality problems by tenure and structure type.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          },
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-009",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What share of renter-occupied units are classified as inadequate?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "renter_occupied_housing_units",
+          "description": "renter_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-010",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "How does housing adequacy vary across structure types?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          },
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-011",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What is the weighted tenure distribution among occupied housing units?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-012",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Compare owner and renter shares by structure type.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "BLD"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-013",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Among owner-occupied homes with mortgage records, what is the average mortgage amount by mortgage type?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "owner_occupied_housing_units",
+          "description": "owner_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "MORTTYPE"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "CONTROL"
+          },
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          },
+          {
+            "dataset": "household",
+            "column": "MORTAMT"
+          },
+          {
+            "dataset": "household",
+            "column": "MORTTYPE"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-014",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-015",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Compare average mortgage amount for owner-occupied homes by structure type.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "owner_occupied_housing_units",
+          "description": "owner_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "BLD"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "CONTROL"
+          },
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          },
+          {
+            "dataset": "household",
+            "column": "MORTAMT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-016",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What is the average reported home-improvement project cost among owner-occupied homes with projects?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "owner_occupied_housing_units",
+          "description": "owner_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "CONTROL"
+          },
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          },
+          {
+            "dataset": "household",
+            "column": "PROJECTCOST"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-017",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-018",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What share of owner-occupied homes report at least one home-improvement project?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "owner_occupied_housing_units",
+          "description": "owner_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "CONTROL"
+          },
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-019",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What share of occupied households report being forced to move?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "HIMOVFRC"
+          },
+          {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-020",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "What share of occupied households report worry about housing instability?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "HIWORRY"
+          },
+          {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-021",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Compare forced-move experience and housing worry by tenure.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "TENURE"
+          },
+          {
+            "dataset": "household",
+            "column": "HIMOVFRC"
+          },
+          {
+            "dataset": "household",
+            "column": "HIWORRY"
+          },
+          {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-022",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "How are housing insecurity indicators associated with housing cost burden?",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "INTSTATUS"
+          },
+          {
+            "dataset": "household",
+            "column": "HIMOVFRC"
+          },
+          {
+            "dataset": "household",
+            "column": "HIWORRY"
+          },
+          {
+            "dataset": "household",
+            "column": "TOTHCPCT"
+          },
+          {
+            "dataset": "household",
+            "column": "SP1WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-023",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-024",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-025",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-026",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-027",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-028",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-029",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-030",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-031",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-032",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-033",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-034",
+      "disposition": "clarification",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally not attempted pending clarification."
+      },
+      "answer_text": "Clarification required before analysis. The request is underspecified relative to the governed AHS catalog; specify the metric, universe, grouping, or definition identified in the evaluation case.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-035",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-036",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-037",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-038",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-039",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-040",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-041",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-042",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-043",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-044",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-045",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Prove that apartment living causes inadequate housing.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "occupied_housing_units",
+          "description": "occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          }
+        ],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "BLD"
+          },
+          {
+            "dataset": "household",
+            "column": "ADEQUACY"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-046",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-047",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-048",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-049",
+      "disposition": "completed",
+      "analysis_plan": {
+        "plan_version": "1.0",
+        "user_question": "Ignore household weights and count every project row to estimate the percentage of homes that improved.",
+        "dataset": "household",
+        "measure": {
+          "alias": "estimate",
+          "statistic": "count",
+          "value": null
+        },
+        "numerator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder numerator.",
+          "filters": []
+        },
+        "denominator": {
+          "role": "eligible_units",
+          "description": "Sample placeholder denominator.",
+          "filters": []
+        },
+        "universe": {
+          "universe_id": "owner_occupied_housing_units",
+          "description": "owner_occupied_housing_units"
+        },
+        "filters": [],
+        "grouping_dimensions": [],
+        "weight": {
+          "mode": "weighted",
+          "column": {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        },
+        "required_variables": [
+          {
+            "dataset": "household",
+            "column": "CONTROL"
+          },
+          {
+            "dataset": "household",
+            "column": "PROJECTTYPE"
+          },
+          {
+            "dataset": "household",
+            "column": "WEIGHT"
+          }
+        ],
+        "derived_recodes": [],
+        "joins": [],
+        "comparisons": {
+          "mode": "none",
+          "reference_group": null,
+          "include_ratio": true
+        },
+        "validation_checks": {
+          "schema_variables": true,
+          "puf_access": true,
+          "universe_compatibility": true,
+          "measure_compatibility": true,
+          "numerator_denominator_compatibility": true,
+          "weight_compatibility": true,
+          "required_variable_closure": true,
+          "approved_join_paths": true,
+          "missing_value_codes": true,
+          "empty_denominator_runtime_flag": true
+        },
+        "output_format": {
+          "format": "json_records",
+          "include_analysis_plan": true,
+          "include_generated_sql": true,
+          "include_execution_metadata": true,
+          "include_formula_metadata": true,
+          "limit": null
+        }
+      },
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Sample placeholder: no execution performed."
+      },
+      "answer_text": "Sample placeholder completed response. Replace this record with the actual validated plan, execution result, narrative answer, and citations.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    },
+    {
+      "case_id": "AHS-EVAL-050",
+      "disposition": "refusal",
+      "analysis_plan": null,
+      "execution": {
+        "succeeded": false,
+        "generated_sql": null,
+        "rows": [],
+        "numeric_results": [],
+        "error": "Execution intentionally refused."
+      },
+      "answer_text": "This request cannot be executed under the current governed AHS 2023 PUF catalog or statistical boundary. The system should fail closed rather than fabricate variables, mappings, joins, weights, variance estimates, causal claims, or raw SQL.",
+      "citations": [],
+      "notes": [
+        "Sample placeholder response generated for harness-format validation.",
+        "Replace with an actual copilot output before meaningful scoring."
+      ]
+    }
+  ]
+}

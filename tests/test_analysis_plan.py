@@ -38,8 +38,13 @@ def count_plan(
         default_required.append(qcol("household", "TENURE"))
     if mode == "weighted":
         default_required.append(qcol("household", "WEIGHT"))
+    question = (
+        f"Count units in {universe_id}"
+        if mode == "weighted"
+        else f"Return the unweighted sample count of units in {universe_id}"
+    )
     return AnalysisPlan(
-        user_question=f"Count units in {universe_id}",
+        user_question=question,
         dataset="household",
         measure=MeasureSpec(alias="units", statistic="count"),
         numerator=NumeratorSpec(
@@ -174,7 +179,10 @@ def test_empty_denominator_returns_flagged_undefined_estimate(engine) -> None:
         numerator=NumeratorSpec(
             role="condition_true",
             description="Cost burden at least 50 percent",
-            filters=[filt("household", "TOTHCPCT", "ge", 50)],
+            filters=[
+                filt("household", "TOTHCPCT", "gt", 999),
+                filt("household", "TOTHCPCT", "ge", 50),
+            ],
         ),
         denominator=DenominatorSpec(
             role="eligible_units",

@@ -28,6 +28,8 @@ from .models import (
     WorkflowPause,
 )
 from .planner import AnalysisPlanModel, build_semantic_planning_context
+from .prompt_security import sanitize_prompt_data
+from .request_guard import AHSRequestGuard
 from .result_critic import AnalysisResultCritic
 from .result_checks import AnalysisResultChecker
 
@@ -39,6 +41,7 @@ class AHSAgentState(TypedDict, total=False):
 
     question: str
     user_context: dict[str, Any]
+    request_guard: dict[str, Any]
     semantic_context: dict[str, Any]
     approval_mode: Literal["interrupt", "auto_approve"]
     max_plan_attempts: int
@@ -202,7 +205,10 @@ class _Nodes:
                 ],
             }
         try:
-            validated = self.service.validate(AnalysisPlan.model_validate(payload))
+            validated = self.service.validate(
+                AnalysisPlan.model_validate(payload),
+                source_question=state["question"],
+            )
             return {
                 "validated_plan": validated.model_dump(mode="json"),
                 "validation_issues": [],
@@ -714,9 +720,11 @@ class AHSAgentWorkflow:
         *,
         result_checker: AnalysisResultChecker | None = None,
         result_critic: AnalysisResultCritic | None = None,
+        request_guard: AHSRequestGuard | None = None,
         checkpointer: Any | None = None,
     ) -> None:
         self.service = service
+        self.request_guard = request_guard or AHSRequestGuard()
         self.checkpointer = checkpointer or InMemorySaver()
         self.graph = build_ahs_agent_graph(
             model,
@@ -758,6 +766,7 @@ class AHSAgentWorkflow:
                 "execution": state.get("execution"),
                 "result_checks": state.get("result_checks"),
                 "result_critique": state.get("result_critique"),
+                "request_guard": state.get("request_guard"),
                 "error": state.get("error"),
                 "audit_log": state.get("audit_log", []),
             }
@@ -785,10 +794,51 @@ class AHSAgentWorkflow:
             if isinstance(request, AgentWorkflowRequest)
             else AgentWorkflowRequest.model_validate(request)
         )
+        guard = self.request_guard.evaluate(
+            parsed.question,
+            access_mode=self.service.validator.catalog.document.access_mode,
+        )
+        if guard.action != "allow":
+            error_code = (
+                "REQUEST_CLARIFICATION_REQUIRED"
+                if guard.action == "clarify"
+                else "REQUEST_REFUSED"
+            )
+            event_name = (
+                "REQUEST_CLARIFICATION_REQUIRED"
+                if guard.action == "clarify"
+                else "REQUEST_REFUSED"
+            )
+            return AgentWorkflowResult(
+                status="rejected",
+                question=parsed.question,
+                attempts=0,
+                request_guard=guard,
+                error=WorkflowError(
+                    code=error_code,
+                    node="request_guard",
+                    message=guard.message,
+                    retryable=False,
+                ),
+                audit_log=[
+                    WorkflowEvent(
+                        level="WARNING",
+                        node="request_guard",
+                        event=event_name,
+                        message=guard.message,
+                        attempt=0,
+                        details={
+                            "finding_codes": [item.code for item in guard.findings],
+                            "action": guard.action,
+                        },
+                    )
+                ],
+            )
         resolved_thread_id = thread_id or str(uuid4())
         initial: AHSAgentState = {
             "question": parsed.question,
-            "user_context": parsed.context,
+            "user_context": sanitize_prompt_data(parsed.context),
+            "request_guard": guard.model_dump(mode="json"),
             "semantic_context": self.semantic_context,
             "approval_mode": parsed.approval_mode,
             "max_plan_attempts": parsed.max_plan_attempts,

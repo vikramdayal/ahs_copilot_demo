@@ -29,6 +29,7 @@ model-bedrock = ["langchain-aws>=1.6,<2"]
 [project.scripts]
 ahs-query = "ahs_copilot.query_engine.cli:main"
 ahs-plan = "ahs_copilot.analysis_plan.cli:main"
+ahs-eval = "ahs_copilot.evaluation.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
