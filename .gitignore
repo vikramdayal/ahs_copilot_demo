@@ -10,6 +10,7 @@ venv/
 ENV/
 env/
 target/
+.setenv
 
 # === Environment Variables & Secrets ===
 .env
