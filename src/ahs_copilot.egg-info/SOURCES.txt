@@ -33,8 +33,12 @@ src/ahs_copilot/query_engine/models.py
 src/ahs_copilot/survey_estimation/__init__.py
 src/ahs_copilot/survey_estimation/estimator.py
 src/ahs_copilot/survey_estimation/models.py
+src/ahs_copilot/ui/__init__.py
+src/ahs_copilot/ui/app.py
+src/ahs_copilot/ui/support.py
 tests/test_agent_workflow.py
 tests/test_analysis_plan.py
 tests/test_config.py
 tests/test_engine.py
 tests/test_survey_estimation.py
+tests/test_ui_support.py
