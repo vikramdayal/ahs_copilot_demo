@@ -21,11 +21,14 @@ MORTGAGE_ROWS = [
     {"CONTROL": "1007", "MORTLINE": "1", "MORTAMT": "120000", "MORTTYPE": "1"},
 ]
 
+# CONTROL is the only certified PUF projects relationship key. No synthetic
+# project-row identifier is invented; duplicate CONTROL values intentionally
+# model a one-to-many child relation that must be preaggregated before joining.
 PROJECT_ROWS = [
-    {"CONTROL": "1001", "PROJECTNO": "1", "PROJECTCOST": "12000", "PROJECTTYPE": "ROOF"},
-    {"CONTROL": "1001", "PROJECTNO": "2", "PROJECTCOST": "4500", "PROJECTTYPE": "HVAC"},
-    {"CONTROL": "1002", "PROJECTNO": "1", "PROJECTCOST": "900", "PROJECTTYPE": "PAINT"},
-    {"CONTROL": "1007", "PROJECTNO": "1", "PROJECTCOST": "8000", "PROJECTTYPE": "KITCHEN"},
+    {"CONTROL": "1001", "PROJECTCOST": "12000", "PROJECTTYPE": "ROOF"},
+    {"CONTROL": "1001", "PROJECTCOST": "4500", "PROJECTTYPE": "HVAC"},
+    {"CONTROL": "1002", "PROJECTCOST": "900", "PROJECTTYPE": "PAINT"},
+    {"CONTROL": "1007", "PROJECTCOST": "8000", "PROJECTTYPE": "KITCHEN"},
 ]
 
 
@@ -35,6 +38,18 @@ def _write_csv(path: Path, rows: list[dict[str, str]]) -> None:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
+
+
+def _header_matches(path: Path, rows: list[dict[str, str]]) -> bool:
+    if not path.is_file():
+        return False
+    try:
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.reader(handle)
+            header = next(reader)
+    except (OSError, StopIteration, UnicodeError):
+        return False
+    return header == list(rows[0])
 
 
 def create_synthetic_fixture(directory: str | Path, *, overwrite: bool = False) -> dict[str, Path]:
@@ -51,6 +66,7 @@ def create_synthetic_fixture(directory: str | Path, *, overwrite: bool = False) 
         "projects": PROJECT_ROWS,
     }
     for name, path in targets.items():
-        if overwrite or not path.exists():
-            _write_csv(path, payloads[name])
+        rows = payloads[name]
+        if overwrite or not _header_matches(path, rows):
+            _write_csv(path, rows)
     return targets

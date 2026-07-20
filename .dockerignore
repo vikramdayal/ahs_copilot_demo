@@ -15,7 +15,15 @@ dist
 !.env.example
 .streamlit/secrets.toml
 config/ahs_engine.toml
+local-secrets
+.aws
+*.pem
+*.key
+*.p12
+*.pfx
 data
 .duckdb_tmp
+*.duckdb
+*.duckdb.wal
 sample_outputs
 .DS_Store

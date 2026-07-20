@@ -13,10 +13,14 @@ dependencies = [
   "pydantic>=2.10,<3",
   "langgraph>=1.2,<2",
   "langchain-core>=1.2,<2",
+  "typing-extensions>=4.12,<5",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pytest-cov>=5"]
+dev = [
+  "pytest>=8",
+  "pytest-cov>=5",
+]
 ui = [
   "streamlit>=1.59,<2",
   "pandas>=2.2,<3.1",

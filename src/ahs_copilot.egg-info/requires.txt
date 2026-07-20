@@ -2,6 +2,7 @@ duckdb<2,>=1.1
 pydantic<3,>=2.10
 langgraph<2,>=1.2
 langchain-core<2,>=1.2
+typing-extensions<5,>=4.12
 
 [dev]
 pytest>=8

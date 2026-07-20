@@ -4,11 +4,12 @@ x-ahs-common: &ahs-common
   build:
     context: .
     args:
-      AHS_MODEL_EXTRAS: ${AHS_MODEL_EXTRAS:-ui,model-openai,model-anthropic,model-bedrock}
+      AHS_MODEL_EXTRAS: ${AHS_MODEL_EXTRAS:-ui}
   image: ahs-copilot:${AHS_IMAGE_TAG:-local}
   init: true
-  restart: unless-stopped
   read_only: true
+  pids_limit: 256
+  stop_grace_period: 20s
   tmpfs:
     - /tmp:size=2g,mode=1777
   cap_drop:
@@ -29,24 +30,28 @@ services:
   ahs-sample:
     <<: *ahs-common
     profiles: ["sample"]
+    restart: "no"
     environment:
       AHS_DATA_MODE: sample
       AHS_CONFIG_PATH: /app/config/ahs_engine.toml
+      AHS_MODEL_PROVIDER: demo
+      AHS_MODEL_NAME: ""
       PORT: 8501
     ports:
-      - "${AHS_SAMPLE_PORT:-8501}:8501"
+      - "127.0.0.1:${AHS_SAMPLE_PORT:-8501}:8501"
     volumes:
       - ./config/docker.sample.toml:/app/config/ahs_engine.toml:ro
 
   ahs-production:
     <<: *ahs-common
     profiles: ["production"]
+    restart: unless-stopped
     environment:
       AHS_DATA_MODE: production
       AHS_CONFIG_PATH: /app/config/ahs_engine.toml
       PORT: 8501
     ports:
-      - "${AHS_PRODUCTION_PORT:-8501}:8501"
+      - "127.0.0.1:${AHS_PRODUCTION_PORT:-8501}:8501"
     volumes:
       - ./config/docker.production.toml:/app/config/ahs_engine.toml:ro
-      - ${AHS_DATA_DIR:-./data}:/data/ahs:ro
+      - "${AHS_DATA_DIR:-./data}:/data/ahs:ro"

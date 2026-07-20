@@ -1,0 +1,9 @@
+# Optional local-only override for AWS Bedrock credentials.
+# Never commit credential files. The mounted directory remains read-only.
+services:
+  ahs-production:
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: /home/ahs/.aws/credentials
+      AWS_CONFIG_FILE: /home/ahs/.aws/config
+    volumes:
+      - "${HOME}/.aws:/home/ahs/.aws:ro"

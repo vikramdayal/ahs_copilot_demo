@@ -9,15 +9,12 @@ import sys
 import tomllib
 from pathlib import Path
 
-from ahs_copilot.model_providers import (
-    ModelProviderSettings,
-    ProviderConfigurationError,
-)
+from ahs_copilot.model_providers import ModelProvider, ModelProviderSettings
 from ahs_copilot.query_engine import AHSQueryEngine
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Validate AHS container startup")
     parser.add_argument("--config", required=True)
     parser.add_argument("--data-mode", choices=("sample", "production"), required=True)
     return parser.parse_args()
@@ -36,17 +33,16 @@ def validate_fixture_contract(config_path: Path, data_mode: str) -> str:
     return fixture_mode
 
 
-def main() -> int:
-    args = parse_args()
-    config_path = Path(args.config).resolve()
+def run_preflight(config_path: Path, data_mode: str) -> dict[str, object]:
     if not config_path.is_file():
         raise FileNotFoundError(f"Configuration file does not exist: {config_path}")
 
-    fixture_mode = validate_fixture_contract(config_path, args.data_mode)
+    fixture_mode = validate_fixture_contract(config_path, data_mode)
     provider = ModelProviderSettings.from_environment()
+    if data_mode == "sample" and provider.provider is not ModelProvider.DEMO:
+        raise RuntimeError("Sample mode is restricted to the no-network demo provider.")
 
-    engine = AHSQueryEngine(str(config_path))
-    try:
+    with AHSQueryEngine(str(config_path)) as engine:
         inspected = engine.inspect_schemas()
         schemas = list(inspected.values()) if isinstance(inspected, dict) else list(inspected)
         if not schemas:
@@ -54,21 +50,24 @@ def main() -> int:
         synthetic_count = sum(
             bool(getattr(schema, "synthetic_fixture", False)) for schema in schemas
         )
-        if args.data_mode == "production" and synthetic_count:
+        if data_mode == "sample" and synthetic_count != len(schemas):
+            raise RuntimeError("Sample mode did not resolve every dataset from synthetic fixtures.")
+        if data_mode == "production" and synthetic_count:
             raise RuntimeError("Production mode resolved synthetic fixture data; startup refused.")
-    finally:
-        close = getattr(engine, "close", None)
-        if callable(close):
-            close()
 
-    summary = {
+    return {
         "status": "ok",
-        "data_mode": args.data_mode,
+        "data_mode": data_mode,
         "fixture_mode": fixture_mode,
         "datasets": len(schemas),
         "synthetic_datasets": synthetic_count,
         "model_provider": provider.redacted_summary(),
     }
+
+
+def main() -> int:
+    args = parse_args()
+    summary = run_preflight(Path(args.config).expanduser().resolve(), args.data_mode)
     print(json.dumps(summary, sort_keys=True))
     return 0
 
@@ -76,6 +75,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (ProviderConfigurationError, OSError, RuntimeError, ValueError) as exc:
+    except Exception as exc:  # startup boundary: concise diagnostic, no traceback
         print(f"AHS startup preflight failed: {exc}", file=sys.stderr)
-        raise SystemExit(1) from exc
+        raise SystemExit(1) from None

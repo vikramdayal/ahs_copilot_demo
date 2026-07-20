@@ -1,3 +1,3 @@
-"""AHS 2023 Research Copilot deterministic services."""
+"""AHS 2023 Research Copilot deterministic and governed services."""
 
-__version__ = "0.7.0"
+__version__ = "0.10.0"
