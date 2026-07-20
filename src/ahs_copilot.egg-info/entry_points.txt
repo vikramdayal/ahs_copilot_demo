@@ -1,0 +1,3 @@
+[console_scripts]
+ahs-plan = ahs_copilot.analysis_plan.cli:main
+ahs-query = ahs_copilot.query_engine.cli:main
